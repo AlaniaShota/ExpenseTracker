@@ -28,6 +28,26 @@ body {
   /* display: flex;
   justify-content: center; */
 }
+
+.analytics-content {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0 40px;
+}
+
+.list-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: start;
+  /* min-height: 100vh; */
+  margin: 0 40px;
+  gap: 25px;
+}
+
 a {
   text-decoration: none !important;
   color: white !important;

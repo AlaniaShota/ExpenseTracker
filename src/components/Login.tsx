@@ -14,7 +14,7 @@ const Login: React.FC = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("User logged in Successfully");
-      window.location.href = "/profile";
+      window.location.href = "/analytic";
       toast.success("User logged in Successfully", {
         position: "top-center",
       });

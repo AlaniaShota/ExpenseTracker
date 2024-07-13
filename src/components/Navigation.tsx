@@ -12,16 +12,13 @@ import {
   IoMdPeople,
   IoIosLogOut,
 } from "react-icons/io";
-// import { IoIosList } from "react-icons/io";
-// import { IoIosWallet } from "react-icons/io";
-// import { IoMdPeople } from "react-icons/io";
-// import { IoIosLogOut } from "react-icons/io";
 
 import "./style/Navigation.scss";
+import { Button } from "./Button";
 
 const links = [
-  { id: 1, title: "Analytics", href: "/profile", icon: IoMdAnalytics },
-  { id: 2, title: "List", href: "/list", icon: IoIosList },
+  { id: 1, title: "Analytics", href: "/analytic", icon: IoMdAnalytics },
+  { id: 2, title: "List", href: "/analytic/list", icon: IoIosList },
   { id: 3, title: "Budgets", href: "/budgets", icon: IoIosWallet },
   { id: 4, title: "Debts", href: "/debts", icon: IoMdPeople },
 ];
@@ -66,6 +63,7 @@ const Navigation: React.FC = () => {
       }
     }
   };
+
   return (
     <div className="navigation">
       <div className="user-profile-section">
@@ -84,12 +82,10 @@ const Navigation: React.FC = () => {
           </Link>
         ))}
       </div>
-      <div className="btn-logout" onClick={handleLogout}>
-        {/* <div className=""> */}
+      <Button logout={handleLogout}>
         <IoIosLogOut size={30} />
-        {/* </div> */}
-        <h3 className="logout-title">Logout</h3>
-      </div>
+        <span>Logout</span>
+      </Button>
     </div>
   );
 };

@@ -8,6 +8,9 @@ import ConditionalRoute from "./route/routes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "./components/Layout";
+import List from "./page/list/List";
+import Analytics from "./page/analytics/Analytics";
+import AddExpenses from "./page/list/component/AddExpenses";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -38,13 +41,18 @@ const App = () => {
       element: <Register />,
     },
     {
-      path: "/profile",
+      path: "/analytic",
       element: <Layout />,
       children: [
         {
-          path: "/profile",
-          element: <Profile />,
+          path: "/analytic",
+          element: <Analytics />,
         },
+        {
+          path: "/analytic/list",
+          element: <List />,
+        },
+        { path: "/analytic/list/add", element: <AddExpenses /> },
       ],
     },
   ]);
