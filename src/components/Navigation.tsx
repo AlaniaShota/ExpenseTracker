@@ -82,9 +82,15 @@ const Navigation: React.FC = () => {
           </Link>
         ))}
       </div>
-      <Button logout={handleLogout}>
-        <IoIosLogOut size={30} />
-        <span>Logout</span>
+      <Button
+        type="submit"
+        logout={handleLogout}
+        className="btn-logout btn-3 hover-border-5"
+      >
+        <div className="logout-icon">
+          <IoIosLogOut size={35} color="white" />
+          <span>Logout</span>
+        </div>
       </Button>
     </div>
   );

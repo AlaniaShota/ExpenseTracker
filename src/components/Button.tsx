@@ -3,13 +3,31 @@ import "./style/Button.scss";
 
 interface ButtonProps {
   children: ReactNode;
-  logout: () => void;
+  className?: string;
+  type: "submit" | "reset" | "button";
+  logout?: () => void;
+  onClick?: () => void;
 }
 
-export const Button: React.FC<ButtonProps> = ({ children, logout }) => (
-  <div className="btn-holder">
-    <button onClick={logout} className="btn btn-3 hover-border-5">
-      <span>{children}</span>
-    </button>
-  </div>
-);
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  logout,
+  type,
+  onClick,
+  className,
+}) => {
+  let btnClass = "";
+  if (className === "submit-button" || className === "register-link") {
+    btnClass = `btn`;
+  } else {
+    btnClass = `btn-holder`;
+  }
+
+  return (
+    <div className={btnClass}>
+      <button type={type} onClick={logout || onClick} className={className}>
+        {children}
+      </button>
+    </div>
+  );
+};

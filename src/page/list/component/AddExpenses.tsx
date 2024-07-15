@@ -1,13 +1,13 @@
-import React from "react";
-import { auth } from "../../../components/firebase";
-import Card from "../../../components/Card";
+// import React from "react";
+// import { auth } from "../../../components/firebase";
+// import Card from "../../../components/Card";
 
-interface AddExpensesProps {
-  onAddExpense: () => void;
-}
+// interface AddExpensesProps {
+//   onAddExpense: () => void;
+// }
 
-const AddExpenses: React.FC<AddExpensesProps> = ({ onAddExpense }) => {
-  return <> {auth.currentUser && <Card onAddExpense={onAddExpense} />}</>;
-};
+// // const AddExpenses: React.FC<AddExpensesProps> = ({ onAddExpense, fetchExpenses }) => {
+// //   return <> {auth.currentUser && <Card fetchExpenses={fetchExpenses} onAddExpense={onAddExpense} />}</>;
+// // };
 
-export default AddExpenses;
+// export default AddExpenses;

@@ -11,6 +11,7 @@ import { GiClothes } from "react-icons/gi";
 import { CgUserAdd } from "react-icons/cg";
 import { IoRestaurantSharp } from "react-icons/io5";
 import "../style/index.scss";
+import { Button } from "../../../components/Button";
 
 interface ExpenseListProps {
   expenses: Expense[];
@@ -53,7 +54,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
   return (
     <>
       {expenses.length > 0 ? (
-        <ul className="expense-holder">
+        <ul className="expense-list-content">
           {expenses.map((item) => {
             const icon = categoryIcons[item.category as Category] || (
               <CgUserAdd />
@@ -61,15 +62,27 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
             return (
               <li
                 key={item.id}
-                className="expense-card expense hover-border-5 "
+                className="expense-list-detail expense-list hover-border-6"
               >
-                <div className="expense-details">
+                <div className="">
                   {icon}
                   {item.category} - {item.amount} ({item.type})
                 </div>
                 {/* <div> */}
-                <button onClick={() => onEdit(item)}>Edit</button>
-                <button onClick={() => onDelete(item.id)}>Delete</button>
+                <Button
+                  type="button"
+                  className="delete"
+                  onClick={() => onEdit(item)}
+                >
+                  <span>Edit</span>
+                </Button>
+                <Button
+                  type="button"
+                  className="delete"
+                  onClick={() => onDelete(item.id)}
+                >
+                  <span>Delete</span>
+                </Button>
                 {/* </div> */}
               </li>
             );

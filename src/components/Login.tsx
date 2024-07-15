@@ -4,6 +4,9 @@ import { auth } from "./firebase";
 import { toast } from "react-toastify";
 
 import "./style/Login.scss";
+import InputField from "./CustomInput";
+import { Link } from "react-router-dom";
+import { Button } from "./Button";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -35,32 +38,26 @@ const Login: React.FC = () => {
     <div className="form-content">
       <form onSubmit={handleSubmit} className="form-section">
         <h3 className="login-title">Login</h3>
-        <input
+        <InputField
           type="email"
-          className="form-control"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <input
+        <InputField
           type="password"
-          className="form-control"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <div className="btn">
-          <button type="submit" className="submit-button">
+        <div className="login-btn">
+          <Button type="submit" className="submit-button">
             Submit
-          </button>
-          <p className="register-link">
-            <a href="/register">Create new account</a>
-          </p>
+          </Button>
+          <div>
+            <Link to="/register">Create new account</Link>
+          </div>
         </div>
-
-        {/* <div className="singin-with-google-content">
-          <SignInwithGoogle />
-        </div> */}
       </form>
     </div>
   );

@@ -52,7 +52,7 @@ const App = () => {
           path: "/analytic/list",
           element: <List />,
         },
-        { path: "/analytic/list/add", element: <AddExpenses /> },
+        // { path: "/analytic/list/add", element: <AddExpenses /> },
       ],
     },
   ]);

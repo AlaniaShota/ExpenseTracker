@@ -3,6 +3,9 @@ import { useState } from "react";
 import { auth, db } from "./firebase";
 import { setDoc, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
+import InputField from "./CustomInput";
+import { Button } from "./Button";
+import { Link } from "react-router-dom";
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -45,40 +48,48 @@ const Register: React.FC = () => {
     <div className="form-content">
       <form onSubmit={handleRegister} className="form-section">
         <h3 className="login-title">Sign Up</h3>
-        <input
+        <InputField
           type="text"
-          className="form-control"
+          value={fname}
           placeholder="First name"
-          onChange={(e) => setFname(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setFname(e.target.value)
+          }
           required
         />
-        <input
+        <InputField
           type="text"
-          className="form-control"
+          value={lname}
           placeholder="Last name"
-          onChange={(e) => setLname(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setLname(e.target.value)
+          }
         />
-        <input
+        <InputField
           type="email"
-          className="form-control"
+          value={email}
           placeholder="Enter email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
           required
         />
-        <input
+        <InputField
           type="password"
-          className="form-control"
+          value={password}
           placeholder="Enter password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
           required
         />
-        <div className="btn">
-          <button type="submit" className="submit-button ">
+        <div className="login-btn">
+          <Button type="submit" className="submit-button ">
             Sign Up
-          </button>
-          <p className="register-link">
-            <a href="/login">Login</a>
-          </p>
+          </Button>
+          <div>
+            <Link to="/login">Login</Link>
+          </div>
         </div>
       </form>
     </div>

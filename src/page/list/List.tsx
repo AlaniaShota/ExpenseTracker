@@ -14,16 +14,19 @@ import EditForm from "../../components/EditForm";
 import { auth, db } from "../../components/firebase";
 import AddCard from "./component/AddCard";
 import ExpenseList from "./component/ExpenseList";
-import Card from "../../components/Card";
+import Modal from "react-modal";
+import { Input } from "react-select/animated";
+import { AiOutlinePlus } from "react-icons/ai";
+
+Modal.setAppElement("#root");
 
 const List = () => {
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showLogout, setShowLogout] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
   const [currentExpense, setCurrentExpense] = useState<Expense | null>(null);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchExpenses = async (userId: string) => {
     try {
@@ -105,13 +108,18 @@ const List = () => {
   return (
     <>
       <h2>Transaction</h2>
-      {/* <AddCard/> */}
+
       {userDetails ? (
         <div className="list-content">
-          {/* delete მუშაობს იმ შემთხვევაში თუ კოდში არა AddCard */}
-
           {auth.currentUser && (
-            <Card onAddExpense={() => fetchExpenses(auth.currentUser!.uid)} />
+            <div className="expense-add-content">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="expense-add add expense hover-border-5"
+              >
+                <AiOutlinePlus color="#fff" size={30} />
+              </button>
+            </div>
           )}
           {showEditForm && currentExpense ? (
             <EditForm
@@ -127,6 +135,18 @@ const List = () => {
               onEdit={editExpense}
             />
           )}
+          <Modal
+            isOpen={isModalOpen}
+            onRequestClose={() => setIsModalOpen(false)}
+            contentLabel="+"
+          >
+            <AddCard
+              onAddExpense={() => {
+                fetchExpenses(auth.currentUser!.uid);
+                setIsModalOpen(false);
+              }}
+            />
+          </Modal>
         </div>
       ) : (
         <p>Loading...</p>

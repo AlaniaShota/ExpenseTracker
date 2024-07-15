@@ -91,28 +91,26 @@
         }
     }
 
-    & .btn-logout {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 4px;
-        cursor: pointer;
-        padding: 7px;
-        border-radius: 8px;
-        box-shadow: none;
-        transition: all 1s ease;
+    // & .btn-logout {
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
+    //     gap: 4px;
+    //     cursor: pointer;
+    //     padding: 7px;
+    //     border-radius: 8px;
+    //     box-shadow: none;
+    //     transition: all 1s ease;
 
-        & .logout-title {
-            font-weight: 300;
-            text-transform: uppercase;
-        }
+    //     & .logout-title {
+    //         font-weight: 300;
+    //         text-transform: uppercase;
+    //     }
 
-        &:hover {
-            box-shadow: $banner-box-shadow;
-            -webkit-box-shadow: $webkit-box-shadow;
-            -moz-box-shadow: $moz-box-shadow;
-        }
-    }
-
-
+    //     &:hover {
+    //         box-shadow: $banner-box-shadow;
+    //         -webkit-box-shadow: $webkit-box-shadow;
+    //         -moz-box-shadow: $moz-box-shadow;
+    //     }
+    // }
 }

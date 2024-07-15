@@ -25,7 +25,7 @@
             margin-bottom: 8px;
         }
 
-        & .btn {
+        & .login-btn {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -33,48 +33,7 @@
             margin-top: 8px;
             flex-direction: column;
             gap: 4px;
-
-            & .submit-button {
-                color: #FFFFFF !important;
-                font-size: 16px;
-                padding: 10px 16px;
-                border-radius: 8px;
-                border: 1px solid #3866A3;
-                background: #0866FF;
-                cursor: pointer;
-                width: 100%;
-
-                &:hover {
-                    color: #FFFFFF !important;
-                    background: #0863f5df;
-                }
-            }
-
-            & .register-link {
-                color: #FFFFFF !important;
-                padding: 10px 16px;
-                border-radius: 8px;
-                border: 1px solid #42b72a;
-                background: #42b72a;
-                cursor: pointer;
-                width: 100%;
-                text-align: center;
-
-                & a {
-                    text-decoration: none !important;
-                    color: #ffffff !important;
-                    font-size: 16px;
-                    text-align: center;
-                }
-
-                &:hover {
-                    color: #FFFFFF !important;
-                    background: #42b72aed;
-                }
-            }
         }
-
-
     }
 }
 

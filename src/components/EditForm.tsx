@@ -1,7 +1,9 @@
 import { doc, updateDoc } from "firebase/firestore";
-import { useState,  FormEvent } from "react"; // Import ChangeEvent and FormEvent
+import { useState, FormEvent } from "react";
 import { db } from "./firebase";
 import { Expense } from "../Interface/Type";
+import InputField from "./CustomInput";
+import { Button } from "./Button";
 
 interface EditFormProps {
   expenses: Expense;
@@ -41,23 +43,24 @@ const EditForm: React.FC<EditFormProps> = ({
     <div className="expense-form">
       <h2>Edit Expense</h2>
       <form onSubmit={handleSubmit}>
-        <input
+        <InputField
           type="number"
           placeholder="Amount"
           value={amount}
           onChange={(e) => setAmount(parseFloat(e.target.value))}
           required
         />
-        <input
+        <InputField
           type="text"
           placeholder="Category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           required
         />
-        <input
+        <InputField
           type="date"
           value={date}
+          placeholder="Date"
           onChange={(e) => setDate(e.target.value)}
           required
         />
@@ -65,10 +68,10 @@ const EditForm: React.FC<EditFormProps> = ({
           <option value="expense">Expense</option>
           <option value="income">Income</option>
         </select>
-        <button type="submit">Update</button>
-        <button type="button" onClick={onCancel}>
+        <Button type="submit">Update</Button>
+        <Button type="button" onClick={onCancel}>
           Cancel
-        </button>
+        </Button>
       </form>
     </div>
   );
