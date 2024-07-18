@@ -17,7 +17,8 @@ import ExpenseList from "./component/ExpenseList";
 import Modal from "react-modal";
 import { Input } from "react-select/animated";
 import { AiOutlinePlus } from "react-icons/ai";
-
+import { toast } from "react-toastify";
+import "./style/index.scss";
 Modal.setAppElement("#root");
 
 const List = () => {
@@ -87,6 +88,9 @@ const List = () => {
       await deleteDoc(doc(db, "expenses", id));
       if (auth.currentUser) {
         fetchExpenses(auth.currentUser.uid);
+        toast.error("Expense is deleted", {
+          position: "bottom-right",
+        });
       }
     } catch (error) {
       console.error("Error deleting expense: ", error);
@@ -101,13 +105,16 @@ const List = () => {
   const updateExpenses = () => {
     if (auth.currentUser) {
       fetchExpenses(auth.currentUser.uid);
+      toast.success("Expense is update", {
+        position: "bottom-right",
+      });
     }
     setShowEditForm(false);
   };
 
   return (
     <>
-      <h2>Transaction</h2>
+      <h2 className="list-page-title">Transaction</h2>
 
       {userDetails ? (
         <div className="list-content">

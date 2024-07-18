@@ -12,6 +12,7 @@ body {
   background: rgba(0, 0, 0, 0.85);
   color: white;
   font-weight: 300;
+  /* overflow: hidden; */
 }
 
 .wallet {
@@ -39,7 +40,7 @@ body {
 
 .list-content {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: start;
   align-items: start;

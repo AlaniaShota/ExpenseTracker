@@ -1,45 +1,22 @@
-// import { AiOutlinePlus } from "react-icons/ai";
-
 import "../style/AddCard.scss";
-// import { Link } from "react-router-dom";
-
-// interface AddCardProps {
-//   onAddExpense: () => void;
-// }
-
-// const AddCard: React.FC<AddCardProps> = () => {
-//   return (
-//     <Link
-//       to="/analytic/list/add"
-//     //   onClick={onAddExpense}
-//       className="expense-holder"
-//     >
-//       <button className="expense-card add expense hover-border-5">
-//         <AiOutlinePlus color="#fff" size={30} />
-//       </button>
-//     </Link>
-//   );
-// };
-
-// export default AddCard;
 import React from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
-// import Select from "react-select";
-import { IoRestaurantSharp } from "react-icons/io5";
 import {
-  IoIosHome,
-  IoIosCar,
-  IoLogoGameControllerB,
-  IoIosBus,
-} from "react-icons/io";
-import { MdSportsHandball } from "react-icons/md";
+  MdDevicesOther,
+  MdEmojiTransportation,
+  MdHealthAndSafety,
+  MdHouse,
+  MdOutlineRestaurant,
+  MdSportsHandball,
+} from "react-icons/md";
 import { GiClothes } from "react-icons/gi";
 import { CgUserAdd } from "react-icons/cg";
 import Select from "react-select";
 import { auth, db } from "../../../components/firebase";
 import InputField from "../../../components/CustomInput";
 import { Button } from "../../../components/Button";
+import { toast } from "react-toastify";
 
 interface InputProps {
   fetchExpenses: () => void;
@@ -55,7 +32,7 @@ const categoryOptions = [
     value: "food",
     label: (
       <div>
-        <IoRestaurantSharp /> Food
+        <MdOutlineRestaurant size={30} /> Food
       </div>
     ),
   },
@@ -63,7 +40,7 @@ const categoryOptions = [
     value: "housing",
     label: (
       <div>
-        <IoIosHome /> Housing
+        <MdHouse size={30} /> Housing
       </div>
     ),
   },
@@ -71,7 +48,7 @@ const categoryOptions = [
     value: "transportation",
     label: (
       <div>
-        <IoIosCar /> Transportation
+        <MdEmojiTransportation size={30} /> Transportation
       </div>
     ),
   },
@@ -79,7 +56,7 @@ const categoryOptions = [
     value: "entertainment",
     label: (
       <div>
-        <IoLogoGameControllerB /> Entertainment
+        <MdSportsHandball size={30} /> Entertainment
       </div>
     ),
   },
@@ -87,7 +64,7 @@ const categoryOptions = [
     value: "clothing",
     label: (
       <div>
-        <GiClothes /> Clothing
+        <GiClothes size={30} /> Clothing
       </div>
     ),
   },
@@ -95,7 +72,7 @@ const categoryOptions = [
     value: "health",
     label: (
       <div>
-        <MdSportsHandball /> Health
+        <MdHealthAndSafety size={30} /> Health
       </div>
     ),
   },
@@ -103,7 +80,7 @@ const categoryOptions = [
     value: "personal",
     label: (
       <div>
-        <CgUserAdd /> Personal
+        <CgUserAdd size={30} /> Personal
       </div>
     ),
   },
@@ -111,7 +88,7 @@ const categoryOptions = [
     value: "others",
     label: (
       <div>
-        <IoIosBus /> Others
+        <MdDevicesOther size={30} /> Others
       </div>
     ),
   },
@@ -167,6 +144,9 @@ const AddCard: React.FC<InputProps> = ({ onAddExpense }) => {
       setComment("");
       setDate("");
       setType("expense");
+      toast.success("Expense is added", {
+        position: "bottom-right",
+      });
     } catch (error) {
       console.error("Error adding document: ", error);
     }
