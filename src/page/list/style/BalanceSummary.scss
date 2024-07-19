@@ -1,0 +1,16 @@
+@import '../../../style/variables.scss';
+
+.balance-summary {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    flex-wrap: wrap;
+    // width: 50%;
+    height: 150px;
+    box-shadow: $banner-box-shadow;
+    -webkit-box-shadow: $webkit-box-shadow;
+    -moz-box-shadow: $moz-box-shadow;
+    border-radius: 8px;
+    padding: 15px;
+}

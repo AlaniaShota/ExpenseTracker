@@ -17,13 +17,14 @@ import { auth, db } from "../../../components/firebase";
 import InputField from "../../../components/CustomInput";
 import { Button } from "../../../components/Button";
 import { toast } from "react-toastify";
-
+import { StylesConfig, GroupBase } from "react-select";
+import "../style/AddCard.scss";
 interface InputProps {
-  fetchExpenses: () => void;
+  fetchExpenses?: () => void;
   onAddExpense: () => void;
-  type: string;
-  value: string | number;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
+  value?: string | number;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
 }
 
@@ -94,7 +95,7 @@ const categoryOptions = [
   },
 ];
 
-const customStyles = {
+const customStyles: StylesConfig<any, false, GroupBase<any>> = {
   control: (provided) => ({
     ...provided,
     color: "black",

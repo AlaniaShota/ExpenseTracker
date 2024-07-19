@@ -15,11 +15,25 @@ import { auth, db } from "../../components/firebase";
 import AddCard from "./component/AddCard";
 import ExpenseList from "./component/ExpenseList";
 import Modal from "react-modal";
-import { Input } from "react-select/animated";
 import { AiOutlinePlus } from "react-icons/ai";
 import { toast } from "react-toastify";
 import "./style/index.scss";
+import BalanceSummary from "./component/BalanceSummary";
+
 Modal.setAppElement("#root");
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    zIndex: "100",
+    // background:'black'
+  },
+};
 
 const List = () => {
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
@@ -112,6 +126,36 @@ const List = () => {
     setShowEditForm(false);
   };
 
+  const calculateIncome = () => {
+    return expenses
+      .filter((expense) => expense.type === "income")
+      .reduce((acc, expense) => acc + expense.amount, 0);
+  };
+
+  const calculateExpenses = () => {
+    return expenses
+      .filter((expense) => expense.type === "expense")
+      .reduce((acc, expense) => acc + expense.amount, 0);
+  };
+
+  const calculateRemainingAmount = () => {
+    return calculateIncome() - calculateExpenses();
+  };
+
+  const calculateDailySpending = () => {
+    const remainingAmount = calculateRemainingAmount();
+    const daysInMonth = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth() + 1,
+      0
+    ).getDate();
+    const today = new Date().getDate();
+    const daysLeft = daysInMonth - today + 1;
+
+    const dailySpending = remainingAmount / daysLeft;
+    return dailySpending > 0 ? dailySpending : 0;
+  };
+
   return (
     <>
       <h2 className="list-page-title">Transaction</h2>
@@ -119,13 +163,19 @@ const List = () => {
       {userDetails ? (
         <div className="list-content">
           {auth.currentUser && (
-            <div className="expense-add-content">
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="expense-add add expense hover-border-5"
-              >
-                <AiOutlinePlus color="#fff" size={30} />
-              </button>
+            <div className="banner">
+              <div className="expense-add-content">
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="expense-add add expense hover-border-5"
+                >
+                  <AiOutlinePlus color="#fff" size={30} />
+                </button>
+              </div>
+              <BalanceSummary
+                remainingBalance={calculateRemainingAmount()}
+                dailySpending={calculateDailySpending()}
+              />
             </div>
           )}
           {showEditForm && currentExpense ? (
@@ -143,6 +193,7 @@ const List = () => {
             />
           )}
           <Modal
+            style={customStyles}
             isOpen={isModalOpen}
             onRequestClose={() => setIsModalOpen(false)}
             contentLabel="+"

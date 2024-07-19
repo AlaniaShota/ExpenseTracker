@@ -8,6 +8,9 @@
     align-self: flex-start;
     flex-direction: column;
     width: 100%;
+    overflow-y: auto;
+    max-height: 70vh;
+    padding: 5px;
 
     & tbody {
         display: flex;
@@ -128,13 +131,6 @@
 
 }
 
-// .expense-list-content th,
-// .expense-list-content td {
-//     // border: 1px solid #ddd;
-//     padding: 8px;
-//     // margin: 10px 0;
-// }
-
 :active,
 :hover,
 :focus {
@@ -167,4 +163,21 @@
     border-radius: 8px;
     background: transparent;
     z-index: 2;
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #ebebeb;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #6d6d6d;
 }
