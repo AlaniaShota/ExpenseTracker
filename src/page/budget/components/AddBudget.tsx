@@ -1,16 +1,7 @@
 import React from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
-import {
-  MdOutlineAttachMoney,
-  MdHome,
-  MdHealthAndSafety,
-  MdHouse,
-  MdOutlineRestaurant,
-  MdSportsHandball,
-} from "react-icons/md";
-import { GiClothes } from "react-icons/gi";
-import { CgUserAdd } from "react-icons/cg";
+import { MdOutlineAttachMoney, MdHome } from "react-icons/md";
 import Select from "react-select";
 import { auth, db } from "../../../components/firebase";
 import InputField from "../../../components/CustomInput";
@@ -32,7 +23,7 @@ const options = [
   {
     value: "salary",
     label: (
-      <div className='option'>
+      <div className="option">
         <MdOutlineAttachMoney size={30} /> Salary
       </div>
     ),
@@ -40,7 +31,7 @@ const options = [
   {
     value: "rent",
     label: (
-      <div className='option'>
+      <div className="option">
         <MdHome size={30} /> Rent
       </div>
     ),
@@ -48,7 +39,7 @@ const options = [
   {
     value: "bonuses",
     label: (
-      <div className='option'>
+      <div className="option">
         <IoMdTrendingUp size={30} /> Bonuses
       </div>
     ),
@@ -56,7 +47,7 @@ const options = [
   {
     value: "freelance",
     label: (
-      <div className='option'>
+      <div className="option">
         <SiFreelancer size={30} /> Freelance
       </div>
     ),

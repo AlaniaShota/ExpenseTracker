@@ -5,8 +5,10 @@ import AnalyticsBar from "./components/AnalyticsBar";
 import BalanceSummary from "../list/component/BalanceSummary";
 import "./style/index.scss";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../context/AuthProvider";
 
 const Analytics: React.FC = () => {
+  const { user } = useAuth();
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -17,7 +19,7 @@ const Analytics: React.FC = () => {
         where("userId", "==", userId)
       );
       const querySnapshot = await getDocs(q);
-      const expensesList = querySnapshot.docs.map((doc) => {
+      const expensesData = querySnapshot.docs.map((doc) => {
         const data = doc.data();
         return {
           id: doc.id,
@@ -25,10 +27,14 @@ const Analytics: React.FC = () => {
           category: data.category,
           amount: data.amount,
           type: data.type,
+          salary: data.salary,
+          rent: data.rent,
+          bonuses: data.bonuses,
+          freelance: data.freelance,
           ...data,
         } as Expense;
       });
-      setExpenses(expensesList);
+      setExpenses(expensesData);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching expenses: ", error);
@@ -37,16 +43,13 @@ const Analytics: React.FC = () => {
   };
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        fetchExpenses(user.uid);
-      } else {
-        setExpenses([]);
-        setLoading(false);
-      }
-    });
-    return () => unsubscribe();
-  }, []);
+    if (user) {
+      fetchExpenses(user.uid);
+    } else {
+      setExpenses([]);
+      setLoading(false);
+    }
+  }, [user]);
 
   const calculateIncome = () => {
     return expenses

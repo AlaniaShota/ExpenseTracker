@@ -7,11 +7,10 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { User as FirebaseUser } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { UserDetails, Expense } from "../../Interface/Type";
 import EditForm from "../../components/EditForm";
-import { auth, db } from "../../components/firebase";
+import { db } from "../../components/firebase";
 import AddCard from "./component/AddCard";
 import ExpenseList from "./component/ExpenseList";
 import Modal from "react-modal";
@@ -19,6 +18,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { toast } from "react-toastify";
 import "./style/index.scss";
 import BalanceSummary from "./component/BalanceSummary";
+import { useAuth } from "../../context/AuthProvider";
 
 Modal.setAppElement("#root");
 
@@ -30,7 +30,6 @@ const customStyles = {
   content: {
     top: "50%",
     left: "50%",
-    // height: "450px",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
@@ -39,6 +38,7 @@ const customStyles = {
 };
 
 const List: React.FC = () => {
+  const { user } = useAuth();
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
@@ -72,39 +72,36 @@ const List: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        fetchExpenses(user.uid);
-        fetchUserData(user);
-      } else {
-        setExpenses([]);
-        setLoading(false);
-        setUserDetails(null);
-      }
-    });
-    return () => unsubscribe();
-  }, []);
-
-  const fetchUserData = async (user: FirebaseUser) => {
-    if (user) {
-      const docRef = doc(db, "Users", user.uid);
+  const fetchUserData = async (userId: string) => {
+    try {
+      const docRef = doc(db, "Users", userId);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         setUserDetails(docSnap.data() as UserDetails);
       } else {
         console.log("No such document!");
       }
-    } else {
-      console.log("User is not logged in");
+    } catch (error) {
+      console.error("Error fetching user data: ", error);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      fetchExpenses(user.uid);
+      fetchUserData(user.uid);
+    } else {
+      setExpenses([]);
+      setLoading(false);
+      setUserDetails(null);
+    }
+  }, [user]);
 
   const deleteExpense = async (id: string) => {
     try {
       await deleteDoc(doc(db, "expenses", id));
-      if (auth.currentUser) {
-        fetchExpenses(auth.currentUser.uid);
+      if (user) {
+        fetchExpenses(user.uid);
         toast.error("Expense is deleted", {
           position: "bottom-right",
         });
@@ -120,9 +117,9 @@ const List: React.FC = () => {
   };
 
   const updateExpenses = () => {
-    if (auth.currentUser) {
-      fetchExpenses(auth.currentUser.uid);
-      toast.success("Expense is update", {
+    if (user) {
+      fetchExpenses(user.uid);
+      toast.success("Expense is updated", {
         position: "bottom-right",
       });
     }
@@ -163,55 +160,57 @@ const List: React.FC = () => {
     <>
       <h2 className="list-page-title">Transaction</h2>
 
-      {userDetails ? (
-        <div className="list-content">
-          {auth.currentUser && (
-            <div className="banner">
-              <div className="expense-add-content">
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className="expense-add add expense hover-border-5"
-                >
-                  <AiOutlinePlus color="#fff" size={30} />
-                </button>
-              </div>
-              <BalanceSummary
-                remainingBalance={calculateRemainingAmount()}
-                dailySpending={calculateDailySpending()}
-              />
+      {/* {userDetails ? ( */}
+      <div className="list-content">
+        {user && (
+          <div className="banner">
+            <div className="expense-add-content">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="expense-add add expense hover-border-5"
+              >
+                <AiOutlinePlus color="#fff" size={30} />
+              </button>
             </div>
-          )}
-          {showEditForm && currentExpense ? (
-            <EditForm
-              expenses={currentExpense}
-              onUpdate={updateExpenses}
-              onCancel={() => setShowEditForm(false)}
+            <BalanceSummary
+              remainingBalance={calculateRemainingAmount()}
+              dailySpending={calculateDailySpending()}
             />
-          ) : (
-            <ExpenseList
-              expenses={expenses}
-              loading={loading}
-              onDelete={deleteExpense}
-              onEdit={editExpense}
-            />
-          )}
-          <Modal
-            style={customStyles}
-            isOpen={isModalOpen}
-            onRequestClose={() => setIsModalOpen(false)}
-            contentLabel="+"
-          >
-            <AddCard
-              onAddExpense={() => {
-                fetchExpenses(auth.currentUser!.uid);
-                setIsModalOpen(false);
-              }}
-            />
-          </Modal>
-        </div>
-      ) : (
+          </div>
+        )}
+        {showEditForm && currentExpense ? (
+          <EditForm
+            expenses={currentExpense}
+            onUpdate={updateExpenses}
+            onCancel={() => setShowEditForm(false)}
+          />
+        ) : (
+          <ExpenseList
+            expenses={expenses}
+            loading={loading}
+            onDelete={deleteExpense}
+            onEdit={editExpense}
+          />
+        )}
+        <Modal
+          style={customStyles}
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+          contentLabel="+"
+        >
+          <AddCard
+            onAddExpense={() => {
+              if (user) {
+                fetchExpenses(user.uid);
+              }
+              setIsModalOpen(false);
+            }}
+          />
+        </Modal>
+      </div>
+      {/* ) : (
         <p>Loading...</p>
-      )}
+      )} */}
     </>
   );
 };
