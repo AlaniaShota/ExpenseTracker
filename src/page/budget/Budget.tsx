@@ -12,13 +12,11 @@ import { useEffect, useState } from "react";
 import { UserDetails, Expense } from "../../Interface/Type";
 import EditForm from "../../components/EditForm";
 import { auth, db } from "../../components/firebase";
-import AddCard from "./component/AddCard";
-import ExpenseList from "./component/ExpenseList";
 import Modal from "react-modal";
 import { AiOutlinePlus } from "react-icons/ai";
 import { toast } from "react-toastify";
-import "./style/index.scss";
-import BalanceSummary from "./component/BalanceSummary";
+
+import AddBudget from "./components/AddBudget";
 
 Modal.setAppElement("#root");
 
@@ -38,7 +36,7 @@ const customStyles = {
   },
 };
 
-const List:React.FC = () => {
+const Budget = () => {
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
@@ -56,11 +54,11 @@ const List:React.FC = () => {
       const expensesList = querySnapshot.docs.map((doc) => {
         const data = doc.data();
         return {
-          id: doc.id,
-          date: data.date,
           category: data.category,
-          amount: data.amount,
-          type: data.type,
+          salary: data.salary,
+          rent: data.rent,
+          bonuses: data.bonuses,
+          freelance: data.freelance,
           ...data,
         } as Expense;
       });
@@ -165,7 +163,7 @@ const List:React.FC = () => {
 
       {userDetails ? (
         <div className="list-content">
-          {auth.currentUser && (
+          {/* {auth.currentUser && (
             <div className="banner">
               <div className="expense-add-content">
                 <button
@@ -180,8 +178,8 @@ const List:React.FC = () => {
                 dailySpending={calculateDailySpending()}
               />
             </div>
-          )}
-          {showEditForm && currentExpense ? (
+          )} */}
+          {/* {showEditForm && currentExpense ? (
             <EditForm
               expenses={currentExpense}
               onUpdate={updateExpenses}
@@ -194,20 +192,20 @@ const List:React.FC = () => {
               onDelete={deleteExpense}
               onEdit={editExpense}
             />
-          )}
-          <Modal
+          )} */}
+          {/* <Modal
             style={customStyles}
             isOpen={isModalOpen}
             onRequestClose={() => setIsModalOpen(false)}
             contentLabel="+"
-          >
-            <AddCard
-              onAddExpense={() => {
-                fetchExpenses(auth.currentUser!.uid);
-                setIsModalOpen(false);
-              }}
-            />
-          </Modal>
+          > */}
+          <AddBudget
+            onAddExpense={() => {
+              fetchExpenses(auth.currentUser!.uid);
+              setIsModalOpen(false);
+            }}
+          />
+          {/* </Modal> */}
         </div>
       ) : (
         <p>Loading...</p>
@@ -216,4 +214,4 @@ const List:React.FC = () => {
   );
 };
 
-export default List;
+export default Budget;

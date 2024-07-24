@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./components/Login";
-import Profile from "./components/Profile";
 import Register from "./components/Register";
 import { auth } from "./components/firebase";
 import ConditionalRoute from "./route/routes";
@@ -10,9 +9,9 @@ import "react-toastify/dist/ReactToastify.css";
 import Layout from "./components/Layout";
 import List from "./page/list/List";
 import Analytics from "./page/analytics/Analytics";
-import AddExpenses from "./page/list/component/AddExpenses";
+import Budget from "./page/budget/Budget";
 
-const App = () => {
+const App: React.FC = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -52,7 +51,10 @@ const App = () => {
           path: "/analytic/list",
           element: <List />,
         },
-        // { path: "/analytic/list/add", element: <AddExpenses /> },
+        {
+          path: "/analytic/budgets",
+          element: <Budget />,
+        },
       ],
     },
   ]);

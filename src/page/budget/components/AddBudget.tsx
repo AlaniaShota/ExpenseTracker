@@ -1,10 +1,9 @@
-import "../style/AddCard.scss";
 import React from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
 import {
-  MdDevicesOther,
-  MdEmojiTransportation,
+  MdOutlineAttachMoney,
+  MdHome,
   MdHealthAndSafety,
   MdHouse,
   MdOutlineRestaurant,
@@ -18,7 +17,8 @@ import InputField from "../../../components/CustomInput";
 import { Button } from "../../../components/Button";
 import { toast } from "react-toastify";
 import { StylesConfig, GroupBase } from "react-select";
-import "../style/AddCard.scss";
+import { IoMdTrendingUp } from "react-icons/io";
+import { SiFreelancer } from "react-icons/si";
 interface InputProps {
   fetchExpenses?: () => void;
   onAddExpense: () => void;
@@ -28,68 +28,36 @@ interface InputProps {
   required?: boolean;
 }
 
-const categoryOptions = [
+const options = [
   {
-    value: "food",
+    value: "salary",
     label: (
-      <div className="option">
-        <MdOutlineRestaurant size={30} /> Food
+      <div className='option'>
+        <MdOutlineAttachMoney size={30} /> Salary
       </div>
     ),
   },
   {
-    value: "housing",
+    value: "rent",
     label: (
-      <div className="option">
-        <MdHouse size={30} /> Housing
+      <div className='option'>
+        <MdHome size={30} /> Rent
       </div>
     ),
   },
   {
-    value: "transportation",
+    value: "bonuses",
     label: (
-      <div className="option">
-        <MdEmojiTransportation size={30} /> Transportation
+      <div className='option'>
+        <IoMdTrendingUp size={30} /> Bonuses
       </div>
     ),
   },
   {
-    value: "entertainment",
+    value: "freelance",
     label: (
-      <div className="option">
-        <MdSportsHandball size={30} /> Entertainment
-      </div>
-    ),
-  },
-  {
-    value: "clothing",
-    label: (
-      <div className="option">
-        <GiClothes size={30} /> Clothing
-      </div>
-    ),
-  },
-  {
-    value: "health",
-    label: (
-      <div className="option">
-        <MdHealthAndSafety size={30} /> Health
-      </div>
-    ),
-  },
-  {
-    value: "personal",
-    label: (
-      <div className="option">
-        <CgUserAdd size={30} /> Personal
-      </div>
-    ),
-  },
-  {
-    value: "others",
-    label: (
-      <div className="option">
-        <MdDevicesOther size={30} /> Others
+      <div className='option'>
+        <SiFreelancer size={30} /> Freelance
       </div>
     ),
   },
@@ -116,7 +84,7 @@ const customStyles: StylesConfig<any, false, GroupBase<any>> = {
   }),
 };
 
-const AddCard: React.FC<InputProps> = ({ onAddExpense }) => {
+const AddBudget: React.FC<InputProps> = ({ onAddExpense }) => {
   const [amount, setAmount] = useState<number | undefined>(undefined);
   const [category, setCategory] = useState<string>("");
   const [comment, setComment] = useState<string>("");
@@ -135,7 +103,7 @@ const AddCard: React.FC<InputProps> = ({ onAddExpense }) => {
         category,
         comment,
         date: new Date(date),
-        type,
+        type: "income",
         userId: auth.currentUser.uid,
       });
       console.log("Document written with ID: ", docRef.id);
@@ -144,7 +112,7 @@ const AddCard: React.FC<InputProps> = ({ onAddExpense }) => {
       setCategory("");
       setComment("");
       setDate("");
-      setType("expense");
+      setType("income");
       toast.success("Expense is added", {
         position: "bottom-right",
       });
@@ -167,7 +135,7 @@ const AddCard: React.FC<InputProps> = ({ onAddExpense }) => {
           required
         />
         <Select
-          options={categoryOptions}
+          options={options}
           onChange={(option) => setCategory(option ? option.value : "")}
           placeholder="Select Category"
           styles={customStyles}
@@ -189,10 +157,6 @@ const AddCard: React.FC<InputProps> = ({ onAddExpense }) => {
           }
           required
         />
-        <select value={type} onChange={(e) => setType(e.target.value)}>
-          <option value="expense">Expense</option>
-          <option value="income">Income</option>
-        </select>
         <Button type="submit">
           <span>Add</span>
         </Button>
@@ -201,4 +165,4 @@ const AddCard: React.FC<InputProps> = ({ onAddExpense }) => {
   );
 };
 
-export default AddCard;
+export default AddBudget;

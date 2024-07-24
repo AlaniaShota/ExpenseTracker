@@ -1,7 +1,26 @@
-// .expense-list {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     flex-direction: column;
-//     gap: 5px;
-// }
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    // width: 100%;
+    gap: 5px;
+
+    & .modal-title {
+        color: black;
+        font-size: 18px;
+        text-align: left;
+        font-weight: 400;
+        width: 100%;
+    }
+
+    & .modal-form-add-card-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        gap: 5px;
+    }
+}

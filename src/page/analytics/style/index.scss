@@ -1,0 +1,19 @@
+.analytics-important-section {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 25px;
+    justify-items: start;
+    // align-self: baseline;
+    place-self: center stretch;
+    align-self: stretch;
+    width: 100%;
+}
+
+.analytics-page-title {
+    margin-top: 10px;
+}
+
+
+.analytics-secondary-diagram {
+    width: 100%;
+}

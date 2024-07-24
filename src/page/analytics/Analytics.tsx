@@ -1,28 +1,14 @@
-import React, { useEffect, useState } from "react";
-import ExpenseList from "../list/component/ExpenseList";
-import { Expense, UserDetails } from "../../Interface/Type";
+import { Expense } from "../../Interface/Type";
 import { auth, db } from "../../components/firebase";
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
-import { User as FirebaseUser } from "firebase/auth";
-
-// import "../../style/index.css";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import AnalyticsBar from "./components/AnalyticsBar";
+import BalanceSummary from "../list/component/BalanceSummary";
+import "./style/index.scss";
+import { useEffect, useState } from "react";
 
 const Analytics = () => {
-  //   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showLogout, setShowLogout] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
-  const [currentExpense, setCurrentExpense] = useState<Expense | null>(null);
-  const [showEditForm, setShowEditForm] = useState(false);
 
   const fetchExpenses = async (userId: string) => {
     try {
@@ -54,79 +40,53 @@ const Analytics = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         fetchExpenses(user.uid);
-        // fetchUserData(user);
       } else {
         setExpenses([]);
         setLoading(false);
-        // setUserDetails(null);
       }
     });
     return () => unsubscribe();
   }, []);
 
-  //   const fetchUserData = async (user: FirebaseUser) => {
-  //     if (user) {
-  //       const docRef = doc(db, "Users", user.uid);
-  //       const docSnap = await getDoc(docRef);
-  //       if (docSnap.exists()) {
-  //         setUserDetails(docSnap.data() as UserDetails);
-  //       } else {
-  //         console.log("No such document!");
-  //       }
-  //     } else {
-  //       console.log("User is not logged in");
-  //     }
-  //   };
-
-  //   const handleLogout = async () => {
-  //     try {
-  //       await auth.signOut();
-  //       window.location.href = "/login";
-  //     } catch (error) {
-  //       if (error instanceof Error) {
-  //         console.error("Error logging out:", error.message);
-  //       } else {
-  //         console.error("Unknown error logging out:", error);
-  //       }
-  //     }
-  //   };
-
-  //   const handleUserProfileClick = () => {
-  //     setShowLogout(!showLogout);
-  //     setIsClicked(!isClicked);
-  //   };
-
-  const deleteExpense = async (id: string) => {
-    try {
-      await deleteDoc(doc(db, "expenses", id));
-      if (auth.currentUser) {
-        fetchExpenses(auth.currentUser.uid);
-      }
-    } catch (error) {
-      console.error("Error deleting expense: ", error);
-    }
+  const calculateIncome = () => {
+    return expenses
+      .filter((expense) => expense.type === "income")
+      .reduce((acc, expense) => acc + expense.amount, 0);
   };
 
-  const editExpense = (expense: Expense) => {
-    setCurrentExpense(expense);
-    setShowEditForm(true);
+  const calculateExpenses = () => {
+    return expenses
+      .filter((expense) => expense.type === "expense")
+      .reduce((acc, expense) => acc + expense.amount, 0);
   };
 
-  const updateExpenses = () => {
-    if (auth.currentUser) {
-      fetchExpenses(auth.currentUser.uid);
-    }
-    setShowEditForm(false);
+  const calculateRemainingAmount = () => {
+    return calculateIncome() - calculateExpenses();
   };
 
+  const calculateDailySpending = () => {
+    const remainingAmount = calculateRemainingAmount();
+    const daysInMonth = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth() + 1,
+      0
+    ).getDate();
+    const today = new Date().getDate();
+    const daysLeft = daysInMonth - today + 1;
+
+    const dailySpending = remainingAmount / daysLeft;
+    return dailySpending > 0 ? dailySpending : 0;
+  };
   return (
     <div className="analytics-content">
-      {/* <ExpenseList
-            expenses={expenses}
-            loading={loading}
-            onDelete={deleteExpense}
-            onEdit={editExpense}
-        /> */}
+      <h2 className="analytics-page-title">Analytics</h2>
+      <BalanceSummary
+        remainingBalance={calculateRemainingAmount()}
+        dailySpending={calculateDailySpending()}
+      />
+      <div className="analytics-secondary-diagram">
+        <AnalyticsBar expenses={expenses} />
+      </div>
     </div>
   );
 };

@@ -19,8 +19,8 @@ import { Button } from "./Button";
 const links = [
   { id: 1, title: "Analytics", href: "/analytic", icon: IoMdAnalytics },
   { id: 2, title: "List", href: "/analytic/list", icon: IoIosList },
-  { id: 3, title: "Budgets", href: "/budgets", icon: IoIosWallet },
-  { id: 4, title: "Debts", href: "/debts", icon: IoMdPeople },
+  { id: 3, title: "Budgets", href: "/analytic/budgets", icon: IoIosWallet },
+  { id: 4, title: "Debts", href: "/analytic/debts", icon: IoMdPeople },
 ];
 
 const Navigation: React.FC = () => {
