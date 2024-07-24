@@ -6,7 +6,7 @@ import BalanceSummary from "../list/component/BalanceSummary";
 import "./style/index.scss";
 import { useEffect, useState } from "react";
 
-const Analytics = () => {
+const Analytics: React.FC = () => {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
 

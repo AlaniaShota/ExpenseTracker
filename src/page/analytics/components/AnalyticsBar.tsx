@@ -9,6 +9,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  TooltipItem,
 } from "chart.js";
 import { Expense } from "../../../Interface/Type";
 
@@ -53,9 +54,7 @@ const AnalyticsBar: React.FC<AnalyticsBarProps> = ({ expenses }) => {
         type: "category" as const,
         labels: expenses.map((category) => {
           const labelDataText = formatDate(category.date);
-          const labelCategoryText = category
-            ? category.category
-            : category.type;
+          const labelCategoryText = category.category;
           return `${labelCategoryText}\n${labelDataText}`;
         }),
         title: {
@@ -70,8 +69,8 @@ const AnalyticsBar: React.FC<AnalyticsBarProps> = ({ expenses }) => {
     plugins: {
       tooltip: {
         callbacks: {
-          label: function (context) {
-            const amount = context.raw;
+          label: function (context: TooltipItem<"bar">) {
+            const amount = context.raw as number;
             const comment = expenses[context.dataIndex].comment;
             return `Amount: $${amount}\nComment: ${comment}`;
           },

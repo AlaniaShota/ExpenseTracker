@@ -10,9 +10,10 @@ import Layout from "./components/Layout";
 import List from "./page/list/List";
 import Analytics from "./page/analytics/Analytics";
 import Budget from "./page/budget/Budget";
+import { User } from "firebase/auth";
 
 const App: React.FC = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {

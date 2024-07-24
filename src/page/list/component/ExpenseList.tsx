@@ -58,7 +58,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
         <table className="expense-list-content">
           <tbody>
             {expenses.map((item) => {
-              const icon = categoryIcons[item.category] || (
+              const icon = categoryIcons[item.category as Category] || (
                 <CgUserAdd size={40} />
               );
               return (

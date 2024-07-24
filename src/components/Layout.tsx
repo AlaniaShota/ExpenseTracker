@@ -2,7 +2,7 @@ import Navigation from "./Navigation";
 import { Outlet } from "react-router-dom";
 import "../style/index.css";
 
-const Layout = () => {
+const Layout: React.FC = () => {
   return (
     <div className="wallet">
       <div className="navigation-section">

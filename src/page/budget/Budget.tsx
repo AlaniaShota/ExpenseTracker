@@ -36,7 +36,7 @@ const customStyles = {
   },
 };
 
-const Budget = () => {
+const Budget: React.FC = () => {
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
