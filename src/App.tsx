@@ -1,27 +1,18 @@
-import { useEffect, useState } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import { auth } from "./components/firebase";
 import ConditionalRoute from "./route/routes";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Layout from "./components/Layout";
 import List from "./page/list/List";
 import Analytics from "./page/analytics/Analytics";
 import Budget from "./page/budget/Budget";
-import { User } from "firebase/auth";
+import { useAuth } from "./context/AuthProvider";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const App: React.FC = () => {
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
-    });
-
-    return () => unsubscribe();
-  }, []);
+  const { user } = useAuth();
 
   const routes = createBrowserRouter([
     {
