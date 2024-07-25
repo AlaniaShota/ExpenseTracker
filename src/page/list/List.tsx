@@ -38,74 +38,54 @@ const customStyles = {
 };
 
 const List: React.FC = () => {
-  const { user } = useAuth();
-  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
-  const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { user, expenses, userDetails, setExpenses } = useAuth();
   const [currentExpense, setCurrentExpense] = useState<Expense | null>(null);
   const [showEditForm, setShowEditForm] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const fetchExpenses = async (userId: string) => {
-    try {
-      const q = query(
-        collection(db, "expenses"),
-        where("userId", "==", userId)
-      );
-      const querySnapshot = await getDocs(q);
-      const expensesList = querySnapshot.docs.map((doc) => {
-        const data = doc.data();
-        return {
-          id: doc.id,
-          date: data.date,
-          category: data.category,
-          amount: data.amount,
-          type: data.type,
-          ...data,
-        } as Expense;
-      });
-      setExpenses(expensesList);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching expenses: ", error);
-      setLoading(false);
-    }
-  };
-
-  const fetchUserData = async (userId: string) => {
-    try {
-      const docRef = doc(db, "Users", userId);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setUserDetails(docSnap.data() as UserDetails);
-      } else {
-        console.log("No such document!");
-      }
-    } catch (error) {
-      console.error("Error fetching user data: ", error);
-    }
-  };
+  const [loading, setLoading] = useState(true);
+  console.log(expenses);
 
   useEffect(() => {
     if (user) {
-      fetchExpenses(user.uid);
-      fetchUserData(user.uid);
+      setLoading(false); // Assuming data is loaded after user is set
     } else {
-      setExpenses([]);
       setLoading(false);
-      setUserDetails(null);
     }
   }, [user]);
+
+  const fetchExpenses = async () => {
+    if (user) {
+      try {
+        const q = query(
+          collection(db, "expenses"),
+          where("userId", "==", user.uid)
+        );
+        const querySnapshot = await getDocs(q);
+        const updatedExpenses = querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            date: data.date,
+            category: data.category,
+            amount: data.amount,
+            type: data.type,
+            ...data,
+          } as Expense;
+        });
+        setExpenses(updatedExpenses);
+      } catch (error) {
+        console.error("Error fetching expenses: ", error);
+      }
+    }
+  };
 
   const deleteExpense = async (id: string) => {
     try {
       await deleteDoc(doc(db, "expenses", id));
-      if (user) {
-        fetchExpenses(user.uid);
-        toast.error("Expense is deleted", {
-          position: "bottom-right",
-        });
-      }
+      fetchExpenses();
+      toast.error("Expense is deleted", {
+        position: "bottom-right",
+      });
     } catch (error) {
       console.error("Error deleting expense: ", error);
     }
@@ -116,26 +96,28 @@ const List: React.FC = () => {
     setShowEditForm(true);
   };
 
-  const updateExpenses = () => {
-    if (user) {
-      fetchExpenses(user.uid);
-      toast.success("Expense is updated", {
-        position: "bottom-right",
-      });
-    }
+  const updateExpenses = async () => {
+    await fetchExpenses();
+    toast.success("Expense is updated", {
+      position: "bottom-right",
+    });
     setShowEditForm(false);
   };
 
   const calculateIncome = () => {
-    return expenses
-      .filter((expense) => expense.type === "income")
-      .reduce((acc, expense) => acc + expense.amount, 0);
+    return (
+      expenses
+        ?.filter((expense) => expense.type === "income")
+        .reduce((acc, expense) => acc + expense.amount, 0) || 0
+    );
   };
 
   const calculateExpenses = () => {
-    return expenses
-      .filter((expense) => expense.type === "expense")
-      .reduce((acc, expense) => acc + expense.amount, 0);
+    return (
+      expenses
+        ?.filter((expense) => expense.type === "expense")
+        .reduce((acc, expense) => acc + expense.amount, 0) || 0
+    );
   };
 
   const calculateRemainingAmount = () => {
@@ -160,7 +142,6 @@ const List: React.FC = () => {
     <>
       <h2 className="list-page-title">Transaction</h2>
 
-      {/* {userDetails ? ( */}
       <div className="list-content">
         {user && (
           <div className="banner">
@@ -186,7 +167,7 @@ const List: React.FC = () => {
           />
         ) : (
           <ExpenseList
-            expenses={expenses}
+            expenses={expenses || []}
             loading={loading}
             onDelete={deleteExpense}
             onEdit={editExpense}
@@ -199,18 +180,13 @@ const List: React.FC = () => {
           contentLabel="+"
         >
           <AddCard
-            onAddExpense={() => {
-              if (user) {
-                fetchExpenses(user.uid);
-              }
+            onAddExpense={async () => {
+              await fetchExpenses();
               setIsModalOpen(false);
             }}
           />
         </Modal>
       </div>
-      {/* ) : (
-        <p>Loading...</p>
-      )} */}
     </>
   );
 };

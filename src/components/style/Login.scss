@@ -29,11 +29,33 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%;
-            margin-top: 8px;
             flex-direction: column;
-            gap: 4px;
+            gap: 5px;
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 8px;
+
+            & .register-link {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                flex-direction: column;
+                font-size: 16px;
+                background: #42b72a;
+                padding: 10px 16px;
+                color: #F2F2F2 !important;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+            & .register-link:hover {
+                color: #FFFFFF !important;
+                background: #48ba31;
+            }
+
         }
+
     }
 }
 

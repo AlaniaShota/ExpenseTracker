@@ -20,7 +20,7 @@ export const Button: React.FC<ButtonProps> = ({
   if (className === "submit-button" || className === "register-link") {
     btnClass = `btn`;
   } else {
-    btnClass = `btn-holder`;
+    btnClass = ``;
   }
 
   return (
