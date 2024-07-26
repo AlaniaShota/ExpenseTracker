@@ -88,6 +88,7 @@
 .btn-3::after {
     background: transparent;
     z-index: 2;
+    font-weight: inherit;
 }
 
 .btn-logout.hover-border-5::before,

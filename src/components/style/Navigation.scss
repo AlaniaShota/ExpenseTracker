@@ -45,13 +45,15 @@
             flex-direction: row;
             justify-content: start;
             align-items: start;
-            // padding: 5px;
+            // padding: 5px; 
+            cursor: pointer;
 
             & .link-title {
                 font-weight: 300;
                 text-transform: uppercase;
-                padding: 6px 7px;
+                padding: 10px;
                 font-size: 16px;
+
             }
         }
 
@@ -90,27 +92,4 @@
             }
         }
     }
-
-    // & .btn-logout {
-    //     display: flex;
-    //     justify-content: center;
-    //     align-items: center;
-    //     gap: 4px;
-    //     cursor: pointer;
-    //     padding: 7px;
-    //     border-radius: 8px;
-    //     box-shadow: none;
-    //     transition: all 1s ease;
-
-    //     & .logout-title {
-    //         font-weight: 300;
-    //         text-transform: uppercase;
-    //     }
-
-    //     &:hover {
-    //         box-shadow: $banner-box-shadow;
-    //         -webkit-box-shadow: $webkit-box-shadow;
-    //         -moz-box-shadow: $moz-box-shadow;
-    //     }
-    // }
 }

@@ -6,13 +6,13 @@ export interface UserDetails {
 
 export interface Expense {
     id: string;
-    date: { seconds: number, nanoseconds: number };
+    date: any;
     category: string;
     amount: number;
-    type: string;
-    salary: number;
-    rent: number;
-    bonuses: number;
-    freelance: number
+    type: "income" | "expense";
+    // salary: number;
+    // rent: number;
+    // bonuses: number;
+    // freelance: number
     [key: string]: any;
 }

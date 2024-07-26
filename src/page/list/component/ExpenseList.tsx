@@ -52,52 +52,51 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
     return <p>Loading expenses...</p>;
   }
 
-
   return (
-    <>
-      {expenses.length > 0 ? (
-        <table className="expense-list-content">
-          <tbody>
-            {expenses.map((item) => {
-              const icon = categoryIcons[item.category as Category] || (
-                <CgUserAdd size={40} />
-              );
-              return (
-                <tr
-                  key={item.id}
-                  className="expense-list-detail expense-list hover-border-5"
-                >
-                  <td className="card-detail-icon">{icon}</td>
-                  <td
-                    className={`important-expense-comment ${
-                      item.type === "income" ? "income" : ""
-                    }`}
-                  >
-                    <h3>{item.comment}</h3>
-                  </td>
-                  <td
-                    className={`important-expense-amount ${
-                      item.type === "income" ? "income" : ""
-                    }`}
-                  >
-                    <h3>{item.amount}</h3>
-                  </td>
-                  <td className="card-edit-btn">
-                    <MdModeEdit size={35} onClick={() => onEdit(item)} />
-                    <MdRestoreFromTrash
-                      size={35}
-                      onClick={() => onDelete(item.id)}
-                    />
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      ) : (
-        <p>No expenses found.</p>
-      )}
-    </>
+    // <>
+    //   {expenses.length > 0 ? (
+    <table className="expense-list-content">
+      <tbody>
+        {expenses.map((item) => {
+          const icon = categoryIcons[item.category as Category] || (
+            <CgUserAdd size={40} />
+          );
+          return (
+            <tr
+              key={item.id}
+              className="expense-list-detail expense-list hover-border-5"
+            >
+              <td className="card-detail-icon">{icon}</td>
+              <td
+                className={`important-expense-comment ${
+                  item.type === "income" ? "income" : ""
+                }`}
+              >
+                <h3>{item.comment}</h3>
+              </td>
+              <td
+                className={`important-expense-amount ${
+                  item.type === "income" ? "income" : ""
+                }`}
+              >
+                <h3>{item.amount}</h3>
+              </td>
+              <td className="card-edit-btn">
+                <MdModeEdit size={35} onClick={() => onEdit(item)} />
+                <MdRestoreFromTrash
+                  size={35}
+                  onClick={() => onDelete(item.id)}
+                />
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+    //   ) : (
+    //     <p>No expenses found.</p>
+    //   )}
+    // </>
   );
 };
 

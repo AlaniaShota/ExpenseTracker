@@ -37,75 +37,34 @@ const customStyles = {
 };
 
 const Budget: React.FC = () => {
-  const { user } = useAuth();
-  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
+  const { user, expenses, setExpenses } = useAuth();
   const [incomes, setIncomes] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentIncome, setCurrentIncome] = useState<Expense | null>(null);
   const [showEditForm, setShowEditForm] = useState(false);
 
-  const fetchIncomes = async (userId: string) => {
-    try {
-      const q = query(
-        collection(db, "expenses"),
-        where("userId", "==", userId),
-        where("type", "==", "income")
-      );
-      const querySnapshot = await getDocs(q);
-      const incomesList = querySnapshot.docs.map((doc) => {
-        const data = doc.data();
-        return {
-          category: data.category,
-          salary: data.salary,
-          rent: data.rent,
-          bonuses: data.bonuses,
-          freelance: data.freelance,
-          ...data,
-        } as Expense;
-      });
-      setIncomes(incomesList);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching incomes: ", error);
-      setLoading(false);
-    }
-  };
-
-  const fetchUserData = async (userId: string) => {
-    try {
-      const docRef = doc(db, "Users", userId);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setUserDetails(docSnap.data() as UserDetails);
-      } else {
-        console.log("No such document!");
-      }
-    } catch (error) {
-      console.error("Error fetching user data: ", error);
-    }
-  };
-
   useEffect(() => {
-    if (user) {
-      fetchIncomes(user.uid);
-      fetchUserData(user.uid);
+    if (user && expenses) {
+      const userIncomes = expenses.filter(
+        (expense) => expense.type === "income"
+      );
+      setIncomes(userIncomes);
+      setLoading(false);
     } else {
       setIncomes([]);
-      setLoading(false);
-      setUserDetails(null);
+      setLoading(true);
     }
-  }, [user]);
+  }, [user, expenses]);
 
   const deleteIncome = async (id: string) => {
     try {
+      // Ensure you update the Firestore database and local state
       await deleteDoc(doc(db, "expenses", id));
-      if (user) {
-        fetchIncomes(user.uid);
-        toast.error("Income is deleted", {
-          position: "bottom-right",
-        });
-      }
+      setExpenses(
+        (prev) => prev?.filter((expense) => expense.id !== id) || null
+      );
+      toast.error("Income is deleted", { position: "bottom-right" });
     } catch (error) {
       console.error("Error deleting income: ", error);
     }
@@ -117,13 +76,8 @@ const Budget: React.FC = () => {
   };
 
   const updateIncomes = () => {
-    if (user) {
-      fetchIncomes(user.uid);
-      toast.success("Income is updated", {
-        position: "bottom-right",
-      });
-    }
     setShowEditForm(false);
+    toast.success("Income is updated", { position: "bottom-right" });
   };
 
   const calculateTotalIncome = () => {
@@ -187,7 +141,7 @@ const Budget: React.FC = () => {
           <AddBudget
             onAddExpense={() => {
               if (user) {
-                fetchIncomes(user.uid);
+                setIsModalOpen(false);
               }
             }}
           />

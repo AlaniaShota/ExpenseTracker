@@ -38,7 +38,7 @@ const customStyles = {
 };
 
 const List: React.FC = () => {
-  const { user, expenses, userDetails, setExpenses } = useAuth();
+  const { user, expenses, setExpenses } = useAuth();
   const [currentExpense, setCurrentExpense] = useState<Expense | null>(null);
   const [showEditForm, setShowEditForm] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,7 +47,7 @@ const List: React.FC = () => {
 
   useEffect(() => {
     if (user) {
-      setLoading(false); // Assuming data is loaded after user is set
+      setLoading(false);
     } else {
       setLoading(false);
     }
