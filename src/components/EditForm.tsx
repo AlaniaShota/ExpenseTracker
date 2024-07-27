@@ -16,11 +16,23 @@ import {
 import { GiClothes } from "react-icons/gi";
 import { CgUserAdd } from "react-icons/cg";
 import CustomSelect from "./CustomSelect";
+import { useFormik } from "formik";
+import * as yup from "yup";
 interface EditFormProps {
   expenses: Expense;
   onUpdate: () => void;
   onCancel: () => void;
 }
+const validationSchema = yup.object({
+  amount: yup
+    .number()
+    .required("Amount is required")
+    .typeError("Amount must be a number")
+    .positive("Amount must be positive"),
+  category: yup.string().required("Category is required"),
+  comment: yup.string().required("Comment is required"),
+  date: yup.date().required("Date is required").typeError("Invalid date"),
+});
 
 const categoryOptions = [
   {
@@ -94,70 +106,85 @@ const EditForm: React.FC<EditFormProps> = ({
   onUpdate,
   onCancel,
 }) => {
-  const [amount, setAmount] = useState<number>(expenses.amount);
-  const [category, setCategory] = useState<string>(expenses.category);
-  const [comment, setComment] = useState<string>(expenses.comment);
-  const [date, setDate] = useState<string>(
-    new Date(expenses.date.seconds * 1000).toISOString().split("T")[0]
-  );
-  const [type, setType] = useState<string>(expenses.type);
+  const formik = useFormik({
+    initialValues: {
+      amount: expenses.amount.toString(),
+      category: expenses.category,
+      comment: expenses.comment,
+      date: new Date(expenses.date.seconds * 1000).toISOString().split("T")[0],
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      try {
+        const expenseRef = doc(db, "expenses", expenses.id);
+        await updateDoc(expenseRef, {
+          amount: parseFloat(values.amount),
+          category: values.category,
+          comment: values.comment,
+          date: new Date(values.date),
+          type: expenses.type,
+        });
+        onUpdate();
+      } catch (error) {
+        console.error("Error updating document: ", error);
+      }
+    },
+  });
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const expenseRef = doc(db, "expenses", expenses.id);
-      await updateDoc(expenseRef, {
-        amount,
-        category,
-        date: new Date(date),
-        comment,
-        type,
-      });
-      onUpdate();
-    } catch (error) {
-      console.error("Error updating document: ", error);
-    }
+  const getErrorMessage = (field: string) => {
+    const error = formik.errors[field as keyof typeof formik.errors];
+    return typeof error === "string" ? error : undefined;
   };
 
   return (
     <div className="edit-form">
       <h2>Edit Expense</h2>
-      <form onSubmit={handleSubmit} className="edit-form-content">
+      <form onSubmit={formik.handleSubmit} className="edit-form-content">
         <InputField
           type="number"
+          name="amount"
           placeholder="Amount"
-          value={amount}
-          onChange={(e) => setAmount(parseFloat(e.target.value))}
-          required
+          value={formik.values.amount}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.amount ? getErrorMessage("amount") : undefined}
         />
         <CustomSelect
           options={categoryOptions}
-          onChange={(option) => setCategory(option ? option.value : "")}
+          onChange={(option) =>
+            formik.setFieldValue("category", option ? option.value : "")
+          }
           placeholder="Select Category"
-          value={categoryOptions.find((option) => option.value === category)}
+          value={categoryOptions.find(
+            (option) => option.value === formik.values.category
+          )}
         />
         <InputField
           type="text"
-          placeholder="Category"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          required
+          name="comment"
+          placeholder="Comment"
+          value={formik.values.comment}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={
+            formik.touched.comment ? getErrorMessage("comment") : undefined
+          }
         />
         <InputField
           type="date"
-          value={date}
+          name="date"
+          value={formik.values.date}
           placeholder="Date"
-          onChange={(e) => setDate(e.target.value)}
-          required
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.date ? getErrorMessage("date") : undefined}
         />
-        {/* <select value={type} onChange={(e) => setType(e.target.value)}>
-          <option value="expense">Expense</option>
-          <option value="income">Income</option>
-        </select> */}
-        <Button type="submit">Update</Button>
-        <Button type="button" onClick={onCancel}>
-          Cancel
-        </Button>
+        <div className="btn-section">
+          <Button type="submit">Update</Button>
+          <Button type="button" onClick={onCancel}>
+            Cancel
+          </Button>
+        </div>
       </form>
     </div>
   );

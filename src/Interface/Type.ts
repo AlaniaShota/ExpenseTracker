@@ -2,6 +2,8 @@ export interface UserDetails {
     firstName: string;
     lastName: string;
     email: string;
+    phone: number
+    photoURL?: string
 }
 
 export interface Expense {
@@ -10,6 +12,7 @@ export interface Expense {
     category: string;
     amount: number;
     type: "income" | "expense";
+
     // salary: number;
     // rent: number;
     // bonuses: number;

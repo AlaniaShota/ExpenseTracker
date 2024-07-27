@@ -43,7 +43,6 @@ const List: React.FC = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  console.log(expenses);
 
   useEffect(() => {
     if (user) {
@@ -139,8 +138,8 @@ const List: React.FC = () => {
   };
 
   return (
-    <>
-      <h2 className="list-page-title">Transaction</h2>
+    <div className="expenses-content">
+      <h2 className="page-title">Transaction</h2>
 
       <div className="list-content">
         {user && (
@@ -187,7 +186,7 @@ const List: React.FC = () => {
           />
         </Modal>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -8,7 +8,8 @@ const PDF: React.FC = () => {
   const { userDetails, expenses } = useAuth();
   const [incomes, setIncomes] = useState<Expense[]>([]);
   const [expensesList, setExpensesList] = useState<Expense[]>([]);
-  console.log(expenses);
+  console.log(expenses, "expenses");
+  console.log(userDetails, "userDetails");
 
   useEffect(() => {
     if (expenses) {
@@ -45,11 +46,12 @@ const PDF: React.FC = () => {
 
     doc.setFontSize(11);
     doc.setFont("helvetica", "light");
-    doc.setTextColor(40, 60, 100);
-    doc.text(`Email: ${userDetails.email}`, 10, 36);
-    doc.text(`${capitalizeFirstLetter(formattedDate)}`, 175, 36);
     doc.setDrawColor(0, 0, 0);
-    doc.line(10, 40, 200, 40);
+    doc.text(`Email: ${userDetails.email}`, 10, 36);
+    doc.text(`Phone: ${userDetails.phone}`, 10, 41);
+    doc.text(`${capitalizeFirstLetter(formattedDate)}`, 175, 41);
+
+    doc.line(10, 45, 200, 45);
 
     let y = 50;
 

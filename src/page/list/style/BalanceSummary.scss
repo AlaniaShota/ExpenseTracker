@@ -11,6 +11,7 @@
     box-shadow: $banner-box-shadow;
     -webkit-box-shadow: $webkit-box-shadow;
     -moz-box-shadow: $moz-box-shadow;
-    border-radius: 8px;
+    border-radius:  $expense-btn-border-radios;
     padding: 15px;
+    cursor: default;
 }

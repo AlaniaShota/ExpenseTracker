@@ -82,7 +82,7 @@ const Analytics: React.FC = () => {
   };
   return (
     <div className="analytics-content">
-      <h2 className="analytics-page-title">Analytics</h2>
+      <h2 className="page-title">Analytics</h2>
       <BalanceSummary
         remainingBalance={calculateRemainingAmount()}
         dailySpending={calculateDailySpending()}

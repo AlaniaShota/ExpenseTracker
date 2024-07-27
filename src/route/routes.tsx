@@ -6,6 +6,7 @@ import Analytics from "../page/analytics/Analytics";
 import List from "../page/list/List";
 import Budget from "../page/budget/Budget";
 import ConditionalRoute from "./ConditionalRoute";
+import UserSetting from "../components/UserSetting";
 
 const Routes = () => {
   {
@@ -41,6 +42,10 @@ const Routes = () => {
           {
             path: "/analytic/budgets",
             element: <Budget />,
+          },
+          {
+            path: "/analytic/setting",
+            element: <UserSetting />,
           },
         ],
       },

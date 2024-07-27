@@ -1,12 +1,16 @@
 import React, {
   createContext,
+  ReactNode,
   useContext,
   useEffect,
   useState,
-  ReactNode,
 } from "react";
-import { auth, db } from "../components/firebase";
-import { User } from "firebase/auth";
+import {
+  onAuthStateChanged,
+  User,
+  updateProfile,
+  updatePassword,
+} from "firebase/auth";
 import {
   doc,
   getDoc,
@@ -14,14 +18,22 @@ import {
   query,
   where,
   getDocs,
+  updateDoc,
 } from "firebase/firestore";
-import { UserDetails, Expense } from "../Interface/Type";
-
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { Expense, UserDetails } from "../Interface/Type";
+import { auth, db, storage } from "../components/firebase";
 interface AuthContextType {
   user: User | null;
   userDetails: UserDetails | null;
   expenses: Expense[] | null;
   setExpenses: React.Dispatch<React.SetStateAction<Expense[] | null>>;
+  updateUserDetails: (
+    firstName: string,
+    lastName: string,
+    avatar?: File | null
+  ) => Promise<void>;
+  updateUserPassword: (password: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -36,7 +48,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [expenses, setExpenses] = useState<Expense[] | null>(null);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
       if (user) {
         try {
@@ -55,17 +67,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             where("userId", "==", user.uid)
           );
           const querySnapshot = await getDocs(q);
-          const expensesList = querySnapshot.docs.map((doc) => {
-            const data = doc.data();
-            return {
-              id: doc.id,
-              date: data.date,
-              category: data.category,
-              amount: data.amount,
-              type: data.type,
-              ...data,
-            } as Expense;
-          });
+          const expensesList = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          })) as Expense[];
           setExpenses(expensesList);
         } catch (error) {
           console.error("Error fetching data: ", error);
@@ -81,8 +86,73 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
+  const updateUserDetails = async (
+    firstName: string,
+    lastName: string,
+    avatar?: File
+  ) => {
+    if (user) {
+      const updates: Partial<UserDetails> = { firstName, lastName };
+  
+      if (avatar) {
+        try {
+          const avatarURL = await uploadAvatar(avatar);
+          updates.photoURL = avatarURL;
+        } catch (error) {
+          alert("Error uploading avatar");
+          return;
+        }
+      }
+  
+      try {
+        await updateProfile(user, {
+          displayName: `${firstName} ${lastName}`,
+          photoURL: updates.photoURL || user.photoURL,
+        });
+
+        const userRef = doc(db, "Users", user.uid);
+        await updateDoc(userRef, updates);
+
+        setUserDetails((prevDetails) => ({
+          ...prevDetails,
+          ...updates,
+        }) as UserDetails);
+      } catch (error) {
+        console.error("Error updating profile:", error);
+        alert("Error updating profile");
+      }
+    }
+  };
+  
+
+  const uploadAvatar = async (avatar: File): Promise<string> => {
+    try {
+      const imgRef = ref(storage, `avatars/${user.uid}_${Date.now()}_${avatar.name}`);
+      await uploadBytes(imgRef, avatar);
+      return await getDownloadURL(imgRef);
+    } catch (error) {
+      console.error("Error uploading avatar:", error);
+      throw new Error("Error uploading avatar");
+    }
+  };
+
+  const updateUserPassword = async (password: string) => {
+    if (user) {
+      await updatePassword(user, password);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, userDetails, expenses, setExpenses }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        userDetails,
+        expenses,
+        setExpenses,
+        updateUserDetails,
+        updateUserPassword,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

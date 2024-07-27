@@ -33,7 +33,7 @@
             box-shadow: $banner-box-shadow;
             -webkit-box-shadow: $webkit-box-shadow;
             -moz-box-shadow: $moz-box-shadow;
-            border-radius: 8px;
+            border-radius: $expense-btn-border-radios;
             padding: 8px;
         }
 
@@ -51,7 +51,7 @@
             width: 100%;
             padding: 5px;
             transition: 0.3s;
-            border-radius: 8px;
+            border-radius: $expense-btn-border-radios;
         }
 
         .expense-list-detail.hover-border-5::before,
@@ -59,25 +59,25 @@
             width: 0%;
             height: 0%;
             opacity: 0;
-            border-radius: 8px
+            border-radius: $expense-btn-border-radios
         }
 
         .expense-list-detail.hover-border-5::before {
             top: 0;
             right: 0;
-            border-radius: 8px;
-            border-top: 1px solid white;
-            border-left: 1px solid white;
-            transition: width 0.2s 0.5s ease-out, height 0.15s 0.35s linear, opacity 0s 0.7s;
+            border-radius: $expense-btn-border-radios;
+            border-top: $expense-btn-hover-border;
+            border-left: $expense-btn-hover-border;
+            transition: $transaction-expense-add-hover-border-5-before;
         }
 
         .expense-list-detail.hover-border-5::after {
-            border-radius: 8px;
+            border-radius: $expense-btn-border-radios;
             bottom: 0;
             left: 0px;
-            border-bottom: 1px solid white;
-            border-right: 1px solid white;
-            transition: width 0.2s 0.15s linear, height 0.15s ease-in, opacity 0s 0.35s;
+            border-bottom: $expense-btn-hover-border;
+            border-right: $expense-btn-hover-border;
+            transition: $transaction-expense-add-hover-border-5-after;
         }
 
         .expense-list-detail.hover-border-5:hover::before,
@@ -88,12 +88,12 @@
         }
 
         .expense-list-detail.hover-border-5:hover::before {
-            border-radius: 8px;
+            border-radius: $expense-btn-border-radios;
             transition: width 0.2s ease-in, height 0.15s 0.2s linear, opacity 0s;
         }
 
         .expense-list-detail.hover-border-5:hover::after {
-            border-radius: 8px;
+            border-radius: $expense-btn-border-radios;
             transition: width 0.2s 0.35s linear, height 0.15s 0.5s ease-out, opacity 0s 0.3s;
         }
 
@@ -160,7 +160,7 @@
 
 .expense::before,
 .expense::after {
-    border-radius: 8px;
+    border-radius: $expense-btn-border-radios;
     background: transparent;
     z-index: 2;
 }

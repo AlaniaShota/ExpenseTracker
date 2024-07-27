@@ -1,3 +1,5 @@
+@import '../../style/variables.scss';
+
 :active,
 :hover,
 :focus {
@@ -20,7 +22,7 @@
         color: #FFFFFF !important;
         font-size: 16px;
         padding: 10px 16px;
-        border-radius: 8px;
+        border-radius: $expense-btn-border-radios;
         border: 1px solid #3866A3;
         background: #0866FF;
         cursor: pointer;
@@ -101,17 +103,17 @@
 .btn-logout.hover-border-5::before {
     top: 0;
     right: 0;
-    border-top: 1px solid white;
-    border-left: 1px solid white;
-    transition: width 0.2s 0.5s ease-out, height 0.15s 0.35s linear, opacity 0s 0.7s;
+    border-top: $expense-btn-hover-border;
+    border-left: $expense-btn-hover-border;
+    transition: $transaction-expense-add-hover-border-5-before;
 }
 
 .btn-logout.hover-border-5::after {
     bottom: 0;
     left: 0px;
-    border-bottom: 1px solid white;
-    border-right: 1px solid white;
-    transition: width 0.2s 0.15s linear, height 0.15s ease-in, opacity 0s 0.35s;
+    border-bottom: $expense-btn-hover-border;
+    border-right: $expense-btn-hover-border;
+    transition: $transaction-expense-add-hover-border-5-after;
 }
 
 .btn-logout.hover-border-5:hover::before,

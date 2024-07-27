@@ -15,7 +15,7 @@
         box-shadow: $banner-box-shadow;
         -webkit-box-shadow: $webkit-box-shadow;
         -moz-box-shadow: $moz-box-shadow;
-        border-radius: 8px;
+        border-radius:  $expense-btn-border-radios;
         padding: 20px 40px;
 
         // width: 100%;
@@ -32,7 +32,7 @@
             flex-direction: column;
             gap: 5px;
             width: 100%;
-            border-radius: 8px;
+            border-radius:  $expense-btn-border-radios;
             margin-top: 8px;
 
             & .register-link {
@@ -45,7 +45,7 @@
                 background: #42b72a;
                 padding: 10px 16px;
                 color: #F2F2F2 !important;
-                border-radius: 8px;
+                border-radius:  $expense-btn-border-radios;
                 cursor: pointer;
             }
 

@@ -1,10 +1,7 @@
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { auth, db } from "./firebase";
-import { doc, getDoc } from "firebase/firestore";
-import { User as FirebaseUser } from "firebase/auth";
-import { useEffect, useState } from "react";
-import { Expense, UserDetails } from "../Interface/Type";
+import { auth } from "./firebase";
+import { useState } from "react";
 import {
   IoMdAnalytics,
   IoIosList,
@@ -12,12 +9,12 @@ import {
   IoMdPeople,
   IoIosLogOut,
 } from "react-icons/io";
-import { FaFileDownload } from "react-icons/fa";
 import "./style/Navigation.scss";
 import { Button } from "./Button";
-import jsPDF from "jspdf";
 import { useAuth } from "../context/AuthProvider";
 import PDF from "./PDF";
+import AvatarSetting from "./AvatarSetting";
+import Modal from "react-modal";
 
 const links = [
   { id: 1, title: "Analytics", href: "/analytic", icon: IoMdAnalytics },
@@ -26,30 +23,59 @@ const links = [
   { id: 4, title: "Debts", href: "/analytic/debts", icon: IoMdPeople },
 ];
 
+Modal.setAppElement("#root");
+
+const customStyles = {
+  overlay: {
+    backgroundColor: "rgba(152, 152, 152, 0.718)",
+    zIndex: "100",
+  },
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
+
 const Navigation: React.FC = () => {
   const { userDetails } = useAuth();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
       await auth.signOut();
       window.location.href = "/login";
     } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error logging out:", error.message);
-      } else {
-        console.error("Unknown error logging out:", error);
-      }
+      console.error("Error logging out:", error);
     }
   };
+
+  const openModal = () => setModalIsOpen(true);
+  const closeModal = () => setModalIsOpen(false);
 
   return (
     <div className="navigation">
       <div className="user-profile-section">
-        <div className="user-icon">
-          <FaUser size={30} />{" "}
+        <div className="user-avatar" onClick={openModal}>
+          {userDetails?.photoURL ? (
+            <img
+              src={userDetails.photoURL}
+              alt="User Avatar"
+              onClick={openModal}
+            />
+          ) : (
+            <div className="user-icon">
+              <FaUser size={30} />
+            </div>
+          )}
         </div>
         {userDetails && (
-          <h3 className="user-name">Hello {userDetails.firstName}</h3>
+          <Link to="/analytic/setting" className="user-name-link">
+            <h3 className="user-name">Hello {userDetails.firstName}</h3>
+          </Link>
         )}
       </div>
       <div className="links-section">
@@ -71,6 +97,18 @@ const Navigation: React.FC = () => {
           <span>Logout</span>
         </div>
       </Button>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Avatar Settings"
+        style={customStyles}
+        // overlayClassName="modal-overlay"
+      >
+        {/* <button onClick={closeModal} className="modal-close-button">
+          X
+        </button> */}
+        <AvatarSetting />
+      </Modal>
     </div>
   );
 };

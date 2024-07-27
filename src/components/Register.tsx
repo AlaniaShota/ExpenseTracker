@@ -1,87 +1,166 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
 import { auth, db } from "./firebase";
 import { setDoc, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import InputField from "./CustomInput";
 import { Button } from "./Button";
 import { Link } from "react-router-dom";
+import * as yup from "yup";
+import { useFormik } from "formik";
+
+const validationSchema = yup.object({
+  fname: yup
+    .string()
+    .matches(/^[A-Za-z]+$/, "First name must contain only letters")
+    .required("First name is required"),
+  lname: yup
+    .string()
+    .matches(/^[A-Za-z]+$/, "Last name must contain only letters")
+    .required("Last name is required"),
+  email: yup
+    .string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), undefined], "Passwords must match")
+    .required("Confirm password is required"),
+  phone: yup
+    .string()
+    .matches(/^[0-9]*$/, "Phone number must be digits")
+    .notRequired(), // Optional
+});
 
 const Register: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      const user = auth.currentUser;
-      console.log(user);
-      if (user) {
-        await setDoc(doc(db, "Users", user.uid), {
-          email: user.email,
-          firstName: fname,
-          lastName: lname,
-          photo: "",
+  const formik = useFormik({
+    initialValues: {
+      fname: "",
+      lname: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      phone: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      try {
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          values.email,
+          values.password
+        );
+        const user = userCredential.user;
+        if (user) {
+          await setDoc(doc(db, "Users", user.uid), {
+            email: user.email,
+            firstName: values.fname,
+            lastName: values.lname,
+            phone: values.phone,
+            photo: "",
+          });
+        }
+        toast.success("User Registered Successfully!!", {
+          position: "top-center",
         });
+      } catch (error) {
+        if (error instanceof Error) {
+          toast.error(error.message, {
+            position: "bottom-center",
+          });
+        } else {
+          toast.error("An unknown error occurred", {
+            position: "bottom-center",
+          });
+        }
       }
-      console.log("User Registered Successfully!!");
-      toast.success("User Registered Successfully!!", {
-        position: "top-center",
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message, {
-          position: "bottom-center",
-        });
-      } else {
-        toast.error("An unknown error occurred", {
-          position: "bottom-center",
-        });
-      }
-    }
-  };
+    },
+  });
 
   return (
     <div className="form-content">
-      <form onSubmit={handleRegister} className="form-section">
+      <form onSubmit={formik.handleSubmit} className="form-section">
         <h3 className="login-title">Sign Up</h3>
         <InputField
           type="text"
-          value={fname}
+          name="fname"
+          value={formik.values.fname}
           placeholder="First name"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setFname(e.target.value)
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={
+            formik.touched.fname && formik.errors.fname
+              ? formik.errors.fname
+              : undefined
           }
-          required
         />
         <InputField
           type="text"
-          value={lname}
+          name="lname"
+          value={formik.values.lname}
           placeholder="Last name"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setLname(e.target.value)
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={
+            formik.touched.lname && formik.errors.lname
+              ? formik.errors.lname
+              : undefined
           }
         />
         <InputField
           type="email"
-          value={email}
+          name="email"
+          value={formik.values.email}
           placeholder="Enter email"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={
+            formik.touched.email && formik.errors.email
+              ? formik.errors.email
+              : undefined
           }
-          required
         />
         <InputField
           type="password"
-          value={password}
+          name="password"
+          value={formik.values.password}
           placeholder="Enter password"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={
+            formik.touched.password && formik.errors.password
+              ? formik.errors.password
+              : undefined
           }
-          required
+        />
+        <InputField
+          type="password"
+          name="confirmPassword"
+          value={formik.values.confirmPassword}
+          placeholder="Password"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={
+            formik.touched.confirmPassword && formik.errors.confirmPassword
+              ? formik.errors.confirmPassword
+              : undefined
+          }
+        />
+        <InputField
+          type="text"
+          name="phone"
+          value={formik.values.phone}
+          placeholder="Phone number (optional)"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={
+            formik.touched.phone && formik.errors.phone
+              ? formik.errors.phone
+              : undefined
+          }
         />
         <div className="login-btn">
           <Button type="submit" className="register-link">

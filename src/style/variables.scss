@@ -1,3 +1,9 @@
 $banner-box-shadow: 5px 5px 19px 1px rgba(0, 0, 0, 0.8);
 $webkit-box-shadow: 5px 5px 19px 1px rgba(0, 0, 0, 0.8);
 $moz-box-shadow: 5px 5px 19px 1px rgba(0, 0, 0, 0.8);
+$expense-btn-hover-border: 1px solid white;
+$transaction-expense-add-hover-border-5-before: width 0.2s 0.5s ease-out, height 0.15s 0.35s linear, opacity 0s 0.7s;
+$transaction-expense-add-hover-border-5-after: width 0.2s 0.15s linear, height 0.15s ease-in, opacity 0s 0.35s;
+$expense-add-hover-border-5-hover-before-second: width 0.2s ease-in, height 0.15s 0.2s linear, opacity 0s;
+$expense-add-hover-border-5-hover-after-second: width 0.2s 0.35s linear, height 0.15s 0.5s ease-out, opacity 0s 0.3s;
+$expense-btn-border-radios: 8px

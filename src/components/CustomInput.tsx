@@ -2,11 +2,15 @@ import React from "react";
 
 interface InputProps {
   type: string;
-  value: string | number;
-  placeholder: string;
+  value?: string | number;
+  placeholder?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   className?: string;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement, Element>) => void;
+  error?: string;
+  name?: string;
+  accept?: string;
 }
 
 const InputField: React.FC<InputProps> = ({
@@ -16,16 +20,26 @@ const InputField: React.FC<InputProps> = ({
   onChange,
   required = false,
   className = "",
+  onBlur,
+  error,
+  name,
 }) => {
+  const displayPlaceholder = error ? error : placeholder;
+
   return (
-    <input
-      type={type}
-      value={value}
-      placeholder={placeholder}
-      onChange={onChange}
-      required={required}
-      className={className}
-    />
+    <>
+      <input
+        type={type}
+        value={value}
+        placeholder={displayPlaceholder}
+        onChange={onChange}
+        required={required}
+        className={className}
+        onBlur={onBlur}
+        name={name}
+      />
+      {error && <div className="error-message">{error}</div>}
+    </>
   );
 };
 

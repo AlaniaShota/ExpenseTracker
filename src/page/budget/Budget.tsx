@@ -1,14 +1,6 @@
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { UserDetails, Expense } from "../../Interface/Type";
+import { Expense } from "../../Interface/Type";
 import { db } from "../../components/firebase";
 import AddBudget from "./components/AddBudget";
 import { useAuth } from "../../context/AuthProvider";
@@ -59,7 +51,6 @@ const Budget: React.FC = () => {
 
   const deleteIncome = async (id: string) => {
     try {
-      // Ensure you update the Firestore database and local state
       await deleteDoc(doc(db, "expenses", id));
       setExpenses(
         (prev) => prev?.filter((expense) => expense.id !== id) || null
@@ -99,55 +90,57 @@ const Budget: React.FC = () => {
   };
 
   return (
-    <>
-      <h2 className="list-page-title">Income</h2>
-      {user && (
-        <div className="banner">
-          <div className="expense-add-content">
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="expense-add add expense hover-border-5"
-            >
-              <AiOutlinePlus color="#fff" size={30} />
-            </button>
-          </div>
-          <BalanceSummary
-            remainingBalance={calculateTotalIncome()}
-            dailySpending={calculateDailyIncome()}
-          />
-        </div>
-      )}
-      {showEditForm && currentIncome ? (
-        <EditForm
-          expenses={currentIncome}
-          onUpdate={updateIncomes}
-          onCancel={() => setShowEditForm(false)}
-        />
-      ) : (
-        <ExpenseList
-          expenses={incomes}
-          loading={loading}
-          onDelete={deleteIncome}
-          onEdit={editIncome}
-        />
-      )}
+    <div className="expenses-content">
+      <h2 className="page-title">Income</h2>
       <div className="list-content">
-        <Modal
-          style={customStyles}
-          isOpen={isModalOpen}
-          onRequestClose={() => setIsModalOpen(false)}
-          contentLabel="+"
-        >
-          <AddBudget
-            onAddExpense={() => {
-              if (user) {
-                setIsModalOpen(false);
-              }
-            }}
+        {user && (
+          <div className="banner">
+            <div className="expense-add-content">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="expense-add add expense hover-border-5"
+              >
+                <AiOutlinePlus color="#fff" size={30} />
+              </button>
+            </div>
+            <BalanceSummary
+              remainingBalance={calculateTotalIncome()}
+              dailySpending={calculateDailyIncome()}
+            />
+          </div>
+        )}
+        {showEditForm && currentIncome ? (
+          <EditForm
+            expenses={currentIncome}
+            onUpdate={updateIncomes}
+            onCancel={() => setShowEditForm(false)}
           />
-        </Modal>
+        ) : (
+          <ExpenseList
+            expenses={incomes}
+            loading={loading}
+            onDelete={deleteIncome}
+            onEdit={editIncome}
+          />
+        )}
+        <div className="list-content">
+          <Modal
+            style={customStyles}
+            isOpen={isModalOpen}
+            onRequestClose={() => setIsModalOpen(false)}
+            contentLabel="+"
+          >
+            <AddBudget
+              onAddExpense={() => {
+                if (user) {
+                  setIsModalOpen(false);
+                }
+              }}
+            />
+          </Modal>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
