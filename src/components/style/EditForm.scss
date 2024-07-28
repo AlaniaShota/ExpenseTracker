@@ -11,5 +11,32 @@
         justify-content: center;
         align-items: center;
         gap: 5px;
+        width: 100%;
+        // height: 100%;
+
+        & .btn-section {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            width: 100%;
+            gap: 10px;
+
+            // & .btn-update {
+                .btn-logout .btn-update span {
+                    position: relative;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    letter-spacing: 2px;
+                    text-transform: uppercase;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    padding: 100px;
+                    transition: 0.3s;
+                }
+            // }
+        }
     }
 }

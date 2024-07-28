@@ -1,6 +1,6 @@
 import { doc, updateDoc } from "firebase/firestore";
 import { useState, FormEvent } from "react";
-import { db } from "./firebase";
+import { db } from "../firebase";
 import { Expense } from "../Interface/Type";
 import InputField from "./CustomInput";
 import { Button } from "./Button";
@@ -180,9 +180,15 @@ const EditForm: React.FC<EditFormProps> = ({
           error={formik.touched.date ? getErrorMessage("date") : undefined}
         />
         <div className="btn-section">
-          <Button type="submit">Update</Button>
-          <Button type="button" onClick={onCancel}>
-            Cancel
+          <Button type="submit" className="btn-logout btn-update btn-3 hover-border-5">
+            <span> Update</span>
+          </Button>
+          <Button
+            type="button"
+            className="btn-logout btn-update btn-3 hover-border-5"
+            onClick={onCancel}
+          >
+            <span> Cancel</span>
           </Button>
         </div>
       </form>

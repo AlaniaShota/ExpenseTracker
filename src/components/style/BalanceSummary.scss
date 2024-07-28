@@ -1,4 +1,4 @@
-@import '../../../style/variables.scss';
+@import '../../style/variables.scss';
 
 .balance-summary {
     display: flex;
@@ -11,7 +11,7 @@
     box-shadow: $banner-box-shadow;
     -webkit-box-shadow: $webkit-box-shadow;
     -moz-box-shadow: $moz-box-shadow;
-    border-radius:  $expense-btn-border-radios;
+    border-radius: $expense-btn-border-radios;
     padding: 15px;
     cursor: default;
 }

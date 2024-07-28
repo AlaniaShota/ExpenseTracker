@@ -12,10 +12,5 @@ export interface Expense {
     category: string;
     amount: number;
     type: "income" | "expense";
-
-    // salary: number;
-    // rent: number;
-    // bonuses: number;
-    // freelance: number
     [key: string]: any;
 }

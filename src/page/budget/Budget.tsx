@@ -1,15 +1,15 @@
 import { deleteDoc, doc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Expense } from "../../Interface/Type";
-import { db } from "../../components/firebase";
+import { db } from "../../firebase";
 import AddBudget from "./components/AddBudget";
 import { useAuth } from "../../context/AuthProvider";
-import { AiOutlinePlus } from "react-icons/ai";
-import BalanceSummary from "../list/component/BalanceSummary";
 import Modal from "react-modal";
 import EditForm from "../../components/EditForm";
-import ExpenseList from "../list/component/ExpenseList";
+import ExpenseList from "../../components/ExpenseList";
 import { toast } from "react-toastify";
+import BalanceSummary from "../../components/BalanceSummary";
+import AddBanner from "../../components/AddBanner";
 
 Modal.setAppElement("#root");
 
@@ -95,14 +95,7 @@ const Budget: React.FC = () => {
       <div className="list-content">
         {user && (
           <div className="banner">
-            <div className="expense-add-content">
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="expense-add add expense hover-border-5"
-              >
-                <AiOutlinePlus color="#fff" size={30} />
-              </button>
-            </div>
+            <AddBanner open={setIsModalOpen} />
             <BalanceSummary
               remainingBalance={calculateTotalIncome()}
               dailySpending={calculateDailyIncome()}

@@ -10,15 +10,15 @@ import {
 import { useEffect, useState } from "react";
 import { UserDetails, Expense } from "../../Interface/Type";
 import EditForm from "../../components/EditForm";
-import { db } from "../../components/firebase";
+import { db } from "../../firebase";
 import AddCard from "./component/AddCard";
-import ExpenseList from "./component/ExpenseList";
+import ExpenseList from "../../components/ExpenseList";
 import Modal from "react-modal";
 import { AiOutlinePlus } from "react-icons/ai";
 import { toast } from "react-toastify";
 import "./style/index.scss";
-import BalanceSummary from "./component/BalanceSummary";
 import { useAuth } from "../../context/AuthProvider";
+import BalanceSummary from "../../components/BalanceSummary";
 
 Modal.setAppElement("#root");
 

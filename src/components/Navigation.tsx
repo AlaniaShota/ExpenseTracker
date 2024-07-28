@@ -1,6 +1,6 @@
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { auth } from "./firebase";
+import { auth } from "../firebase";
 import { useState } from "react";
 import {
   IoMdAnalytics,
@@ -59,13 +59,15 @@ const Navigation: React.FC = () => {
   return (
     <div className="navigation">
       <div className="user-profile-section">
-        <div className="user-avatar" onClick={openModal}>
+        <div className="user-img" onClick={openModal}>
           {userDetails?.photoURL ? (
-            <img
-              src={userDetails.photoURL}
-              alt="User Avatar"
-              onClick={openModal}
-            />
+            <div className="user-avatar">
+              <img
+                src={userDetails.photoURL}
+                alt="User Avatar"
+                onClick={openModal}
+              />
+            </div>
           ) : (
             <div className="user-icon">
               <FaUser size={30} />

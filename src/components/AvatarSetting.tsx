@@ -39,7 +39,6 @@ const AvatarSetting = () => {
   };
 
   return (
-    // <div >
     <div className="avatar-modal">
       <InputField
         className="upload-button"
@@ -51,7 +50,6 @@ const AvatarSetting = () => {
         Upload
       </Button>
     </div>
-    // </div>
   );
 };
 

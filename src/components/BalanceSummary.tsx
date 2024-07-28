@@ -1,9 +1,8 @@
 import React from "react";
-import "../style/BalanceSummary.scss";
+import "./style/BalanceSummary.scss";
 
 interface BalanceSummaryProps {
   remainingBalance: number;
-
   dailySpending: number;
 }
 

@@ -114,10 +114,8 @@ const PDF: React.FC = () => {
 
   return (
     <div onClick={generatePDF} className="links-content">
-      {/* <div className="pdf-icon"> */}
       <FaFileDownload size={30} />
       <h3 className="link-title">Download</h3>
-      {/* </div> */}
     </div>
   );
 };

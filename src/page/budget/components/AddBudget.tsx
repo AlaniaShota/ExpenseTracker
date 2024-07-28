@@ -41,15 +41,13 @@ const categoryOptions = [
 
 const AddBudget: React.FC<{ onAddExpense: () => void }> = ({
   onAddExpense,
-}) => {
-  return (
-    <AddItemForm
-      title="Add Income"
-      categoryOptions={categoryOptions}
-      onAddItem={onAddExpense}
-      type="income"
-    />
-  );
-};
+}) => (
+  <AddItemForm
+    title="Add Income"
+    categoryOptions={categoryOptions}
+    onAddItem={onAddExpense}
+    type="income"
+  />
+);
 
 export default AddBudget;

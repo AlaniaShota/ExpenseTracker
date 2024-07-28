@@ -1,11 +1,11 @@
 import { Expense } from "../../Interface/Type";
-import { auth, db } from "../../components/firebase";
+import { auth, db } from "../../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import AnalyticsBar from "./components/AnalyticsBar";
-import BalanceSummary from "../list/component/BalanceSummary";
 import "./style/index.scss";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthProvider";
+import BalanceSummary from "../../components/BalanceSummary";
 
 const Analytics: React.FC = () => {
   const { user } = useAuth();

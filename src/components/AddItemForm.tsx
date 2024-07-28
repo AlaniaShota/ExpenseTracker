@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { toast } from "react-toastify";
-import { auth, db } from "./firebase";
+import { auth, db } from "../firebase";
 import InputField from "./CustomInput";
 import CustomSelect from "./CustomSelect";
 import { Button } from "./Button";

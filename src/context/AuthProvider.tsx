@@ -20,9 +20,9 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Expense, UserDetails } from "../Interface/Type";
-import { auth, db, storage } from "../components/firebase";
+import { auth, db, storage } from "../firebase";
 interface AuthContextType {
   user: User | null;
   userDetails: UserDetails | null;
@@ -60,8 +60,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             console.log("No such document!");
             setUserDetails(null);
           }
-
-          // Fetch expenses
           const q = query(
             collection(db, "expenses"),
             where("userId", "==", user.uid)
@@ -93,7 +91,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   ) => {
     if (user) {
       const updates: Partial<UserDetails> = { firstName, lastName };
-  
+
       if (avatar) {
         try {
           const avatarURL = await uploadAvatar(avatar);
@@ -103,7 +101,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           return;
         }
       }
-  
+
       try {
         await updateProfile(user, {
           displayName: `${firstName} ${lastName}`,
@@ -113,21 +111,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const userRef = doc(db, "Users", user.uid);
         await updateDoc(userRef, updates);
 
-        setUserDetails((prevDetails) => ({
-          ...prevDetails,
-          ...updates,
-        }) as UserDetails);
+        setUserDetails(
+          (prevDetails) =>
+            ({
+              ...prevDetails,
+              ...updates,
+            } as UserDetails)
+        );
       } catch (error) {
         console.error("Error updating profile:", error);
         alert("Error updating profile");
       }
     }
   };
-  
 
   const uploadAvatar = async (avatar: File): Promise<string> => {
     try {
-      const imgRef = ref(storage, `avatars/${user.uid}_${Date.now()}_${avatar.name}`);
+      const imgRef = ref(
+        storage,
+        `avatars/${user.uid}_${Date.now()}_${avatar.name}`
+      );
       await uploadBytes(imgRef, avatar);
       return await getDownloadURL(imgRef);
     } catch (error) {

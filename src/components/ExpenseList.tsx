@@ -1,5 +1,5 @@
 import React from "react";
-import { Expense } from "../../../Interface/Type";
+import { Expense } from "../Interface/Type";
 import {
   MdSportsHandball,
   MdRestoreFromTrash,
@@ -12,7 +12,7 @@ import {
 } from "react-icons/md";
 import { GiClothes } from "react-icons/gi";
 import { CgUserAdd } from "react-icons/cg";
-import "../style/ExpenseList.scss";
+import "./style/ExpenseList.scss";
 
 interface ExpenseListProps {
   expenses: Expense[];

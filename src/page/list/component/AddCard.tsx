@@ -78,15 +78,13 @@ const categoryOptions = [
   },
 ];
 
-const AddCard: React.FC<{ onAddExpense: () => void }> = ({ onAddExpense }) => {
-  return (
-    <AddItemForm
-      title="Add Expense"
-      categoryOptions={categoryOptions}
-      onAddItem={onAddExpense}
-      type="expense"
-    />
-  );
-};
+const AddCard: React.FC<{ onAddExpense: () => void }> = ({ onAddExpense }) => (
+  <AddItemForm
+    title="Add Expense"
+    categoryOptions={categoryOptions}
+    onAddItem={onAddExpense}
+    type="expense"
+  />
+);
 
 export default AddCard;
