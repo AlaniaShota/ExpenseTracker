@@ -1,60 +1,142 @@
-import { useState } from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import { useAuth } from "../context/AuthProvider";
+import InputField from "./CustomInput";
+import { Button } from "./Button";
+import { toast } from "react-toastify";
+import PasswordSetting from "./PasswordSetting";
+import EmailUpdate from "./EmailUpdate";
+import PhoneUpdate from "./PhoneUpdate";
+import { useState } from "react";
+import "./style/UserSetting.scss";
 
-const UserSetting = () => {
-  const { userDetails, updateUserDetails, updateUserPassword } = useAuth();
-  const [firstName, setFirstName] = useState(userDetails?.firstName || "");
-  const [lastName, setLastName] = useState(userDetails?.lastName || "");
-  const [password, setPassword] = useState("");
+const validationSchema = yup.object({
+  firstName: yup
+    .string()
+    .matches(/^[A-Za-z]+$/, "First name must contain only letters")
+    .required("First name is required"),
+  lastName: yup
+    .string()
+    .matches(/^[A-Za-z]+$/, "Last name must contain only letters")
+    .required("Last name is required"),
+});
 
-  const handleSave = async () => {
-    try {
-      await updateUserDetails(firstName, lastName);
-      if (password) {
-        await updateUserPassword(password);
+const UserDetailsSetting = () => {
+  const { userDetails, updateUserDetails } = useAuth();
+  const [showFullNameField, setShowFullNameField] = useState(false);
+  const [showPasswordSetting, setShowPasswordSetting] = useState(false);
+  const [showEmailUpdate, setShowEmailUpdate] = useState(false);
+  const [showPhoneUpdate, setShowPhoneUpdate] = useState(false);
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: userDetails?.firstName || "",
+      lastName: userDetails?.lastName || "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      try {
+        await updateUserDetails(values.firstName, values.lastName);
+        toast.success("Profile updated successfully!", {
+          position: "bottom-right",
+        });
+      } catch (error) {
+        console.error("Error updating profile:", error);
+        toast.error("Error updating profile", {
+          position: "bottom-right",
+        });
       }
-      alert("Profile updated successfully!");
-    } catch (error) {
-      console.error("Error updating profile:", error);
-      alert("Error updating profile");
-    }
-  };
+    },
+  });
 
   return (
-    <div>
-      <h2>Settings</h2>
-      <div>
-        <label>First Name:</label>
-        <input
-          type="text"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
+    <div className="user-details-setting">
+      <h2 className="page-title">User Details</h2>
+      <div className="setting-sections">
+        {/* Full Name Section */}
+        <div className="section">
+          <Button
+            className="btn-logout btn-3 hover-border-5"
+            type="button"
+            onClick={() => setShowFullNameField((prev) => !prev)}
+          >
+            <span>{showFullNameField ? "Hide Name Field" : "Change Name"}</span>
+          </Button>
+          {showFullNameField && (
+            <form onSubmit={formik.handleSubmit} className="form">
+              <InputField
+                type="text"
+                name="firstName"
+                value={formik.values.firstName}
+                placeholder="First name"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.firstName && formik.errors.firstName
+                    ? formik.errors.firstName
+                    : undefined
+                }
+              />
+              <InputField
+                type="text"
+                name="lastName"
+                value={formik.values.lastName}
+                placeholder="Last name"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.lastName && formik.errors.lastName
+                    ? formik.errors.lastName
+                    : undefined
+                }
+              />
+              <Button className="btn-logout btn-3 hover-border-5" type="submit">
+                <span>Save</span>
+              </Button>
+            </form>
+          )}
+        </div>
+        <div className="section">
+          <Button
+            className="btn-logout btn-3 hover-border-5"
+            type="button"
+            onClick={() => setShowPasswordSetting((prev) => !prev)}
+          >
+            <span>
+              {showPasswordSetting
+                ? "Hide Password Settings"
+                : "Change Password"}
+            </span>
+          </Button>
+          {showPasswordSetting && <PasswordSetting />}
+        </div>
+        <div className="section">
+          <Button
+            className="btn-logout btn-3 hover-border-5"
+            type="button"
+            onClick={() => setShowEmailUpdate((prev) => !prev)}
+          >
+            <span>
+              {showEmailUpdate ? "Hide Email Update" : "Update Email"}
+            </span>
+          </Button>
+          {showEmailUpdate && <EmailUpdate />}
+        </div>
+        <div className="section">
+          <Button
+            className="btn-logout btn-3 hover-border-5"
+            type="button"
+            onClick={() => setShowPhoneUpdate((prev) => !prev)}
+          >
+            <span>
+              {showPhoneUpdate ? "Hide Phone Update" : "Change Phone"}
+            </span>
+          </Button>
+          {showPhoneUpdate && <PhoneUpdate />}
+        </div>
       </div>
-      <div>
-        <label>Last Name:</label>
-        <input
-          type="text"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      {/* <div>
-        <label>Avatar:</label>
-        <input type="file" onChange={(e) => setAvatar(e.target.files?.[0])} />
-        <button onClick={handleClickImg}>Testing IMG</button>
-      </div> */}
-      <button onClick={handleSave}>Save</button>
     </div>
   );
 };
 
-export default UserSetting;
+export default UserDetailsSetting;

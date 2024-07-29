@@ -10,6 +10,9 @@ import {
   User,
   updateProfile,
   updatePassword,
+  UserCredential,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
 } from "firebase/auth";
 import {
   doc,
@@ -23,17 +26,20 @@ import {
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Expense, UserDetails } from "../Interface/Type";
 import { auth, db, storage } from "../firebase";
+
 interface AuthContextType {
   user: User | null;
   userDetails: UserDetails | null;
   expenses: Expense[] | null;
   setExpenses: React.Dispatch<React.SetStateAction<Expense[] | null>>;
-  updateUserDetails: (
-    firstName: string,
-    lastName: string,
-    avatar?: File | null
+  updateUserDetails: (firstName: string, lastName: string) => Promise<void>;
+  updateUserEmail: (email: string) => Promise<void>;
+  updateUserPhone: (phone: string) => Promise<void>;
+  updateUserPassword: (
+    newPassword: string,
+    currentPassword: string
   ) => Promise<void>;
-  updateUserPassword: (password: string) => Promise<void>;
+  updateUserAvatar: (avatar: File) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -84,28 +90,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const updateUserDetails = async (
-    firstName: string,
-    lastName: string,
-    avatar?: File
-  ) => {
+  const updateUserDetails = async (firstName: string, lastName: string) => {
     if (user) {
       const updates: Partial<UserDetails> = { firstName, lastName };
-
-      if (avatar) {
-        try {
-          const avatarURL = await uploadAvatar(avatar);
-          updates.photoURL = avatarURL;
-        } catch (error) {
-          alert("Error uploading avatar");
-          return;
-        }
-      }
-
       try {
         await updateProfile(user, {
           displayName: `${firstName} ${lastName}`,
-          photoURL: updates.photoURL || user.photoURL,
         });
 
         const userRef = doc(db, "Users", user.uid);
@@ -125,11 +115,31 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const updateUserAvatar = async (avatar: File) => {
+    if (user) {
+      try {
+        const avatarURL = await uploadAvatar(avatar);
+        const userRef = doc(db, "Users", user.uid);
+        await updateDoc(userRef, { photoURL: avatarURL });
+        setUserDetails(
+          (prevDetails) =>
+            ({
+              ...prevDetails,
+              photoURL: avatarURL,
+            } as UserDetails)
+        );
+      } catch (error) {
+        console.error("Error updating avatar:", error);
+        alert("Error updating avatar");
+      }
+    }
+  };
+
   const uploadAvatar = async (avatar: File): Promise<string> => {
     try {
       const imgRef = ref(
         storage,
-        `avatars/${user.uid}_${Date.now()}_${avatar.name}`
+        `avatars/${user!.uid}_${Date.now()}_${avatar.name}`
       );
       await uploadBytes(imgRef, avatar);
       return await getDownloadURL(imgRef);
@@ -139,9 +149,72 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const updateUserPassword = async (password: string) => {
+  const updateUserPassword = async (
+    newPassword: string,
+    currentPassword: string
+  ) => {
     if (user) {
-      await updatePassword(user, password);
+      try {
+        const credential = EmailAuthProvider.credential(
+          user.email!,
+          currentPassword
+        );
+
+        await reauthenticateWithCredential(user, credential);
+        await updatePassword(user, newPassword);
+      } catch (error) {
+        if ((error as Error).message.includes("auth/requires-recent-login")) {
+          console.error("Error reauthenticating user:", error);
+          throw new Error(
+            `Error reauthenticating user: ${(error as Error).message}`
+          );
+        } else {
+          console.error("Error updating password:", error);
+          throw new Error(
+            `Error updating password: ${(error as Error).message}`
+          );
+        }
+      }
+    } else {
+      throw new Error("No user is currently logged in");
+    }
+  };
+
+  const updateUserEmail = async (email: string) => {
+    if (user) {
+      try {
+        const userRef = doc(db, "Users", user.uid);
+        await updateDoc(userRef, { email });
+        setUserDetails(
+          (prevDetails) =>
+            ({
+              ...prevDetails,
+              email,
+            } as UserDetails)
+        );
+      } catch (error) {
+        console.error("Error updating email:", error);
+        alert("Error updating email");
+      }
+    }
+  };
+
+  const updateUserPhone = async (phone: string) => {
+    if (user) {
+      try {
+        const userRef = doc(db, "Users", user.uid);
+        await updateDoc(userRef, { phone });
+        setUserDetails(
+          (prevDetails) =>
+            ({
+              ...prevDetails,
+              phone,
+            } as UserDetails)
+        );
+      } catch (error) {
+        console.error("Error updating phone:", error);
+        alert("Error updating phone");
+      }
     }
   };
 
@@ -153,7 +226,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         expenses,
         setExpenses,
         updateUserDetails,
+        updateUserEmail,
+        updateUserPhone,
         updateUserPassword,
+        updateUserAvatar,
       }}
     >
       {children}
