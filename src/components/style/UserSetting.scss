@@ -1,10 +1,6 @@
 .setting-sections {
-
     margin: 20px 0;
     align-items: start;
-    // flex-direction: row;
-
-    // justify-content: space-between;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     justify-items: center;
@@ -12,20 +8,42 @@
 
     .section {
         max-width: 250px;
-        // width: 100%;
         border-radius: 8px;
         gap: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
 
-
-        .form {
+        .update-form {
             display: flex;
             flex-direction: column;
             width: 100%;
             gap: 15px;
         }
+    }
+}
 
-        // .btn-update {
-        //     margin-bottom: 15px;
-        // }
+@media(max-width:800px) {
+    .user-details-setting {
+        display: flex;
+        justify-content: space-around;
+        align-items: start;
+        flex-direction: column;
+        min-height: 90vh;
+
+        & .setting-sections {
+            align-items: start;
+            grid-template-columns: repeat(1, 1fr);
+            justify-items: start;
+            align-items: start;
+            height: 100%;
+
+            .section {
+                max-width: auto;
+                justify-content: start;
+                align-items: start;
+            }
+        }
     }
 }

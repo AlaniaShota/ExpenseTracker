@@ -3,13 +3,13 @@ import { useAuth } from "../context/AuthProvider";
 import jsPDF from "jspdf";
 import { FaFileDownload } from "react-icons/fa";
 import { Expense } from "../Interface/Type";
+import { useMobile } from "../context/Mobile";
 
 const PDF: React.FC = () => {
+  const isMobile = useMobile();
   const { userDetails, expenses } = useAuth();
   const [incomes, setIncomes] = useState<Expense[]>([]);
   const [expensesList, setExpensesList] = useState<Expense[]>([]);
-  console.log(expenses, "expenses");
-  console.log(userDetails, "userDetails");
 
   useEffect(() => {
     if (expenses) {
@@ -33,6 +33,13 @@ const PDF: React.FC = () => {
       return str.replace(/\b\w/g, (char) => char.toUpperCase());
     };
 
+    const calculateTotalAmount = (type: string) => {
+      if (!expenses) return 0;
+      return expenses
+        .filter((expense) => expense.type === type)
+        .reduce((acc, expense) => acc + (Number(expense.amount) || 0), 0);
+    };
+
     doc.setFont("helvetica", "semibold");
     doc.setFontSize(18);
     doc.setTextColor(0, 0, 0);
@@ -51,9 +58,15 @@ const PDF: React.FC = () => {
     doc.text(`Phone: ${userDetails.phone}`, 10, 41);
     doc.text(`${capitalizeFirstLetter(formattedDate)}`, 175, 41);
 
-    doc.line(10, 45, 200, 45);
+    doc.line(10, 43, 200, 43);
 
-    let y = 50;
+    doc.setFont("helvetica", "light");
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    doc.text(`Total Income: ${calculateTotalAmount("income")}`, 10, 50);
+    doc.text(`Total Expense: ${calculateTotalAmount("expense")}`, 10, 55);
+
+    let y = 65;
 
     if (incomes.length > 0) {
       doc.setFont("helvetica", "semibold");
@@ -69,7 +82,7 @@ const PDF: React.FC = () => {
         doc.setFontSize(11);
         doc.setTextColor(0, 0, 0);
         doc.text(
-          `${capitalizeFirstLetter(income.category)}: ${income.comment} $${
+          `${capitalizeFirstLetter(income.category)}: ${income.comment} ${
             income.amount
           }`,
           15,
@@ -90,12 +103,11 @@ const PDF: React.FC = () => {
 
       expensesList.map((expense) => {
         doc.setFillColor(0, 0, 0);
-
         doc.setFont("helvetica", "normal");
         doc.setFontSize(11);
         doc.setTextColor(0, 0, 0);
         doc.text(
-          `${capitalizeFirstLetter(expense.category)}: ${expense.comment} $${
+          `${capitalizeFirstLetter(expense.category)}: ${expense.comment} ${
             expense.amount
           }`,
           15,
@@ -115,7 +127,7 @@ const PDF: React.FC = () => {
   return (
     <div onClick={generatePDF} className="links-content">
       <FaFileDownload size={30} />
-      <h3 className="link-title">Download</h3>
+      {!isMobile && <h3 className="link-title">Download</h3>}
     </div>
   );
 };

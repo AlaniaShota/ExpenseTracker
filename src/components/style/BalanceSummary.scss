@@ -15,3 +15,9 @@
     padding: 15px;
     cursor: default;
 }
+
+@media (max-width:800px) {
+    .balance-summary {
+        width: 100%;
+    }
+}

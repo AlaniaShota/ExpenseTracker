@@ -33,7 +33,6 @@ const formatDate = (timestamp: { seconds: number; nanoseconds: number }) => {
 };
 
 const AnalyticsBar: React.FC<AnalyticsBarProps> = ({ expenses }) => {
-  console.log(expenses);
 
   const barData = {
     labels: expenses.map((expense) => expense.id),

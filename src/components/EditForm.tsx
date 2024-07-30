@@ -138,7 +138,7 @@ const EditForm: React.FC<EditFormProps> = ({
 
   return (
     <div className="edit-form">
-      <h2>Edit Expense</h2>
+      <h2 className="page-title">Edit Expense</h2>
       <form onSubmit={formik.handleSubmit} className="edit-form-content">
         <InputField
           type="number"
@@ -180,7 +180,10 @@ const EditForm: React.FC<EditFormProps> = ({
           error={formik.touched.date ? getErrorMessage("date") : undefined}
         />
         <div className="btn-section">
-          <Button type="submit" className="btn-logout btn-update btn-3 hover-border-5">
+          <Button
+            type="submit"
+            className="btn-logout btn-update btn-3 hover-border-5"
+          >
             <span> Update</span>
           </Button>
           <Button

@@ -4,11 +4,14 @@ import App from "./App.tsx";
 import "./style/index.css";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./context/AuthProvider.tsx";
+import { MobileProvider } from "./context/Mobile.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AuthProvider>
-      <App />
+      <MobileProvider>
+        <App />
+      </MobileProvider>
     </AuthProvider>
   </React.StrictMode>
 );

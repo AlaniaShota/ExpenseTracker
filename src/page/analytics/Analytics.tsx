@@ -6,11 +6,15 @@ import "./style/index.scss";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthProvider";
 import BalanceSummary from "../../components/BalanceSummary";
+import { Pie } from "react-chartjs-2";
+import { useMobile } from "../../context/Mobile";
+import MobileAnalyticsPie from "./components/MobileAnalyticsPie";
 
 const Analytics: React.FC = () => {
   const { user } = useAuth();
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
+  const isMobile = useMobile();
 
   const fetchExpenses = async (userId: string) => {
     try {
@@ -80,6 +84,7 @@ const Analytics: React.FC = () => {
     const dailySpending = remainingAmount / daysLeft;
     return dailySpending > 0 ? dailySpending : 0;
   };
+
   return (
     <div className="analytics-content">
       <h2 className="page-title">Analytics</h2>
@@ -87,8 +92,12 @@ const Analytics: React.FC = () => {
         remainingBalance={calculateRemainingAmount()}
         dailySpending={calculateDailySpending()}
       />
-      <div className="analytics-secondary-diagram">
+      <div className="analytics-diagram">
+      {isMobile ? (
+        <MobileAnalyticsPie expenses={expenses} />
+      ) : (
         <AnalyticsBar expenses={expenses} />
+      )}
       </div>
     </div>
   );

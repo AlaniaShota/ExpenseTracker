@@ -86,6 +86,16 @@
     }
 }
 
+@media (max-width:800px) {
+    .expense-add-content {
+        width: 100%;
+
+        & .expense-add {
+            width: 100%;
+        }
+    }
+}
+
 :active,
 :hover,
 :focus {

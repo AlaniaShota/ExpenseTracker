@@ -53,17 +53,18 @@ const UserDetailsSetting = () => {
     <div className="user-details-setting">
       <h2 className="page-title">User Details</h2>
       <div className="setting-sections">
-        {/* Full Name Section */}
         <div className="section">
           <Button
             className="btn-logout btn-3 hover-border-5"
             type="button"
             onClick={() => setShowFullNameField((prev) => !prev)}
           >
-            <span>{showFullNameField ? "Hide Name Field" : "Change Name"}</span>
+            <span>
+              {showFullNameField ? "Hide Name Update" : "Update Name"}
+            </span>
           </Button>
           {showFullNameField && (
-            <form onSubmit={formik.handleSubmit} className="form">
+            <form onSubmit={formik.handleSubmit} className="update-form">
               <InputField
                 type="text"
                 name="firstName"
@@ -91,7 +92,7 @@ const UserDetailsSetting = () => {
                 }
               />
               <Button className="btn-logout btn-3 hover-border-5" type="submit">
-                <span>Save</span>
+                <span>Save Name</span>
               </Button>
             </form>
           )}
@@ -103,9 +104,7 @@ const UserDetailsSetting = () => {
             onClick={() => setShowPasswordSetting((prev) => !prev)}
           >
             <span>
-              {showPasswordSetting
-                ? "Hide Password Settings"
-                : "Change Password"}
+              {showPasswordSetting ? "Hide Password Update" : "Update Password"}
             </span>
           </Button>
           {showPasswordSetting && <PasswordSetting />}
@@ -129,7 +128,7 @@ const UserDetailsSetting = () => {
             onClick={() => setShowPhoneUpdate((prev) => !prev)}
           >
             <span>
-              {showPhoneUpdate ? "Hide Phone Update" : "Change Phone"}
+              {showPhoneUpdate ? "Hide Phone Update" : "Update Phone"}
             </span>
           </Button>
           {showPhoneUpdate && <PhoneUpdate />}

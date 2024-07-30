@@ -40,7 +40,7 @@ const PhoneUpdate = () => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form className="update-form" onSubmit={formik.handleSubmit}>
       <InputField
         type="text"
         name="phone"

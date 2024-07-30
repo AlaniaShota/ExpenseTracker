@@ -22,21 +22,38 @@
             gap: 10px;
 
             // & .btn-update {
-                .btn-logout .btn-update span {
-                    position: relative;
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-                    align-items: center;
-                    letter-spacing: 2px;
-                    text-transform: uppercase;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    padding: 100px;
-                    transition: 0.3s;
-                }
+            .btn-logout .btn-update span {
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                top: 0;
+                left: 0;
+                width: 100%;
+                padding: 100px;
+                transition: 0.3s;
+            }
+
             // }
+        }
+    }
+}
+
+@media (max-width:800px) {
+    .edit-form {
+        & .edit-form-content {
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+
+            & .btn-section {
+                justify-content: space-evenly;
+                width: 100%;
+                gap: 0px;
+            }
         }
     }
 }

@@ -47,7 +47,7 @@ const PasswordSetting = () => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit}  className="update-form" >
       <InputField
         type="password"
         name="currentPassword"
