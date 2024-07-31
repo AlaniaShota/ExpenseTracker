@@ -40,7 +40,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({
       date: "",
     },
     validationSchema,
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async ( ) => {
       try {
         if (!auth.currentUser) {
           throw new Error("User not authenticated");
@@ -55,7 +55,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({
         //   userId: auth.currentUser.uid,
         // });
         onAddItem();
-        resetForm();
+        // resetForm();
         toast.success(`${type === "income" ? "Income" : "Expense"} is added`, {
           position: "bottom-right",
         });
