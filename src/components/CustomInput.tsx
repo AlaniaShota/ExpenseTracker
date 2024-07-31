@@ -1,8 +1,6 @@
-import React from "react";
-
 interface InputProps {
   type: string;
-  value?: string | number;
+  value?: string | number | any;
   placeholder?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
@@ -10,7 +8,6 @@ interface InputProps {
   onBlur?: (e: React.FocusEvent<HTMLInputElement, Element>) => void;
   error?: string;
   name?: string;
-  accept?: string;
 }
 
 const InputField: React.FC<InputProps> = ({

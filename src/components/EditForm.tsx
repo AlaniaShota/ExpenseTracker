@@ -1,4 +1,4 @@
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, Timestamp } from "firebase/firestore";
 import { db } from "../firebase";
 import { Expense } from "../Interface/Type";
 import InputField from "./CustomInput";
@@ -18,11 +18,13 @@ import CustomSelect from "./CustomSelect";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
+
 interface EditFormProps {
   expenses: Expense;
   onUpdate: () => void;
   onCancel: () => void;
 }
+
 const validationSchema = yup.object({
   amount: yup
     .number()
@@ -111,7 +113,12 @@ const EditForm: React.FC<EditFormProps> = ({
       amount: expenses.amount.toString(),
       category: expenses.category,
       comment: expenses.comment,
-      date: new Date(expenses.date.seconds * 1000).toISOString().split("T")[0],
+      date:
+        expenses.date instanceof Timestamp
+          ? new Date(expenses.date.seconds * 1000).toISOString().split("T")[0]
+          : typeof expenses.date === "string"
+          ? expenses.date
+          : new Date(expenses.date).toISOString().split("T")[0],
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -126,7 +133,7 @@ const EditForm: React.FC<EditFormProps> = ({
         });
         onUpdate();
       } catch (error) {
-        toast.error(`Error updating document:${error}`, {
+        toast.error(`Error updating document: ${error}`, {
           position: "bottom-right",
         });
       }

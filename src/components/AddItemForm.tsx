@@ -40,7 +40,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({
       date: "",
     },
     validationSchema,
-    onSubmit: async ({ resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
         if (!auth.currentUser) {
           throw new Error("User not authenticated");

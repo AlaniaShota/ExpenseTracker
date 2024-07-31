@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 import { toast } from "react-toastify";
 import "./style/AvatarSetting.scss";
@@ -39,7 +39,6 @@ const AvatarSetting = () => {
       <InputField
         className="upload-button"
         type="file"
-        accept="image/*"
         onChange={(e) => setAvatar(e.target.files?.[0] || null)}
       />
       <Button type="button" className="upload-button" onClick={handleClickImg}>

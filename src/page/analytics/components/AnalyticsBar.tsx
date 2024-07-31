@@ -27,10 +27,19 @@ interface AnalyticsBarProps {
   expenses: Expense[];
 }
 
-const formatDate = (timestamp: { seconds: number; nanoseconds: number }) => {
-  const date = new Date(timestamp.seconds * 1000);
-  return date.toLocaleDateString();
+const formatDate = (date: { seconds?: number; nanoseconds?: number } | Date | string) => {
+  if (date instanceof Date) {
+    return date.toLocaleDateString();
+  } else if (typeof date === 'string') {
+    return new Date(date).toLocaleDateString(); // Convert string to Date
+  } else if (date && typeof date === 'object' && 'seconds' in date) {
+    const timestampDate = new Date((date as { seconds: number }).seconds * 1000);
+    return timestampDate.toLocaleDateString();
+  } else {
+    return ''; // Handle unexpected cases
+  }
 };
+
 
 const AnalyticsBar: React.FC<AnalyticsBarProps> = ({ expenses }) => {
 

@@ -1,3 +1,5 @@
+
+
 export interface UserDetails {
     firstName: string;
     lastName: string;
@@ -8,9 +10,9 @@ export interface UserDetails {
 
 export interface Expense {
     id: string;
-    date:  Date | string;
+    date: Date | string;
     category: string;
     amount: number;
     type: "income" | "expense";
-    [key: string]: string | number | Date;
+    [key: string]: string | number | Date | any;
 }
