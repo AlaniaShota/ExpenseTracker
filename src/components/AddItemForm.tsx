@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
+import React from "react";
+// import { addDoc, collection } from "firebase/firestore";
 import { toast } from "react-toastify";
-import { auth, db } from "../firebase";
+import { auth } from "../firebase";
 import InputField from "./CustomInput";
 import CustomSelect from "./CustomSelect";
 import { Button } from "./Button";
@@ -40,28 +40,29 @@ const AddItemForm: React.FC<AddItemFormProps> = ({
       date: "",
     },
     validationSchema,
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async ({ resetForm }) => {
       try {
         if (!auth.currentUser) {
           throw new Error("User not authenticated");
         }
 
-        const docRef = await addDoc(collection(db, "expenses"), {
-          amount: parseFloat(values.amount),
-          category: values.category,
-          comment: values.comment,
-          date: new Date(values.date),
-          type,
-          userId: auth.currentUser.uid,
-        });
-        console.log("Document written with ID: ", docRef.id);
+        // const docRef = await addDoc(collection(db, "expenses"), {
+        //   amount: parseFloat(values.amount),
+        //   category: values.category,
+        //   comment: values.comment,
+        //   date: new Date(values.date),
+        //   type,
+        //   userId: auth.currentUser.uid,
+        // });
         onAddItem();
         resetForm();
         toast.success(`${type === "income" ? "Income" : "Expense"} is added`, {
           position: "bottom-right",
         });
       } catch (error) {
-        console.error("Error adding document: ", error);
+        toast.error(`Error adding document: ${error}`, {
+          position: "bottom-right",
+        });
       }
     },
   });
@@ -94,7 +95,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({
           }
           placeholder="Select Category"
           value={categoryOptions.find(
-            (option) => option.value === formik.values.category
+            (option) => option.value === formik.values.category,
           )}
         />
         <InputField

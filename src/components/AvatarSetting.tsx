@@ -23,7 +23,7 @@ const AvatarSetting = () => {
           });
         }
       } catch (error) {
-        toast.error("Error uploading image", {
+        toast.error(`Error updating document:${error}`, {
           position: "bottom-right",
         });
       }

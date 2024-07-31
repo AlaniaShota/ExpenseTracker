@@ -8,9 +8,9 @@ export interface UserDetails {
 
 export interface Expense {
     id: string;
-    date: any;
+    date:  Date | string;
     category: string;
     amount: number;
     type: "income" | "expense";
-    [key: string]: any;
+    [key: string]: string | number | Date;
 }

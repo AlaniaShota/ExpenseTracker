@@ -51,7 +51,7 @@ const Register: React.FC = () => {
         const userCredential = await createUserWithEmailAndPassword(
           auth,
           values.email,
-          values.password
+          values.password,
         );
         const user = userCredential.user;
         if (user) {

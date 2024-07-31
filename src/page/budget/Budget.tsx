@@ -39,7 +39,7 @@ const Budget: React.FC = () => {
   useEffect(() => {
     if (user && expenses) {
       const userIncomes = expenses.filter(
-        (expense) => expense.type === "income"
+        (expense) => expense.type === "income",
       );
       setIncomes(userIncomes);
       setLoading(false);
@@ -53,11 +53,11 @@ const Budget: React.FC = () => {
     try {
       await deleteDoc(doc(db, "expenses", id));
       setExpenses(
-        (prev) => prev?.filter((expense) => expense.id !== id) || null
+        (prev) => prev?.filter((expense) => expense.id !== id) || null,
       );
       toast.error("Income is deleted", { position: "bottom-right" });
     } catch (error) {
-      console.error("Error deleting income: ", error);
+      console.error(`Error deleting income:${error}`, {po});
     }
   };
 
@@ -80,7 +80,7 @@ const Budget: React.FC = () => {
     const daysInMonth = new Date(
       new Date().getFullYear(),
       new Date().getMonth() + 1,
-      0
+      0,
     ).getDate();
     const today = new Date().getDate();
     const daysLeft = daysInMonth - today + 1;

@@ -2,13 +2,12 @@ import {
   collection,
   deleteDoc,
   doc,
-  getDoc,
   getDocs,
   query,
   where,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { UserDetails, Expense } from "../../Interface/Type";
+import { Expense } from "../../Interface/Type";
 import EditForm from "../../components/EditForm";
 import { db } from "../../firebase";
 import AddCard from "./component/AddCard";
@@ -57,7 +56,7 @@ const List: React.FC = () => {
       try {
         const q = query(
           collection(db, "expenses"),
-          where("userId", "==", user.uid)
+          where("userId", "==", user.uid),
         );
         const querySnapshot = await getDocs(q);
         const updatedExpenses = querySnapshot.docs.map((doc) => {
@@ -73,7 +72,9 @@ const List: React.FC = () => {
         });
         setExpenses(updatedExpenses);
       } catch (error) {
-        console.error("Error fetching expenses: ", error);
+        toast.error(`Error updating document:${error}`, {
+          position: "bottom-right",
+        });
       }
     }
   };
@@ -86,7 +87,9 @@ const List: React.FC = () => {
         position: "bottom-right",
       });
     } catch (error) {
-      console.error("Error deleting expense: ", error);
+      toast.error(`Error updating document:${error}`, {
+        position: "bottom-right",
+      });
     }
   };
 
@@ -128,7 +131,7 @@ const List: React.FC = () => {
     const daysInMonth = new Date(
       new Date().getFullYear(),
       new Date().getMonth() + 1,
-      0
+      0,
     ).getDate();
     const today = new Date().getDate();
     const daysLeft = daysInMonth - today + 1;

@@ -20,7 +20,7 @@ ChartJS.register(
   ArcElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 interface AnalyticsBarProps {
@@ -41,7 +41,7 @@ const AnalyticsBar: React.FC<AnalyticsBarProps> = ({ expenses }) => {
         label: "Detailed Analysis of Expenses",
         data: expenses.map((expense) => expense.amount),
         backgroundColor: expenses.map((expense) =>
-          expense.type === "income" ? "green" : "red"
+          expense.type === "income" ? "green" : "red",
         ),
       },
     ],

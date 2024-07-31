@@ -12,7 +12,7 @@ const firebaseConfig = {
     projectId: "wallet-ts-7c26e",
     storageBucket: "wallet-ts-7c26e.appspot.com",
     messagingSenderId: "981326837497",
-    appId: "1:981326837497:web:a5c595128338b9c6b29428"
+    appId: "1:981326837497:web:a5c595128338b9c6b29428",
 };
 
 const app = initializeApp(firebaseConfig);

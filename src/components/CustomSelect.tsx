@@ -1,7 +1,12 @@
 import React from "react";
 import Select, { StylesConfig, GroupBase } from "react-select";
 
-const customStyles: StylesConfig<any, false, GroupBase<any>> = {
+interface Option {
+  value: string;
+  label: React.ReactNode;
+}
+
+const customStyles: StylesConfig<Option, false, GroupBase<Option>> = {
   container: (provided) => ({
     ...provided,
     width: "100%",
@@ -27,10 +32,10 @@ const customStyles: StylesConfig<any, false, GroupBase<any>> = {
 };
 
 interface CustomSelectProps {
-  options: Array<{ value: string; label: React.ReactNode }>;
-  onChange: (option: { value: string; label: React.ReactNode } | null) => void;
+  options: Option[];
+  onChange: (option: Option | null) => void;
   placeholder?: string;
-  value?: { value: string; label: React.ReactNode };
+  value?: Option;
 }
 
 const CustomSelect: React.FC<CustomSelectProps> = ({

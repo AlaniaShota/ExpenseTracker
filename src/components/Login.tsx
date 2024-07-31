@@ -30,7 +30,6 @@ const Login: React.FC = () => {
     onSubmit: async (values) => {
       try {
         await signInWithEmailAndPassword(auth, values.email, values.password);
-        console.log("User logged in Successfully");
         window.location.href = "/analytic";
         toast.success("User logged in Successfully", {
           position: "top-center",

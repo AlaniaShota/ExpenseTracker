@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <App />
       </MobileProvider>
     </AuthProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 reportWebVitals();

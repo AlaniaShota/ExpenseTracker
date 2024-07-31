@@ -1,5 +1,4 @@
 import { doc, updateDoc } from "firebase/firestore";
-import { useState, FormEvent } from "react";
 import { db } from "../firebase";
 import { Expense } from "../Interface/Type";
 import InputField from "./CustomInput";
@@ -18,6 +17,7 @@ import { CgUserAdd } from "react-icons/cg";
 import CustomSelect from "./CustomSelect";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { toast } from "react-toastify";
 interface EditFormProps {
   expenses: Expense;
   onUpdate: () => void;
@@ -126,7 +126,9 @@ const EditForm: React.FC<EditFormProps> = ({
         });
         onUpdate();
       } catch (error) {
-        console.error("Error updating document: ", error);
+        toast.error(`Error updating document:${error}`, {
+          position: "bottom-right",
+        });
       }
     },
   });

@@ -10,7 +10,6 @@ import {
   User,
   updateProfile,
   updatePassword,
-  UserCredential,
   reauthenticateWithCredential,
   EmailAuthProvider,
 } from "firebase/auth";
@@ -26,6 +25,7 @@ import {
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Expense, UserDetails } from "../Interface/Type";
 import { auth, db, storage } from "../firebase";
+import { toast } from "react-toastify";
 
 interface AuthContextType {
   user: User | null;
@@ -63,12 +63,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           if (docSnap.exists()) {
             setUserDetails(docSnap.data() as UserDetails);
           } else {
-            console.log("No such document!");
             setUserDetails(null);
           }
           const q = query(
             collection(db, "expenses"),
-            where("userId", "==", user.uid)
+            where("userId", "==", user.uid),
           );
           const querySnapshot = await getDocs(q);
           const expensesList = querySnapshot.docs.map((doc) => ({
@@ -77,7 +76,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           })) as Expense[];
           setExpenses(expensesList);
         } catch (error) {
-          console.error("Error fetching data: ", error);
+          toast.error(`Error updating document:${error}`, {
+            position: "bottom-right",
+          });
           setUserDetails(null);
           setExpenses(null);
         }
@@ -106,11 +107,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             ({
               ...prevDetails,
               ...updates,
-            } as UserDetails)
+            } as UserDetails),
         );
       } catch (error) {
-        console.error("Error updating profile:", error);
-        alert("Error updating profile");
+        toast.error(`Error updating document:${error}`, {
+          position: "bottom-right",
+        });
+        toast.error("Error updating profile", {
+          position: "bottom-right",
+        });
       }
     }
   };
@@ -126,11 +131,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             ({
               ...prevDetails,
               photoURL: avatarURL,
-            } as UserDetails)
+            } as UserDetails),
         );
       } catch (error) {
-        console.error("Error updating avatar:", error);
-        alert("Error updating avatar");
+        toast.error(`Error updating document:${error}`, {
+          position: "bottom-right",
+        });
+
+        toast.error("Error updating avatar", {
+          position: "bottom-right",
+        });
       }
     }
   };
@@ -139,39 +149,45 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const imgRef = ref(
         storage,
-        `avatars/${user!.uid}_${Date.now()}_${avatar.name}`
+        `avatars/${user!.uid}_${Date.now()}_${avatar.name}`,
       );
       await uploadBytes(imgRef, avatar);
       return await getDownloadURL(imgRef);
     } catch (error) {
-      console.error("Error uploading avatar:", error);
+      toast.error(`Error updating document:${error}`, {
+        position: "bottom-right",
+      });
       throw new Error("Error uploading avatar");
     }
   };
 
   const updateUserPassword = async (
     newPassword: string,
-    currentPassword: string
+    currentPassword: string,
   ) => {
     if (user) {
       try {
         const credential = EmailAuthProvider.credential(
           user.email!,
-          currentPassword
+          currentPassword,
         );
 
         await reauthenticateWithCredential(user, credential);
         await updatePassword(user, newPassword);
       } catch (error) {
         if ((error as Error).message.includes("auth/requires-recent-login")) {
-          console.error("Error reauthenticating user:", error);
+          toast.error(`Error updating document:${error}`, {
+            position: "bottom-right",
+          });
           throw new Error(
-            `Error reauthenticating user: ${(error as Error).message}`
+            `Error reauthenticating user: ${(error as Error).message}`,
           );
         } else {
-          console.error("Error updating password:", error);
+          toast.error(`Error updating document:${error}`, {
+            position: "bottom-right",
+          });
           throw new Error(
-            `Error updating password: ${(error as Error).message}`
+            `Error updating password: ${(error as Error).message}`,
           );
         }
       }
@@ -190,11 +206,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             ({
               ...prevDetails,
               email,
-            } as UserDetails)
+            } as UserDetails),
         );
       } catch (error) {
-        console.error("Error updating email:", error);
-        alert("Error updating email");
+        toast.error(`Error updating document:${error}`, {
+          position: "bottom-right",
+        });
+        toast.error("Error updating email", {
+          position: "bottom-right",
+        });
       }
     }
   };
@@ -209,11 +229,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             ({
               ...prevDetails,
               phone,
-            } as UserDetails)
+            } as UserDetails),
         );
       } catch (error) {
-        console.error("Error updating phone:", error);
-        alert("Error updating phone");
+        toast.error(`Error updating document:${error}`, {
+          position: "bottom-right",
+        });
       }
     }
   };

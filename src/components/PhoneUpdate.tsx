@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useAuth } from "../context/AuthProvider";
@@ -15,7 +14,6 @@ const validationSchema = yup.object({
 
 const PhoneUpdate = () => {
   const { updateUserPhone } = useAuth();
-  const [showPhoneField, setShowPhoneField] = useState(false);
 
   const formik = useFormik({
     initialValues: {

@@ -45,10 +45,10 @@ const PDF: React.FC = () => {
     doc.setTextColor(0, 0, 0);
     doc.text(
       `${capitalizeFirstLetter(userDetails.firstName)} ${capitalizeFirstLetter(
-        userDetails.lastName
+        userDetails.lastName,
       )}`,
       10,
-      30
+      30,
     );
 
     doc.setFontSize(11);
@@ -86,7 +86,7 @@ const PDF: React.FC = () => {
             income.amount
           }`,
           15,
-          y
+          y,
         );
         y += 6;
       });
@@ -111,7 +111,7 @@ const PDF: React.FC = () => {
             expense.amount
           }`,
           15,
-          y
+          y,
         );
         y += 6;
       });
@@ -119,8 +119,8 @@ const PDF: React.FC = () => {
 
     doc.save(
       `${capitalizeFirstLetter(userDetails.firstName)}_${capitalizeFirstLetter(
-        userDetails.lastName
-      )}`
+        userDetails.lastName,
+      )}`,
     );
   };
 

@@ -1,14 +1,14 @@
 import { Expense } from "../../Interface/Type";
-import { auth, db } from "../../firebase";
+import { db } from "../../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import AnalyticsBar from "./components/AnalyticsBar";
 import "./style/index.scss";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthProvider";
 import BalanceSummary from "../../components/BalanceSummary";
-import { Pie } from "react-chartjs-2";
 import { useMobile } from "../../context/Mobile";
 import MobileAnalyticsPie from "./components/MobileAnalyticsPie";
+import { toast } from "react-toastify";
 
 const Analytics: React.FC = () => {
   const { user } = useAuth();
@@ -41,7 +41,9 @@ const Analytics: React.FC = () => {
       setExpenses(expensesData);
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching expenses: ", error);
+      toast.error(`Error updating document:${error}`, {
+        position: "bottom-right",
+      });
       setLoading(false);
     }
   };
@@ -93,11 +95,11 @@ const Analytics: React.FC = () => {
         dailySpending={calculateDailySpending()}
       />
       <div className="analytics-diagram">
-      {isMobile ? (
-        <MobileAnalyticsPie expenses={expenses} />
-      ) : (
-        <AnalyticsBar expenses={expenses} />
-      )}
+        {isMobile ? (
+          <MobileAnalyticsPie expenses={expenses} />
+        ) : (
+          <AnalyticsBar expenses={expenses} />
+        )}
       </div>
     </div>
   );

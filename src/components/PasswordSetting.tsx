@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
@@ -20,7 +19,6 @@ const validationSchema = yup.object({
 
 const PasswordSetting = () => {
   const { updateUserPassword } = useAuth();
-  const [showPasswordFields, setShowPasswordFields] = useState(false);
 
   const formik = useFormik({
     initialValues: {

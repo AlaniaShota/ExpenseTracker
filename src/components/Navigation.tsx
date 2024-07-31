@@ -6,7 +6,6 @@ import {
   IoMdAnalytics,
   IoIosList,
   IoIosWallet,
-  IoMdPeople,
   IoIosLogOut,
 } from "react-icons/io";
 import "./style/Navigation.scss";
@@ -15,6 +14,7 @@ import { useAuth } from "../context/AuthProvider";
 import PDF from "./PDF";
 import AvatarSetting from "./AvatarSetting";
 import Modal from "react-modal";
+import { toast } from "react-toastify";
 
 const links = [
   { id: 1, title: "Analytics", href: "/analytic", icon: IoMdAnalytics },
@@ -48,7 +48,9 @@ const Navigation: React.FC = () => {
       await auth.signOut();
       window.location.href = "/login";
     } catch (error) {
-      console.error("Error logging out:", error);
+      toast.error(`Error updating document:${error}`, {
+        position: "bottom-right",
+      });
     }
   };
 
