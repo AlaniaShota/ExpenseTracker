@@ -1,4 +1,13 @@
-import React, { useEffect, useState, createContext, useContext } from "react";
+import React, {
+  useEffect,
+  useState,
+  createContext,
+  useContext,
+  ReactNode,
+} from "react";
+interface MobileProviderProps {
+  children: ReactNode;
+}
 
 const MobileContext = createContext(false);
 
@@ -6,7 +15,7 @@ export const useMobile = () => {
   return useContext(MobileContext);
 };
 
-export const MobileProvider: React.FC = ({ children }) => {
+export const MobileProvider: React.FC<MobileProviderProps> = ({ children }) => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   useEffect(() => {
