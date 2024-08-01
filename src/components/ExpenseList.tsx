@@ -54,8 +54,6 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
   console.log(expenses);
 
   return (
-    // <>
-    //   {expenses.length > 0 ? (
     <table className="expense-list-content">
       <tbody>
         {expenses.map((item) => {
@@ -94,10 +92,6 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
         })}
       </tbody>
     </table>
-    //   ) : (
-    //     <p>No expenses found.</p>
-    //   )}
-    // </>
   );
 };
 

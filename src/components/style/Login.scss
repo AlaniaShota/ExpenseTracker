@@ -17,8 +17,6 @@
         -moz-box-shadow: $moz-box-shadow;
         border-radius:  $expense-btn-border-radios;
         padding: 20px 40px;
-
-        // width: 100%;
         & .login-title {
             text-align: left;
             width: 100%;
@@ -68,16 +66,12 @@ input {
     padding: 12px 14px;
     width: 100%;
     outline: none;
-    // background: #FFFFFF;
     color: #000000;
-    // border: 1px solid #e0e5f0;
     border-radius: 5px;
-    // box-shadow: 2px 2px 2px 0px #E2E2E2;
     transition: .3s ease;
 
     &:focus {
         background: #F2F2F2;
-        // border: 1px solid #5A7EC7;
         border-radius: 6px;
     }
 

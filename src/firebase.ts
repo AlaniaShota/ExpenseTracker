@@ -2,10 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-// https://firebase.google.com/docs/web/setup#available-libraries
-// firebase storage:bucket:setCors ./cors.json
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBnxsIs6F6mQzYDo6fxkjiwo5HDLf7cj6A",
     authDomain: "wallet-ts-7c26e.firebaseapp.com",

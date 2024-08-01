@@ -31,12 +31,12 @@ const formatDate = (date: { seconds?: number; nanoseconds?: number } | Date | st
   if (date instanceof Date) {
     return date.toLocaleDateString();
   } else if (typeof date === 'string') {
-    return new Date(date).toLocaleDateString(); // Convert string to Date
+    return new Date(date).toLocaleDateString();
   } else if (date && typeof date === 'object' && 'seconds' in date) {
     const timestampDate = new Date((date as { seconds: number }).seconds * 1000);
     return timestampDate.toLocaleDateString();
   } else {
-    return ''; // Handle unexpected cases
+    return ''; 
   }
 };
 

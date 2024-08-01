@@ -16,7 +16,6 @@ $colors: (
     flex-direction: row;
     width: 100%;
     gap: 10px;
-    // border: 1px solid red;
 
     & .upload-button {
         margin: auto;
@@ -31,8 +30,6 @@ $colors: (
     border: 1px solid var(--color);
     color: var(--color);
     transition: 1.3s;
-    // border-radius: 2rem;
-    // padding: 0;
 
     &:hover,
     &:focus {

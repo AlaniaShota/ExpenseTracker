@@ -13,12 +13,8 @@ import { toast } from "react-toastify";
 const Analytics: React.FC = () => {
   const { user } = useAuth();
   const [expenses, setExpenses] = useState<Expense[]>([]);
-  // const [loading, setLoading] = useState(true);
   const isMobile = useMobile();
 
-  // if (loading) {
-  //   return <h1>Loading</h1>;
-  // }
   const fetchExpenses = async (userId: string) => {
     try {
       const q = query(
@@ -42,12 +38,10 @@ const Analytics: React.FC = () => {
         } as Expense;
       });
       setExpenses(expensesData);
-      // setLoading(false);
     } catch (error) {
       toast.error(`Error updating document:${error}`, {
         position: "bottom-right",
       });
-      // setLoading(false);
     }
   };
 
@@ -56,7 +50,6 @@ const Analytics: React.FC = () => {
       fetchExpenses(user.uid);
     } else {
       setExpenses([]);
-      // setLoading(false);
     }
   }, [user]);
 

@@ -7,7 +7,6 @@
     width: 100%;
     min-height: 100vh;
     flex-direction: column;
-    // border: 1px solid #e0e5f0;
     box-shadow: $banner-box-shadow;
     -webkit-box-shadow: $webkit-box-shadow;
     -moz-box-shadow: $moz-box-shadow;
@@ -59,7 +58,6 @@
             flex-direction: row;
             justify-content: start;
             align-items: start;
-            // padding: 5px; 
             cursor: pointer;
 
             & .link-title {

@@ -32,7 +32,7 @@ const validationSchema = yup.object({
   phone: yup
     .string()
     .matches(/^[0-9]*$/, "Phone number must be digits")
-    .notRequired(), // Optional
+    .notRequired(),
 });
 
 const Register: React.FC = () => {

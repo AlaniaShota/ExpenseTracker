@@ -40,6 +40,12 @@ const PDF: React.FC = () => {
         .reduce((acc, expense) => acc + (Number(expense.amount) || 0), 0);
     };
 
+    const calculateRemainingAmount = () => {
+      const totalIncome = calculateTotalAmount("income");
+      const totalExpense = calculateTotalAmount("expense");
+      return totalIncome - totalExpense;
+    };
+
     doc.setFont("helvetica", "semibold");
     doc.setFontSize(18);
     doc.setTextColor(0, 0, 0);
@@ -65,8 +71,9 @@ const PDF: React.FC = () => {
     doc.setTextColor(0, 0, 0);
     doc.text(`Total Income: ${calculateTotalAmount("income")}`, 10, 50);
     doc.text(`Total Expense: ${calculateTotalAmount("expense")}`, 10, 55);
+    doc.text(`Total Expense: ${calculateRemainingAmount()}`, 10, 60);
 
-    let y = 65;
+    let y = 70;
 
     if (incomes.length > 0) {
       doc.setFont("helvetica", "semibold");
