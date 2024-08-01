@@ -9,6 +9,10 @@ import EmailUpdate from "./EmailUpdate";
 import PhoneUpdate from "./PhoneUpdate";
 import { useState } from "react";
 import "./style/UserSetting.scss";
+import { useMobile } from "../context/Mobile";
+import MobileUserInterFace from "./MobileUserInterFace";
+import Logout from "./Logout";
+import PDF from "./PDF";
 
 const validationSchema = yup.object({
   firstName: yup
@@ -27,6 +31,7 @@ const UserDetailsSetting = () => {
   const [showPasswordSetting, setShowPasswordSetting] = useState(false);
   const [showEmailUpdate, setShowEmailUpdate] = useState(false);
   const [showPhoneUpdate, setShowPhoneUpdate] = useState(false);
+  const isMobile = useMobile();
 
   const formik = useFormik({
     initialValues: {
@@ -51,6 +56,7 @@ const UserDetailsSetting = () => {
   return (
     <div className="user-details-setting">
       <h2 className="page-title">User Details</h2>
+      {isMobile && <MobileUserInterFace user={userDetails} />}
       <div className="setting-sections">
         <div className="section">
           <Button
@@ -132,6 +138,10 @@ const UserDetailsSetting = () => {
           </Button>
           {showPhoneUpdate && <PhoneUpdate />}
         </div>
+      </div>
+      <div className="mobile-logout">
+        <Logout />
+        <PDF />
       </div>
     </div>
   );

@@ -1,18 +1,14 @@
-import {
-  IoIosList,
-  IoIosWallet,
-  IoMdAnalytics,
-  IoIosSettings,
-} from "react-icons/io";
+import { IoIosList, IoIosWallet, IoMdAnalytics } from "react-icons/io";
 import { Link } from "react-router-dom";
 import PDF from "./PDF";
 import "./style/MobileNavigation.scss";
+import { FaUser } from "react-icons/fa";
 
 const links = [
   { id: 1, href: "/analytic", icon: IoMdAnalytics },
   { id: 2, href: "/analytic/list", icon: IoIosList },
   { id: 3, href: "/analytic/budgets", icon: IoIosWallet },
-  { id: 4, href: "/analytic/setting", icon: IoIosSettings },
+  { id: 4, href: "/analytic/setting", icon: FaUser },
 ];
 
 const MobileNavigation = () => {
@@ -23,7 +19,7 @@ const MobileNavigation = () => {
           <item.icon size={30} />
         </Link>
       ))}
-      <PDF />
+      {/* <PDF /> */}
     </div>
   );
 };

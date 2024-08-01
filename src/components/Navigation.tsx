@@ -15,6 +15,7 @@ import PDF from "./PDF";
 import AvatarSetting from "./AvatarSetting";
 import Modal from "react-modal";
 import { toast } from "react-toastify";
+import Logout from "./Logout";
 
 const links = [
   { id: 1, title: "Analytics", href: "/analytic", icon: IoMdAnalytics },
@@ -43,16 +44,16 @@ const Navigation: React.FC = () => {
   const { userDetails } = useAuth();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const handleLogout = async () => {
-    try {
-      await auth.signOut();
-      window.location.href = "/login";
-    } catch (error) {
-      toast.error(`Error updating document:${error}`, {
-        position: "bottom-right",
-      });
-    }
-  };
+  // const handleLogout = async () => {
+  //   try {
+  //     await auth.signOut();
+  //     window.location.href = "/login";
+  //   } catch (error) {
+  //     toast.error(`Error updating document:${error}`, {
+  //       position: "bottom-right",
+  //     });
+  //   }
+  // };
 
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
@@ -90,16 +91,7 @@ const Navigation: React.FC = () => {
         ))}
         <PDF />
       </div>
-      <Button
-        type="submit"
-        logout={handleLogout}
-        className="btn-logout btn-3 hover-border-5"
-      >
-        <div className="logout-icon">
-          <IoIosLogOut size={35} color="white" />
-          <span>Logout</span>
-        </div>
-      </Button>
+      <Logout />
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}

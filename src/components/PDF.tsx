@@ -45,10 +45,10 @@ const PDF: React.FC = () => {
     doc.setTextColor(0, 0, 0);
     doc.text(
       `${capitalizeFirstLetter(userDetails.firstName)} ${capitalizeFirstLetter(
-        userDetails.lastName,
+        userDetails.lastName
       )}`,
       10,
-      30,
+      30
     );
 
     doc.setFontSize(11);
@@ -86,7 +86,7 @@ const PDF: React.FC = () => {
             income.amount
           }`,
           15,
-          y,
+          y
         );
         y += 6;
       });
@@ -111,7 +111,7 @@ const PDF: React.FC = () => {
             expense.amount
           }`,
           15,
-          y,
+          y
         );
         y += 6;
       });
@@ -119,15 +119,20 @@ const PDF: React.FC = () => {
 
     doc.save(
       `${capitalizeFirstLetter(userDetails.firstName)}_${capitalizeFirstLetter(
-        userDetails.lastName,
-      )}`,
+        userDetails.lastName
+      )}`
     );
   };
 
   return (
-    <div onClick={generatePDF} className="links-content">
-      <FaFileDownload size={30} />
-      {!isMobile && <h3 className="link-title">Download</h3>}
+    <div className={`${isMobile ? "btn-logout btn-3 hover-border-5" : ""}`}>
+      <div
+        onClick={generatePDF}
+        className={`${isMobile ? "logout-icon" : "links-content"}`}
+      >
+        <FaFileDownload size={30} />
+        <span className="link-title">Download</span>
+      </div>
     </div>
   );
 };
