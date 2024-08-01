@@ -59,6 +59,12 @@ const UserDetailsSetting = () => {
       {isMobile && userDetails && (
         <MobileUserInterFace userDetails={userDetails} />
       )}
+      {isMobile && (
+        <div className="mobile-logout">
+          <Logout />
+          <PDF />
+        </div>
+      )}
       <div className="setting-sections">
         <div className="section">
           <Button
@@ -140,10 +146,6 @@ const UserDetailsSetting = () => {
           </Button>
           {showPhoneUpdate && <PhoneUpdate />}
         </div>
-      </div>
-      <div className="mobile-logout">
-        <Logout />
-        <PDF />
       </div>
     </div>
   );
