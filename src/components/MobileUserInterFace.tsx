@@ -1,20 +1,21 @@
-import React from "react";
 import { FaUser } from "react-icons/fa";
 import "./style/MobileUserInterFace.scss";
-import Logout from "./Logout";
-import PDF from "./PDF";
-const MobileUserInterFace = ({ user }) => {
-  console.log(user);
+import { UserDetails } from "../Interface/Type";
 
+interface MobileUserInterFaceProps {
+    userDetails: UserDetails;
+  }
+
+const MobileUserInterFace: React.FC<MobileUserInterFaceProps> = ({ userDetails }) => {
   return (
     <div
       className="mobile-user-interface-content"
       //    onClick={openModal}
     >
-      {user?.photoURL ? (
+      {userDetails?.photoURL ? (
         <div className="mobile-user-avatar">
           <img
-            src={user.photoURL}
+            src={userDetails.photoURL}
             alt="User Avatar"
             // onClick={openModal}
           />
@@ -27,14 +28,12 @@ const MobileUserInterFace = ({ user }) => {
       <div className="mobile-user-information">
         {/* <li> */}
         <h1 className="user-name ">
-          {user.firstName} {user.lastName}
+          {userDetails.firstName} {userDetails.lastName}
         </h1>
-        <h4>{user.email}</h4>
-        <h4>{user.phone}</h4>
+        <h4>{userDetails.email}</h4>
+        <h4>{userDetails.phone}</h4>
         {/* </li> */}
       </div>
-
-      
     </div>
   );
 };

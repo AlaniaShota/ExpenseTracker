@@ -56,7 +56,7 @@ const UserDetailsSetting = () => {
   return (
     <div className="user-details-setting">
       <h2 className="page-title">User Details</h2>
-      {isMobile && <MobileUserInterFace user={userDetails} />}
+      {isMobile && userDetails && <MobileUserInterFace userDetails={userDetails} />}
       <div className="setting-sections">
         <div className="section">
           <Button

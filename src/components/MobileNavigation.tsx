@@ -1,6 +1,5 @@
 import { IoIosList, IoIosWallet, IoMdAnalytics } from "react-icons/io";
 import { Link } from "react-router-dom";
-import PDF from "./PDF";
 import "./style/MobileNavigation.scss";
 import { FaUser } from "react-icons/fa";
 
@@ -19,7 +18,6 @@ const MobileNavigation = () => {
           <item.icon size={30} />
         </Link>
       ))}
-      {/* <PDF /> */}
     </div>
   );
 };

@@ -1,20 +1,16 @@
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { auth } from "../firebase";
 import { useState } from "react";
 import {
   IoMdAnalytics,
   IoIosList,
   IoIosWallet,
-  IoIosLogOut,
 } from "react-icons/io";
 import "./style/Navigation.scss";
-import { Button } from "./Button";
 import { useAuth } from "../context/AuthProvider";
 import PDF from "./PDF";
 import AvatarSetting from "./AvatarSetting";
 import Modal from "react-modal";
-import { toast } from "react-toastify";
 import Logout from "./Logout";
 
 const links = [
@@ -43,17 +39,6 @@ const customStyles = {
 const Navigation: React.FC = () => {
   const { userDetails } = useAuth();
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  // const handleLogout = async () => {
-  //   try {
-  //     await auth.signOut();
-  //     window.location.href = "/login";
-  //   } catch (error) {
-  //     toast.error(`Error updating document:${error}`, {
-  //       position: "bottom-right",
-  //     });
-  //   }
-  // };
 
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
