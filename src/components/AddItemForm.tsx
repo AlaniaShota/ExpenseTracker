@@ -1,13 +1,12 @@
-import React from "react";
-// import { addDoc, collection } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import { toast } from "react-toastify";
-import { auth } from "../firebase";
+import { Button } from "./Button";
 import InputField from "./CustomInput";
 import CustomSelect from "./CustomSelect";
-import { Button } from "./Button";
-import * as yup from "yup";
-import { useFormik } from "formik";
-import "./style/AddItemForm.scss";
+import { useAuth } from "../context/AuthProvider";
+import { db } from "../firebase";
 
 interface AddItemFormProps {
   title: string;
@@ -32,6 +31,8 @@ const AddItemForm: React.FC<AddItemFormProps> = ({
   onAddItem,
   type,
 }) => {
+  const { user } = useAuth();
+
   const formik = useFormik({
     initialValues: {
       amount: "",
@@ -40,22 +41,25 @@ const AddItemForm: React.FC<AddItemFormProps> = ({
       date: "",
     },
     validationSchema,
-    onSubmit: async ( ) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
-        if (!auth.currentUser) {
+        if (!user) {
           throw new Error("User not authenticated");
         }
 
-        // const docRef = await addDoc(collection(db, "expenses"), {
-        //   amount: parseFloat(values.amount),
-        //   category: values.category,
-        //   comment: values.comment,
-        //   date: new Date(values.date),
-        //   type,
-        //   userId: auth.currentUser.uid,
-        // });
+        const newExpense = {
+          userId: user.uid,
+          amount: values.amount,
+          category: values.category,
+          comment: values.comment,
+          date: values.date,
+          type: type,
+        };
+
+        await addDoc(collection(db, "expenses"), newExpense);
+
         onAddItem();
-        // resetForm();
+        resetForm();
         toast.success(`${type === "income" ? "Income" : "Expense"} is added`, {
           position: "bottom-right",
         });
@@ -95,7 +99,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({
           }
           placeholder="Select Category"
           value={categoryOptions.find(
-            (option) => option.value === formik.values.category,
+            (option) => option.value === formik.values.category
           )}
         />
         <InputField

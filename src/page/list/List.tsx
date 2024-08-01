@@ -42,6 +42,7 @@ const List: React.FC = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  console.log(expenses);
 
   useEffect(() => {
     if (user) {
@@ -56,7 +57,7 @@ const List: React.FC = () => {
       try {
         const q = query(
           collection(db, "expenses"),
-          where("userId", "==", user.uid),
+          where("userId", "==", user.uid)
         );
         const querySnapshot = await getDocs(q);
         const updatedExpenses = querySnapshot.docs.map((doc) => {
@@ -131,7 +132,7 @@ const List: React.FC = () => {
     const daysInMonth = new Date(
       new Date().getFullYear(),
       new Date().getMonth() + 1,
-      0,
+      0
     ).getDate();
     const today = new Date().getDate();
     const daysLeft = daysInMonth - today + 1;

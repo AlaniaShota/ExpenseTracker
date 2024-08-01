@@ -3,10 +3,12 @@ import "./style/MobileUserInterFace.scss";
 import { UserDetails } from "../Interface/Type";
 
 interface MobileUserInterFaceProps {
-    userDetails: UserDetails;
-  }
+  userDetails: UserDetails;
+}
 
-const MobileUserInterFace: React.FC<MobileUserInterFaceProps> = ({ userDetails }) => {
+const MobileUserInterFace: React.FC<MobileUserInterFaceProps> = ({
+  userDetails,
+}) => {
   return (
     <div
       className="mobile-user-interface-content"

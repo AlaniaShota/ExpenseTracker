@@ -51,6 +51,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
   if (loading) {
     return <p>Loading expenses...</p>;
   }
+  console.log(expenses);
 
   return (
     // <>
