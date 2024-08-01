@@ -66,7 +66,7 @@ const UserDetailsSetting = () => {
         </div>
       )}
       <div className="setting-sections">
-        <div className="section">
+        <div className="setting-section">
           <Button
             className="btn-logout btn-3 hover-border-5"
             type="button"
@@ -110,7 +110,7 @@ const UserDetailsSetting = () => {
             </form>
           )}
         </div>
-        <div className="section">
+        <div className="setting-section">
           <Button
             className="btn-logout btn-3 hover-border-5"
             type="button"
@@ -122,7 +122,7 @@ const UserDetailsSetting = () => {
           </Button>
           {showPasswordSetting && <PasswordSetting />}
         </div>
-        <div className="section">
+        <div className="setting-section">
           <Button
             className="btn-logout btn-3 hover-border-5"
             type="button"
@@ -134,7 +134,7 @@ const UserDetailsSetting = () => {
           </Button>
           {showEmailUpdate && <EmailUpdate />}
         </div>
-        <div className="section">
+        <div className="setting-section">
           <Button
             className="btn-logout btn-3 hover-border-5"
             type="button"
