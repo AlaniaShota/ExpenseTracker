@@ -7,6 +7,7 @@ import InputField from "./CustomInput";
 import CustomSelect from "./CustomSelect";
 import { useAuth } from "../context/AuthProvider";
 import { db } from "../firebase";
+import './style/AddItemForm.scss'
 
 interface AddItemFormProps {
   title: string;
@@ -19,6 +20,7 @@ const validationSchema = yup.object({
   amount: yup
     .number()
     .required("Amount is required")
+    .moreThan(0, "Amount must be greater than zero")
     .typeError("Amount must be a number"),
   category: yup.string().required("Category is required"),
   comment: yup.string().notRequired(),

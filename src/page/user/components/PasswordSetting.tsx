@@ -1,9 +1,10 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import { useAuth } from "../context/AuthProvider";
-import InputField from "./CustomInput";
-import { Button } from "./Button";
+
+import InputField from "../../../components/CustomInput";
+import { Button } from "../../../components/Button";
+import { useAuth } from "../../../context/AuthProvider";
 
 const validationSchema = yup.object({
   currentPassword: yup.string().required("Current password is required"),

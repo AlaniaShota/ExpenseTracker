@@ -1,29 +1,30 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useAuth } from "../context/AuthProvider";
-import InputField from "./CustomInput";
 import { toast } from "react-toastify";
-import { Button } from "./Button";
+
+import InputField from "../../../components/CustomInput";
+import { Button } from "../../../components/Button";
+import { useAuth } from "../../../context/AuthProvider";
 
 const validationSchema = yup.object({
-  phone: yup
+  email: yup
     .string()
-    .matches(/^\d+$/, "Phone number must contain only digits")
-    .required("Phone number is required"),
+    .email("Invalid email format")
+    .required("Email is required"),
 });
 
-const PhoneUpdate = () => {
-  const { updateUserPhone } = useAuth();
+const EmailUpdate = () => {
+  const { updateUserEmail } = useAuth();
 
   const formik = useFormik({
     initialValues: {
-      phone: "",
+      email: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        await updateUserPhone(values.phone);
-        toast.success("Phone number updated successfully!", {
+        await updateUserEmail(values.email);
+        toast.success("Email updated successfully!", {
           position: "bottom-right",
         });
         formik.resetForm();
@@ -38,26 +39,25 @@ const PhoneUpdate = () => {
   });
 
   return (
-    <form className="update-form" onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit} className="update-form">
       <InputField
-        type="text"
-        name="phone"
-        value={formik.values.phone}
-        placeholder="Phone number"
+        type="email"
+        name="email"
+        value={formik.values.email}
+        placeholder="Email"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         error={
-          formik.touched.phone && formik.errors.phone
-            ? formik.errors.phone
+          formik.touched.email && formik.errors.email
+            ? formik.errors.email
             : undefined
         }
       />
-
       <Button className="btn-logout btn-3 hover-border-5" type="submit">
-        <span>Save Phone</span>
+        <span>Save Email</span>
       </Button>
     </form>
   );
 };
 
-export default PhoneUpdate;
+export default EmailUpdate;

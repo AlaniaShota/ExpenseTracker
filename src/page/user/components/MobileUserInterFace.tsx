@@ -1,6 +1,6 @@
 import { FaUser } from "react-icons/fa";
-import "./style/MobileUserInterFace.scss";
-import { UserDetails } from "../Interface/Type";
+import "../style/MobileUserInterFace.scss";
+import { UserDetails } from "../../../Interface/Type";
 
 interface MobileUserInterFaceProps {
   userDetails: UserDetails;

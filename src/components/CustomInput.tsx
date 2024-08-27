@@ -21,14 +21,13 @@ const InputField: React.FC<InputProps> = ({
   error,
   name,
 }) => {
-  const displayPlaceholder = error ? error : placeholder;
 
   return (
     <>
       <input
         type={type}
         value={value}
-        placeholder={displayPlaceholder}
+        placeholder={placeholder}
         onChange={onChange}
         required={required}
         className={className}

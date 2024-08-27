@@ -1,4 +1,4 @@
-@import '../../style/variables.scss';
+@import '../../../style/variables.scss';
 
 .form-content {
     display: flex;
@@ -9,9 +9,9 @@
     & .form-section {
         display: flex;
         flex-direction: column;
-        justify-content: start;
+        justify-content: center;
         align-items: center;
-        gap: 6px;
+        gap: 10px;
         box-shadow: $banner-box-shadow;
         -webkit-box-shadow: $webkit-box-shadow;
         -moz-box-shadow: $moz-box-shadow;
@@ -28,10 +28,10 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            gap: 5px;
+            gap: 15px;
             width: 100%;
             border-radius:  $expense-btn-border-radios;
-            margin-top: 8px;
+            padding-top: 5px;
 
             & .register-link {
                 display: flex;

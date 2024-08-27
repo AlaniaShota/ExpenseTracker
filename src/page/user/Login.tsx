@@ -2,12 +2,13 @@ import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import InputField from "./CustomInput";
-import { Button } from "./Button";
 import "./style/Login.scss";
+import { auth } from "../../firebase";
+import InputField from "../../components/CustomInput";
+import { Button } from "../../components/Button";
+import {  CREATE, LOGIN, SUBMIT } from "./constanta";
 
 const validationSchema = yup.object({
   email: yup
@@ -51,7 +52,7 @@ const Login: React.FC = () => {
   return (
     <div className="form-content">
       <form onSubmit={formik.handleSubmit} className="form-section">
-        <h3 className="login-title">Login</h3>
+        <h3 className="login-title">{LOGIN}</h3>
         <InputField
           type="email"
           name="email"
@@ -72,10 +73,10 @@ const Login: React.FC = () => {
         />
         <div className="login-btn">
           <Button type="submit" className="submit-button">
-            Submit
+            {SUBMIT}
           </Button>
           <div>
-            <Link to="/register">Create new account</Link>
+            <Link to="/register">{CREATE}</Link>
           </div>
         </div>
       </form>

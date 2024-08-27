@@ -1,18 +1,18 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useAuth } from "../context/AuthProvider";
-import InputField from "./CustomInput";
-import { Button } from "./Button";
 import { toast } from "react-toastify";
+import { useState } from "react";
+import "../style/UserSetting.scss";
+import { useAuth } from "../../../context/AuthProvider";
+import { useMobile } from "../../../context/Mobile";
+import MobileUserInterFace from "./MobileUserInterFace";
+import Logout from "../../../components/Logout";
+import PDF from "../PDF";
+import { Button } from "../../../components/Button";
+import InputField from "../../../components/CustomInput";
 import PasswordSetting from "./PasswordSetting";
 import EmailUpdate from "./EmailUpdate";
 import PhoneUpdate from "./PhoneUpdate";
-import { useState } from "react";
-import "./style/UserSetting.scss";
-import { useMobile } from "../context/Mobile";
-import MobileUserInterFace from "./MobileUserInterFace";
-import Logout from "./Logout";
-import PDF from "./PDF";
 
 const validationSchema = yup.object({
   firstName: yup

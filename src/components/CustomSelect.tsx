@@ -10,6 +10,7 @@ const customStyles: StylesConfig<Option, false, GroupBase<Option>> = {
   container: (provided) => ({
     ...provided,
     width: "100%",
+    
   }),
   control: (provided) => ({
     ...provided,

@@ -8,14 +8,14 @@ import {
 } from "react-icons/io";
 import "./style/Navigation.scss";
 import { useAuth } from "../context/AuthProvider";
-import PDF from "./PDF";
 import AvatarSetting from "./AvatarSetting";
 import Modal from "react-modal";
 import Logout from "./Logout";
+import PDF from "../page/user/PDF";
 
 const links = [
   { id: 1, title: "Analytics", href: "/analytic", icon: IoMdAnalytics },
-  { id: 2, title: "List", href: "/analytic/list", icon: IoIosList },
+  { id: 2, title: "Transactions", href: "/analytic/list", icon: IoIosList },
   { id: 3, title: "Budgets", href: "/analytic/budgets", icon: IoIosWallet },
 ];
 

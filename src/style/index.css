@@ -77,6 +77,13 @@ a {
   color: white !important;
 }
 
+.error-message{
+  color: red;
+  font-size: 14px;
+  font-weight: 200;
+  width: 90%;
+}
+
 @media (max-width: 800px) {
   body {
     overflow-y: auto;

@@ -3,11 +3,11 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 100%;
-    gap: 15px;
+    height: 80%;
+   
 
     & .modal-title {
-        color: black;
+        color: black !important;
         font-size: 18px;
         text-align: left;
         font-weight: 400;
@@ -18,6 +18,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        height: 100%;
         flex-direction: column;
         width: 100%;
         gap: 10px;

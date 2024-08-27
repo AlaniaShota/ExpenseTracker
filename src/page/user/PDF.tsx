@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthProvider";
 import jsPDF from "jspdf";
 import { FaFileDownload } from "react-icons/fa";
-import { Expense } from "../Interface/Type";
-import { useMobile } from "../context/Mobile";
+import { useMobile } from "../../context/Mobile";
+import { Expense } from "../../Interface/Type";
+import { useAuth } from "../../context/AuthProvider";
+import { DOWNLOAD } from "./constanta";
 
 const PDF: React.FC = () => {
   const isMobile = useMobile();
@@ -138,7 +139,7 @@ const PDF: React.FC = () => {
         className={`${isMobile ? "logout-icon" : "links-content"}`}
       >
         <FaFileDownload size={30} />
-        <span className="link-title">Download</span>
+        <span className="link-title">{DOWNLOAD}</span>
       </div>
     </div>
   );

@@ -1,14 +1,13 @@
 
 import { createBrowserRouter } from "react-router-dom";
-import Login from "../components/Login";
-import Register from "../components/Register";
+import Register from "../page/user/Register";
 import Layout from "../components/Layout";
 import Analytics from "../page/analytics/Analytics";
 import List from "../page/list/List";
-
 import ConditionalRoute from "./ConditionalRoute";
-import UserSetting from "../components/UserSetting";
 import Budget from "../page/budget/Budget";
+import Login from "../page/user/Login";
+import UserDetailsSetting from "../page/user/components/UserSetting";
 
 const Route = () => {
   return createBrowserRouter([
@@ -46,7 +45,7 @@ const Route = () => {
         },
         {
           path: "/analytic/setting",
-          element: <UserSetting />,
+          element: <UserDetailsSetting />,
         },
       ],
     },
