@@ -10,7 +10,7 @@ import InputField from "../../components/CustomInput";
 import { Button } from "../../components/Button";
 import {  CREATE, LOGIN, SUBMIT } from "./constanta";
 import loginImg from '../../assets/interest-mortgage-calculator.jpg'
-import { useMobile } from "../../context/Mobile";
+
 
 const validationSchema = yup.object({
   email: yup
@@ -51,8 +51,6 @@ const Login: React.FC = () => {
     },
   });
 
-  const {isMobile} = useMobile()
-
   return (
     <div className="login">
       <div className="form-content ">
@@ -88,14 +86,9 @@ const Login: React.FC = () => {
         </div>
       </form>
     </div>
-    {!isMobile && (
-      <>
         <div className="login-img">
           <img src={loginImg} alt="Login" />
         </div>
-    </>
-    )}
-   
     </div>
   );
 };

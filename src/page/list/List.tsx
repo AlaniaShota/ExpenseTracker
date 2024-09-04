@@ -13,7 +13,6 @@ import { db } from "../../firebase";
 import AddCard from "./component/AddCard";
 import ExpenseList from "../../components/ExpenseList";
 import Modal from "react-modal";
-import { AiOutlinePlus } from "react-icons/ai";
 import { toast } from "react-toastify";
 import "./style/index.scss";
 import { useAuth } from "../../context/AuthProvider";
@@ -35,7 +34,7 @@ const customStyles = {
     height:'540px',
     width:"340px",
     display: "flex",
-    flexDirection: "column" as "column", // Specify 'column' explicitly as a FlexDirection type
+    flexDirection: "column" as "column", 
     justifyContent: "center",
     color:'black',
     fontSize:"14px",
@@ -51,7 +50,6 @@ const List: React.FC = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  console.log(expenses);
 
   useEffect(() => {
     if (user) {
