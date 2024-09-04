@@ -1,6 +1,5 @@
 @import '../../style/variables.scss';
 
-
 .expense-list-content {
     display: flex;
     justify-content: start;
@@ -53,7 +52,7 @@
         }
 
         & .important-expense-comment.income {
-            color: green;
+            color: $primary-green;
         }
 
         & .important-expense-comment {
@@ -61,7 +60,7 @@
         }
 
         & .important-expense-amount.income {
-            color: green;
+            color: $primary-green;
         }
 
         & .important-expense-amount {

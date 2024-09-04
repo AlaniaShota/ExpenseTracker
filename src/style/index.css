@@ -101,14 +101,15 @@ a {
     display: flex;
     flex-direction: column;
     flex: 1;
+    background-color: #e0e0e0;
   }
 
   .mobile-navigation {
     padding: 15px 0;
     width: 100%;
-    border-top: 1px solid black;
+    border-top: 1px solid #2A5C71;
     border-radius: 8px 8px 0 0;
-    background-color: rgb(0, 0, 0);
+    background-color: #2A5C71;
     margin-top: auto;
   }
 
