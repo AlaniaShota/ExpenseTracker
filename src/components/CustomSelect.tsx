@@ -16,6 +16,7 @@ const customStyles: StylesConfig<Option, false, GroupBase<Option>> = {
     ...provided,
     color: "black",
     cursor: "pointer",
+    height: "54px",
   }),
   option: (provided, state) => ({
     ...provided,

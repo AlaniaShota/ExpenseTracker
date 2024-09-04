@@ -12,6 +12,7 @@ import {
   TooltipItem,
 } from "chart.js";
 import { Expense } from "../../../Interface/Type";
+import './style/AnalyticsBar.scss'
 
 ChartJS.register(
   CategoryScale,
@@ -58,6 +59,7 @@ const AnalyticsBar: React.FC<AnalyticsBarProps> = ({ expenses }) => {
 
   const barOptions = {
     scales: {
+      
       x: {
         type: "category" as const,
         labels: expenses.map((category) => {
@@ -87,7 +89,8 @@ const AnalyticsBar: React.FC<AnalyticsBarProps> = ({ expenses }) => {
     },
   };
 
-  return <Bar data={barData} options={barOptions} />;
+  return  <div className="bar-analytic"><Bar data={barData} options={barOptions} /></div>;
+  
 };
 
 export default AnalyticsBar;

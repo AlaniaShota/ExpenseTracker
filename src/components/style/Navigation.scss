@@ -7,10 +7,8 @@
     width: 100%;
     min-height: 100vh;
     flex-direction: column;
-    box-shadow: $banner-box-shadow;
-    -webkit-box-shadow: $webkit-box-shadow;
-    -moz-box-shadow: $moz-box-shadow;
-    border-radius: $expense-btn-border-radios;
+    border-radius: 0 $expense-btn-border-radios $expense-btn-border-radios 0;
+    background-color: $primary-green;
     padding: 5px 10px;
 
     & .user-profile-section {
@@ -36,8 +34,6 @@
                 }
             }
         }
-
-
 
         & .user-icon {
             border: 1px solid black;
@@ -65,7 +61,7 @@
                 text-transform: uppercase;
                 padding: 10px;
                 font-size: 16px;
-
+                color: $primary-white;
             }
         }
 

@@ -12,7 +12,7 @@ const BalanceSummary: React.FC<BalanceSummaryProps> = ({
 }) => (
   <div className="balance-summary">
     <h3>Remaining Balance: {remainingBalance.toFixed(0)}</h3>
-    <p>Daily Spending: {dailySpending.toFixed(0)}</p>
+    <p className="daily-spending">Daily Spending: {dailySpending.toFixed(0)}</p>
   </div>
 );
 

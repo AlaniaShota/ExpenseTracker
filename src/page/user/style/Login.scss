@@ -5,22 +5,39 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    background-color: #e0e0e0;
+
+    // opacity: 0.5;
 
     & .form-section {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        gap: 10px;
-        box-shadow: $banner-box-shadow;
-        -webkit-box-shadow: $webkit-box-shadow;
-        -moz-box-shadow: $moz-box-shadow;
+        width: 396px;
+        height: auto;
+        // box-shadow: $banner-box-shadow;
+        // -webkit-box-shadow: $webkit-box-shadow;
+        // -moz-box-shadow: $moz-box-shadow;
+        // border: $border;
+        opacity: 10;
+        background-color: $primary-green;
         border-radius:  $expense-btn-border-radios;
-        padding: 20px 40px;
+        padding: 20px;
+
         & .login-title {
             text-align: left;
             width: 100%;
             margin-bottom: 8px;
+        }
+
+        & .login-input{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            // width: 364px;
         }
 
         & .login-btn {
@@ -57,6 +74,14 @@
     }
 }
 
+.form-section.login {
+    height: 315px;
+}
+
+.login-input.login{
+    height: 25vh;
+}
+
 input {
     display: flex;
     align-items: center;
@@ -69,7 +94,8 @@ input {
     color: #000000;
     border-radius: 5px;
     transition: .3s ease;
-
+height: 54px;
+width: 364px;
     &:focus {
         background: #F2F2F2;
         border-radius: 6px;

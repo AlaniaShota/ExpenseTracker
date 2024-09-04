@@ -7,12 +7,16 @@
     flex-direction: column;
     flex-wrap: wrap;
     height: 150px;
-    box-shadow: $banner-box-shadow;
-    -webkit-box-shadow: $webkit-box-shadow;
-    -moz-box-shadow: $moz-box-shadow;
+    width: 270px;
+    border: $border;
+    background-color: $primary-white;
     border-radius: $expense-btn-border-radios;
     padding: 15px;
     cursor: default;
+    color: black;
+        & .daily-spending{
+            opacity: 0.5;
+        }
 }
 
 @media (max-width:800px) {

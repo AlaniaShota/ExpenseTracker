@@ -68,7 +68,7 @@ const UserDetailsSetting = () => {
       <div className="setting-sections">
         <div className="setting-section">
           <Button
-            className="btn-logout btn-3 hover-border-5"
+            className="btn-setting"
             type="button"
             onClick={() => setShowFullNameField((prev) => !prev)}
           >
@@ -104,7 +104,7 @@ const UserDetailsSetting = () => {
                     : undefined
                 }
               />
-              <Button className="btn-logout btn-3 hover-border-5" type="submit">
+              <Button className="btn-setting" type="submit">
                 <span>Save Name</span>
               </Button>
             </form>
@@ -112,7 +112,7 @@ const UserDetailsSetting = () => {
         </div>
         <div className="setting-section">
           <Button
-            className="btn-logout btn-3 hover-border-5"
+            className="btn-setting"
             type="button"
             onClick={() => setShowPasswordSetting((prev) => !prev)}
           >
@@ -124,7 +124,7 @@ const UserDetailsSetting = () => {
         </div>
         <div className="setting-section">
           <Button
-            className="btn-logout btn-3 hover-border-5"
+            className="btn-setting"
             type="button"
             onClick={() => setShowEmailUpdate((prev) => !prev)}
           >
@@ -136,7 +136,7 @@ const UserDetailsSetting = () => {
         </div>
         <div className="setting-section">
           <Button
-            className="btn-logout btn-3 hover-border-5"
+            className="btn-setting"
             type="button"
             onClick={() => setShowPhoneUpdate((prev) => !prev)}
           >

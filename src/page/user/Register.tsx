@@ -3,11 +3,11 @@ import { auth, db } from "../../firebase";
 import { setDoc, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import InputField from "../../components/CustomInput";
-import { Button } from "../../components/Button";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { LOGIN, PAGE_TITLE } from "./constanta";
+import './style/Login.scss'
 
 const validationSchema = yup.object({
   fname: yup
@@ -85,6 +85,7 @@ const Register: React.FC = () => {
     <div className="form-content">
       <form onSubmit={formik.handleSubmit} className="form-section">
         <h3 className="login-title">{PAGE_TITLE}</h3>
+        <div className="login-input">
         <InputField
           type="text"
           name="fname"
@@ -163,6 +164,7 @@ const Register: React.FC = () => {
               : undefined
           }
         />
+        </div>
         <div className="login-btn">
           {/* <Button type="submit" className="register-link">
             Sign Up

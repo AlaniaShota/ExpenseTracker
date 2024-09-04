@@ -9,9 +9,9 @@ const AddBanner: React.FC<AddBannerProps> = ({ open }) => (
   <div className="expense-add-content">
     <button
       onClick={() => open(true)}
-      className="expense-add add expense hover-border-5"
+      className="expense-add"
     >
-      <AiOutlinePlus color="#fff" size={30} />
+      <AiOutlinePlus color="#00000" size={30} />
     </button>
   </div>
 );

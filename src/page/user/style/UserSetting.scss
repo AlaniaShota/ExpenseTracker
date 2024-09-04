@@ -4,7 +4,6 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     justify-items: center;
-    align-items: start;
 
     .setting-section {
         max-width: 250px;
@@ -38,9 +37,9 @@
             align-items: start;
             justify-content: start;
             align-content: start;
-
+          
             .setting-section {
-
+              
                 max-width: auto;
                 justify-content: start;
                 align-items: start;

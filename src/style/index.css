@@ -16,8 +16,8 @@ body {
 body {
   display: flex;
   flex-direction: column;
-  background: rgba(0, 0, 0, 0.85);
-  color: white;
+  /* background: rgba(0, 0, 0, 0.85); */
+  color: #FAF9F9;
   font-weight: 300 !important;
   overflow: hidden;
 }
@@ -25,15 +25,21 @@ body {
 .wallet {
   display: flex;
   flex-direction: row;
+  background:#2A5C71;
   flex: 1;
 }
 
 .navigation-section {
   width: 20%;
+  background:#2A5C71;
+  border-radius:0 8px 8px 0;
+  border: 1px solid #2A5C71;
 }
 
 .wallet-section {
-  margin: 10px 40px;
+  background-color:#e0e0e0;
+  /* opacity: 5; */
+  padding: 20px 40px;
   width: 80%;
 }
 
@@ -54,6 +60,8 @@ body {
 
 .page-title {
   font-weight: 300;
+  color: black;
+  margin-bottom: 5px;
 }
 
 h3 {
@@ -74,7 +82,7 @@ h3 {
 
 a {
   text-decoration: none !important;
-  color: white !important;
+  color: #FAF9F9 !important;
 }
 
 .error-message{

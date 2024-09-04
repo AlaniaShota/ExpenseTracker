@@ -54,7 +54,7 @@ const PhoneUpdate = () => {
         }
       />
 
-      <Button className="btn-logout btn-3 hover-border-5" type="submit">
+      <Button className="btn-setting" type="submit">
         <span>Save Phone</span>
       </Button>
     </form>

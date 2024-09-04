@@ -53,7 +53,7 @@ const EmailUpdate = () => {
             : undefined
         }
       />
-      <Button className="btn-logout btn-3 hover-border-5" type="submit">
+      <Button className="btn-setting" type="submit">
         <span>Save Email</span>
       </Button>
     </form>

@@ -59,6 +59,7 @@
     border: none;
     cursor: pointer;
     min-width: 150px;
+    color: black;
 }
 
 .btn-logout span {
@@ -74,6 +75,7 @@
     width: 100%;
     padding: 10px;
     transition: 0.3s;
+    color: black;
 }
 
 .btn-update {
@@ -100,6 +102,7 @@
     width: 100%;
     padding: 10px;
     transition: 0.3s;
+    color: black;
 }
 
 .btn-3 {
@@ -154,4 +157,15 @@
 
 .btn-logout.hover-border-5:hover::after {
     transition: width 0.2s 0.35s linear, height 0.15s 0.5s ease-out, opacity 0s 0.3s;
+}
+
+.btn-setting{
+    border: 1px solid black;
+    padding: 10px 10px;
+    cursor: pointer;
+    background-color: $primary-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // width: 100%;
 }

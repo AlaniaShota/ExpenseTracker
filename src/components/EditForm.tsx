@@ -191,13 +191,13 @@ const EditForm: React.FC<EditFormProps> = ({
         <div className="btn-section">
           <Button
             type="submit"
-            className="btn-logout btn-update btn-3 hover-border-5"
+            className="btn-logout"
           >
             <span> Update</span>
           </Button>
           <Button
             type="button"
-            className="btn-logout btn-update btn-3 hover-border-5"
+            className="btn-logout"
             onClick={onCancel}
           >
             <span> Cancel</span>

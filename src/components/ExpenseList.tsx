@@ -32,14 +32,14 @@ type Category =
   | "others";
 
 const categoryIcons: Record<Category, JSX.Element> = {
-  food: <MdOutlineRestaurant size={35} />,
-  housing: <MdHouse size={35} />,
-  transportation: <MdEmojiTransportation size={35} />,
-  entertainment: <MdSportsHandball size={35} />,
-  clothing: <GiClothes size={45} />,
-  health: <MdHealthAndSafety size={35} />,
-  personal: <CgUserAdd size={35} />,
-  others: <MdDevicesOther size={35} />,
+  food: <MdOutlineRestaurant color="#000" size={35} />,
+  housing: <MdHouse color="#000" size={35} />,
+  transportation: <MdEmojiTransportation color="#000" size={35} />,
+  entertainment: <MdSportsHandball color="#000" size={35} />,
+  clothing: <GiClothes color="#000" size={45} />,
+  health: <MdHealthAndSafety color="#000" size={35} />,
+  personal: <CgUserAdd color="#000" size={35} />,
+  others: <MdDevicesOther color="#000" size={35} />,
 };
 
 const ExpenseList: React.FC<ExpenseListProps> = ({
@@ -51,14 +51,13 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
   if (loading) {
     return <p>Loading expenses...</p>;
   }
-  console.log(expenses);
 
   return (
     <table className="expense-list-content">
       <tbody>
         {expenses.map((item) => {
           const icon = categoryIcons[item.category as Category] || (
-            <CgUserAdd size={40} />
+            <CgUserAdd color="#000" size={40} />
           );
           return (
             <tr

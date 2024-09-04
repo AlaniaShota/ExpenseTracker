@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import "./style/index.scss";
 import { useAuth } from "../../context/AuthProvider";
 import BalanceSummary from "../../components/BalanceSummary";
+import AddBanner from "../../components/AddBanner";
 
 Modal.setAppElement("#root");
 
@@ -156,14 +157,7 @@ const List: React.FC = () => {
       <div className="list-content">
         {user && (
           <div className="banner">
-            <div className="expense-add-content">
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="expense-add add expense hover-border-5"
-              >
-                <AiOutlinePlus color="#fff" size={30} />
-              </button>
-            </div>
+            <AddBanner open={setIsModalOpen} />
             <BalanceSummary
               remainingBalance={calculateRemainingAmount()}
               dailySpending={calculateDailySpending()}

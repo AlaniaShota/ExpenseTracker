@@ -50,10 +50,11 @@ const Login: React.FC = () => {
   });
 
   return (
-    <div className="form-content">
-      <form onSubmit={formik.handleSubmit} className="form-section">
+    <div className="form-content ">
+      <form onSubmit={formik.handleSubmit} className="form-section login">
         <h3 className="login-title">{LOGIN}</h3>
-        <InputField
+        <div className="login-input login">
+          <InputField
           type="email"
           name="email"
           placeholder="Email"
@@ -71,6 +72,7 @@ const Login: React.FC = () => {
           onBlur={formik.handleBlur}
           error={formik.touched.password ? formik.errors.password : undefined}
         />
+        </div>
         <div className="login-btn">
           <Button type="submit" className="submit-button">
             {SUBMIT}
