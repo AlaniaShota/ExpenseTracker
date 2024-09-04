@@ -4,7 +4,7 @@ import { FaFileDownload } from "react-icons/fa";
 import { useMobile } from "../../context/Mobile";
 import { Expense } from "../../Interface/Type";
 import { useAuth } from "../../context/AuthProvider";
-import { DOWNLOAD } from "./constanta";
+import { DOWNLOAD, EMAIL, PHONE, TOTAL_EXPENSES, TOTAL_INCOME } from "./constanta";
 
 const PDF: React.FC = () => {
   const isMobile = useMobile();
@@ -52,17 +52,17 @@ const PDF: React.FC = () => {
     doc.setTextColor(0, 0, 0);
     doc.text(
       `${capitalizeFirstLetter(userDetails.firstName)} ${capitalizeFirstLetter(
-        userDetails.lastName
+        userDetails.lastName,
       )}`,
       10,
-      30
+      30,
     );
 
     doc.setFontSize(11);
     doc.setFont("helvetica", "light");
     doc.setDrawColor(0, 0, 0);
-    doc.text(`Email: ${userDetails.email}`, 10, 36);
-    doc.text(`Phone: ${userDetails.phone}`, 10, 41);
+    doc.text(`${EMAIL} ${userDetails.email}`, 10, 36);
+    doc.text(`${PHONE} ${userDetails.phone}`, 10, 41);
     doc.text(`${capitalizeFirstLetter(formattedDate)}`, 175, 41);
 
     doc.line(10, 43, 200, 43);
@@ -70,9 +70,9 @@ const PDF: React.FC = () => {
     doc.setFont("helvetica", "light");
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
-    doc.text(`Total Income: ${calculateTotalAmount("income")}`, 10, 50);
-    doc.text(`Total Expense: ${calculateTotalAmount("expense")}`, 10, 55);
-    doc.text(`Total Expense: ${calculateRemainingAmount()}`, 10, 60);
+    doc.text(`${TOTAL_INCOME} ${calculateTotalAmount("income")}`, 10, 50);
+    doc.text(`${TOTAL_EXPENSES} ${calculateTotalAmount("expense")}`, 10, 55);
+    doc.text(`${TOTAL_EXPENSES} ${calculateRemainingAmount()}`, 10, 60);
 
     let y = 70;
 
@@ -94,7 +94,7 @@ const PDF: React.FC = () => {
             income.amount
           }`,
           15,
-          y
+          y,
         );
         y += 6;
       });
@@ -119,7 +119,7 @@ const PDF: React.FC = () => {
             expense.amount
           }`,
           15,
-          y
+          y,
         );
         y += 6;
       });
@@ -127,8 +127,8 @@ const PDF: React.FC = () => {
 
     doc.save(
       `${capitalizeFirstLetter(userDetails.firstName)}_${capitalizeFirstLetter(
-        userDetails.lastName
-      )}`
+        userDetails.lastName,
+      )}`,
     );
   };
 

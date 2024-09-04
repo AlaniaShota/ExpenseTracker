@@ -19,30 +19,10 @@ import { useAuth } from "../../context/AuthProvider";
 import BalanceSummary from "../../components/BalanceSummary";
 import AddBanner from "../../components/AddBanner";
 
-Modal.setAppElement("#root");
+import { customStyles } from "../../components/customStyles";
+import { TRANSACTION } from "./constanta";
 
-const customStyles = {
-  overlay: {
-    backgroundColor: "rgba(152, 152, 152, 0.718)",
-  
-    zIndex: "100",
-  },
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    height:'540px',
-    width:"340px",
-    display: "flex",
-    flexDirection: "column" as "column", 
-    justifyContent: "center",
-    color:'black',
-    fontSize:"14px",
-    marginRight: "-50%",
-    padding:"0px 35px",
-    transform: "translate(-50%, -50%)",
-  },
-};
+Modal.setAppElement("#root");
 
 const List: React.FC = () => {
   const { user, expenses, setExpenses } = useAuth();
@@ -64,7 +44,7 @@ const List: React.FC = () => {
       try {
         const q = query(
           collection(db, "expenses"),
-          where("userId", "==", user.uid)
+          where("userId", "==", user.uid),
         );
         const querySnapshot = await getDocs(q);
         const updatedExpenses = querySnapshot.docs.map((doc) => {
@@ -139,7 +119,7 @@ const List: React.FC = () => {
     const daysInMonth = new Date(
       new Date().getFullYear(),
       new Date().getMonth() + 1,
-      0
+      0,
     ).getDate();
     const today = new Date().getDate();
     const daysLeft = daysInMonth - today + 1;
@@ -150,8 +130,7 @@ const List: React.FC = () => {
 
   return (
     <div className="expenses-content">
-      <h2 className="page-title">Transaction</h2>
-
+      <h2 className="page-title">{TRANSACTION}</h2>
       <div className="list-content">
         {user && (
           <div className="banner">

@@ -2,6 +2,7 @@ import { Button } from "./Button";
 import { IoIosLogOut } from "react-icons/io";
 import { toast } from "react-toastify";
 import { auth } from "../firebase";
+import { LOGOUT } from "./constanta";
 
 const Logout: React.FC = () => {
   const handleLogout = async () => {
@@ -23,7 +24,7 @@ const Logout: React.FC = () => {
     >
       <div className="logout-icon">
         <IoIosLogOut size={35} color="white" />
-        <span>Logout</span>
+        <span>{LOGOUT}</span>
       </div>
     </Button>
   );

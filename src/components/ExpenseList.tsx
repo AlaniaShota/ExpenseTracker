@@ -48,9 +48,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
   onDelete,
   onEdit,
 }) => {
-  if (loading) {
-    return <p>Loading expenses...</p>;
-  }
+  if (loading) return 
 
   return (
     <table className="expense-list-content">

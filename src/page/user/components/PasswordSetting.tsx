@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import InputField from "../../../components/CustomInput";
 import { Button } from "../../../components/Button";
 import { useAuth } from "../../../context/AuthProvider";
+import { PASSWORD, SAVE } from "./constanta";
 
 const validationSchema = yup.object({
   currentPassword: yup.string().required("Current password is required"),
@@ -87,7 +88,7 @@ const PasswordSetting = () => {
         }
       />
       <Button className="btn-setting" type="submit">
-        <span>Save Password</span>
+        <span>{SAVE}{' '}{PASSWORD}</span>
       </Button>
     </form>
   );

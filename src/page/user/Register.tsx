@@ -83,102 +83,104 @@ const Register: React.FC = () => {
   });
 
   return (
-    <div className="login"><div className="form-content">
-    <form onSubmit={formik.handleSubmit} className="form-section">
-      <h3 className="login-title">{PAGE_TITLE}</h3>
-      <div className="login-input">
-      <InputField
-        type="text"
-        name="fname"
-        value={formik.values.fname}
-        placeholder="First name"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={
-          formik.touched.fname && formik.errors.fname
-            ? formik.errors.fname
-            : undefined
-        }
-      />
-      <InputField
-        type="text"
-        name="lname"
-        value={formik.values.lname}
-        placeholder="Last name"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={
-          formik.touched.lname && formik.errors.lname
-            ? formik.errors.lname
-            : undefined
-        }
-      />
-      <InputField
-        type="email"
-        name="email"
-        value={formik.values.email}
-        placeholder="Email"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={
-          formik.touched.email && formik.errors.email
-            ? formik.errors.email
-            : undefined
-        }
-      />
-      <InputField
-        type="password"
-        name="password"
-        value={formik.values.password}
-        placeholder="Password"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={
-          formik.touched.password && formik.errors.password
-            ? formik.errors.password
-            : undefined
-        }
-      />
-      <InputField
-        type="password"
-        name="confirmPassword"
-        value={formik.values.confirmPassword}
-        placeholder="Password"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={
-          formik.touched.confirmPassword && formik.errors.confirmPassword
-            ? formik.errors.confirmPassword
-            : undefined
-        }
-      />
-      <InputField
-        type="text"
-        name="phone"
-        value={formik.values.phone}
-        placeholder="Phone number (optional)"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={
-          formik.touched.phone && formik.errors.phone
-            ? formik.errors.phone
-            : undefined
-        }
-      />
-      </div>
-      <div className="login-btn">
-        {/* <Button type="submit" className="register-link">
-          Sign Up
-        </Button> */}
-        <div>
-          <Link to="/login">{LOGIN}</Link>
+    <div className="login">
+      <div className="form-content">
+          <form onSubmit={formik.handleSubmit} className="form-section">
+            <h3 className="login-title">{PAGE_TITLE}</h3>
+            <div className="login-input">
+            <InputField
+              type="text"
+              name="fname"
+              value={formik.values.fname}
+              placeholder="First name"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.fname && formik.errors.fname
+                  ? formik.errors.fname
+                  : undefined
+              }
+            />
+            <InputField
+              type="text"
+              name="lname"
+              value={formik.values.lname}
+              placeholder="Last name"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.lname && formik.errors.lname
+                  ? formik.errors.lname
+                  : undefined
+              }
+            />
+            <InputField
+              type="email"
+              name="email"
+              value={formik.values.email}
+              placeholder="Email"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.email && formik.errors.email
+                  ? formik.errors.email
+                  : undefined
+              }
+            />
+            <InputField
+              type="password"
+              name="password"
+              value={formik.values.password}
+              placeholder="Password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.password && formik.errors.password
+                  ? formik.errors.password
+                  : undefined
+              }
+            />
+            <InputField
+              type="password"
+              name="confirmPassword"
+              value={formik.values.confirmPassword}
+              placeholder="Password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.confirmPassword && formik.errors.confirmPassword
+                  ? formik.errors.confirmPassword
+                  : undefined
+              }
+            />
+            <InputField
+              type="text"
+              name="phone"
+              value={formik.values.phone}
+              placeholder="Phone number (optional)"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.phone && formik.errors.phone
+                  ? formik.errors.phone
+                  : undefined
+              }
+            />
+            </div>
+            <div className="login-btn">
+              {/* <Button type="submit" className="register-link">
+                Sign Up
+              </Button> */}
+              <div>
+                <Link to="/login">{LOGIN}</Link>
+              </div>
+            </div>
+          </form>
         </div>
+      <div className="login-img">
+        <img src={loginImg} alt="Login" />
       </div>
-    </form>
   </div>
-   <div className="login-img">
-   <img src={loginImg} alt="Login" />
- </div></div>
   );
 };
 export default Register;

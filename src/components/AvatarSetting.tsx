@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import "./style/AvatarSetting.scss";
 import InputField from "./CustomInput";
 import { Button } from "./Button";
+import { UPDATE } from "./constanta";
 
 const AvatarSetting = () => {
   const { userDetails, updateUserAvatar } = useAuth();
@@ -42,7 +43,7 @@ const AvatarSetting = () => {
         onChange={(e) => setAvatar(e.target.files?.[0] || null)}
       />
       <Button type="button" className="upload-button" onClick={handleClickImg}>
-        <span>Upload</span>
+        <span>{UPDATE}</span>
       </Button>
     </div>
   );

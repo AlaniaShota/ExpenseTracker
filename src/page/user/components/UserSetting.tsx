@@ -13,6 +13,7 @@ import InputField from "../../../components/CustomInput";
 import PasswordSetting from "./PasswordSetting";
 import EmailUpdate from "./EmailUpdate";
 import PhoneUpdate from "./PhoneUpdate";
+import { HIDE, NAME, PASSWORD, SAVE, UPDATE, USER_DETAIL_TITLE, EMAIL, PHONE } from "./constanta";
 
 const validationSchema = yup.object({
   firstName: yup
@@ -55,7 +56,7 @@ const UserDetailsSetting = () => {
 
   return (
     <div className="user-details-setting">
-      <h2 className="page-title">User Details</h2>
+      <h2 className="page-title">{USER_DETAIL_TITLE}</h2>
       {isMobile && userDetails && (
         <MobileUserInterFace userDetails={userDetails} />
       )}
@@ -73,7 +74,7 @@ const UserDetailsSetting = () => {
             onClick={() => setShowFullNameField((prev) => !prev)}
           >
             <span>
-              {showFullNameField ? "Hide Name Update" : "Update Name"}
+              {showFullNameField ? `${HIDE} ${NAME} ${UPDATE}`: `${UPDATE} ${NAME}`}
             </span>
           </Button>
           {showFullNameField && (
@@ -105,7 +106,7 @@ const UserDetailsSetting = () => {
                 }
               />
               <Button className="btn-setting" type="submit">
-                <span>Save Name</span>
+                <span>{SAVE} {NAME}</span>
               </Button>
             </form>
           )}
@@ -117,7 +118,7 @@ const UserDetailsSetting = () => {
             onClick={() => setShowPasswordSetting((prev) => !prev)}
           >
             <span>
-              {showPasswordSetting ? "Hide Password Update" : "Update Password"}
+              {showPasswordSetting ? `${HIDE} ${PASSWORD} ${UPDATE}`: `${UPDATE} ${PASSWORD}`}
             </span>
           </Button>
           {showPasswordSetting && <PasswordSetting />}
@@ -129,7 +130,7 @@ const UserDetailsSetting = () => {
             onClick={() => setShowEmailUpdate((prev) => !prev)}
           >
             <span>
-              {showEmailUpdate ? "Hide Email Update" : "Update Email"}
+              {showEmailUpdate ? `${HIDE} ${EMAIL} ${UPDATE}`: `${UPDATE} ${EMAIL}`}
             </span>
           </Button>
           {showEmailUpdate && <EmailUpdate />}
@@ -141,7 +142,7 @@ const UserDetailsSetting = () => {
             onClick={() => setShowPhoneUpdate((prev) => !prev)}
           >
             <span>
-              {showPhoneUpdate ? "Hide Phone Update" : "Update Phone"}
+              {showPhoneUpdate ? `${HIDE} ${PHONE} ${UPDATE}`: `${UPDATE} ${PHONE}`}
             </span>
           </Button>
           {showPhoneUpdate && <PhoneUpdate />}

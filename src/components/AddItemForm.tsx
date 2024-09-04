@@ -8,6 +8,7 @@ import CustomSelect from "./CustomSelect";
 import { useAuth } from "../context/AuthProvider";
 import { db } from "../firebase";
 import './style/AddItemForm.scss'
+import { ADD } from "./constanta";
 
 interface AddItemFormProps {
   title: string;
@@ -101,7 +102,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({
           }
           placeholder="Select Category"
           value={categoryOptions.find(
-            (option) => option.value === formik.values.category
+            (option) => option.value === formik.values.category,
           )}
         />
         <InputField
@@ -133,7 +134,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({
         />
         <div className="btn-section">
           <Button className="submit-button" type="submit">
-            <span>Add</span>
+            <span>{ADD}</span>
           </Button>
         </div>
       </form>

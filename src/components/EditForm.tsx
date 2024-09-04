@@ -18,6 +18,7 @@ import CustomSelect from "./CustomSelect";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
+import { CANCEL, EDIT_EXPENSE, UPDATE } from "./constanta";
 
 interface EditFormProps {
   expenses: Expense;
@@ -147,7 +148,7 @@ const EditForm: React.FC<EditFormProps> = ({
 
   return (
     <div className="edit-form">
-      <h2 className="page-title">Edit Expense</h2>
+      <h2 className="page-title">{EDIT_EXPENSE}</h2>
       <form onSubmit={formik.handleSubmit} className="edit-form-content">
         <InputField
           type="number"
@@ -165,7 +166,7 @@ const EditForm: React.FC<EditFormProps> = ({
           }
           placeholder="Select Category"
           value={categoryOptions.find(
-            (option) => option.value === formik.values.category
+            (option) => option.value === formik.values.category,
           )}
         />
         <InputField
@@ -193,14 +194,14 @@ const EditForm: React.FC<EditFormProps> = ({
             type="submit"
             className="btn-logout"
           >
-            <span> Update</span>
+            <span>{UPDATE}</span>
           </Button>
           <Button
             type="button"
             className="btn-logout"
             onClick={onCancel}
           >
-            <span> Cancel</span>
+            <span>{CANCEL}</span>
           </Button>
         </div>
       </form>

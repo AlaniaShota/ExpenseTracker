@@ -11,32 +11,9 @@ import { toast } from "react-toastify";
 import BalanceSummary from "../../components/BalanceSummary";
 import AddBanner from "../../components/AddBanner";
 import { PAGE_TITLE } from "./constanta";
+import { customStyles } from "../../components/customStyles";
 
 Modal.setAppElement("#root");
-
-
-const customStyles = {
-  overlay: {
-    backgroundColor: "rgba(152, 152, 152, 0.718)",
-  
-    zIndex: "100",
-  },
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    height:'540px',
-    width:"340px",
-    display: "flex",
-    flexDirection: "column" as "column", // Specify 'column' explicitly as a FlexDirection type
-    justifyContent: "center",
-    color:'black',
-    fontSize:"14px",
-    marginRight: "-50%",
-    padding:"0px 35px",
-    transform: "translate(-50%, -50%)",
-  },
-};
 
 const Budget: React.FC = () => {
   const { user, expenses, setExpenses } = useAuth();
@@ -49,7 +26,7 @@ const Budget: React.FC = () => {
   useEffect(() => {
     if (user && expenses) {
       const userIncomes = expenses.filter(
-        (expense) => expense.type === "income"
+        (expense) => expense.type === "income",
       );
       setIncomes(userIncomes);
       setLoading(false);
@@ -92,7 +69,7 @@ const Budget: React.FC = () => {
     const daysInMonth = new Date(
       new Date().getFullYear(),
       new Date().getMonth() + 1,
-      0
+      0,
     ).getDate();
     const today = new Date().getDate();
     const daysLeft = daysInMonth - today + 1;

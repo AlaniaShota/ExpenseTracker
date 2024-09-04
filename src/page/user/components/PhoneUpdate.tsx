@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import InputField from "../../../components/CustomInput";
 import { Button } from "../../../components/Button";
 import { useAuth } from "../../../context/AuthProvider";
+import { SAVE } from "./constanta";
+import { PHONE } from "./constanta";
 
 const validationSchema = yup.object({
   phone: yup
@@ -55,7 +57,7 @@ const PhoneUpdate = () => {
       />
 
       <Button className="btn-setting" type="submit">
-        <span>Save Phone</span>
+        <span>{SAVE}{' '}{PHONE}</span>
       </Button>
     </form>
   );

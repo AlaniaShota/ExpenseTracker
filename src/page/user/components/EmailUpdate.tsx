@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import InputField from "../../../components/CustomInput";
 import { Button } from "../../../components/Button";
 import { useAuth } from "../../../context/AuthProvider";
+import { EMAIL, SAVE } from "./constanta";
 
 const validationSchema = yup.object({
   email: yup
@@ -54,7 +55,7 @@ const EmailUpdate = () => {
         }
       />
       <Button className="btn-setting" type="submit">
-        <span>Save Email</span>
+        <span>{SAVE}{' '}{EMAIL}</span>
       </Button>
     </form>
   );

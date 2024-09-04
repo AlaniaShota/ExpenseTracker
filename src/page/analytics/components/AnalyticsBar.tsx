@@ -13,6 +13,7 @@ import {
 } from "chart.js";
 import { Expense } from "../../../Interface/Type";
 import './style/AnalyticsBar.scss'
+import { AMOUNT, COMMENT } from "./constanta";
 
 ChartJS.register(
   CategoryScale,
@@ -41,9 +42,7 @@ const formatDate = (date: { seconds?: number; nanoseconds?: number } | Date | st
   }
 };
 
-
 const AnalyticsBar: React.FC<AnalyticsBarProps> = ({ expenses }) => {
-
   const barData = {
     labels: expenses.map((expense) => expense.id),
     datasets: [
@@ -59,7 +58,6 @@ const AnalyticsBar: React.FC<AnalyticsBarProps> = ({ expenses }) => {
 
   const barOptions = {
     scales: {
-      
       x: {
         type: "category" as const,
         labels: expenses.map((category) => {
@@ -82,7 +80,7 @@ const AnalyticsBar: React.FC<AnalyticsBarProps> = ({ expenses }) => {
           label: function (context: TooltipItem<"bar">) {
             const amount = context.raw as number;
             const comment = expenses[context.dataIndex].comment;
-            return `Amount: $${amount}\nComment: ${comment}`;
+            return `${AMOUNT}${amount}\n${COMMENT}${comment}`;
           },
         },
       },

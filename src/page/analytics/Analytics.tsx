@@ -9,6 +9,7 @@ import BalanceSummary from "../../components/BalanceSummary";
 import { useMobile } from "../../context/Mobile";
 import MobileAnalyticsPie from "./components/MobileAnalyticsPie";
 import { toast } from "react-toastify";
+import { ANALYTICS } from "./constanta";
 
 const Analytics: React.FC = () => {
   const { user } = useAuth();
@@ -19,7 +20,7 @@ const Analytics: React.FC = () => {
     try {
       const q = query(
         collection(db, "expenses"),
-        where("userId", "==", userId)
+        where("userId", "==", userId),
       );
       const querySnapshot = await getDocs(q);
       const expensesData = querySnapshot.docs.map((doc) => {
@@ -74,7 +75,7 @@ const Analytics: React.FC = () => {
     const daysInMonth = new Date(
       new Date().getFullYear(),
       new Date().getMonth() + 1,
-      0
+      0,
     ).getDate();
     const today = new Date().getDate();
     const daysLeft = daysInMonth - today + 1;
@@ -85,7 +86,7 @@ const Analytics: React.FC = () => {
 
   return (
     <div className="analytics-content">
-      <h2 className="page-title">Analytics</h2>
+      <h2 className="page-title">{ANALYTICS}</h2>
       <BalanceSummary
         remainingBalance={calculateRemainingAmount()}
         dailySpending={calculateDailySpending()}
