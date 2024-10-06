@@ -1,4 +1,4 @@
-import { deleteDoc, doc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Expense } from "../../Interface/Type";
 import { db } from "../../firebase";
@@ -36,11 +36,39 @@ const Budget: React.FC = () => {
     }
   }, [user, expenses]);
 
+  const fetchExpenses = async () => {
+    if (user) {
+      try {
+        const q = query(
+          collection(db, "expenses"),
+          where("userId", "==", user.uid),
+        );
+        const querySnapshot = await getDocs(q);
+        const updatedExpenses = querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            date: data.date,
+            category: data.category,
+            amount: data.amount,
+            type: data.type,
+            ...data,
+          } as Expense;
+        });
+        setExpenses(updatedExpenses);
+      } catch (error) {
+        toast.error(`Error updating document:${error}`, {
+          position: "bottom-right",
+        });
+      }
+    }
+  };
+
   const deleteIncome = async (id: string) => {
     try {
       await deleteDoc(doc(db, "expenses", id));
       setExpenses(
-        (prev) => prev?.filter((expense) => expense.id !== id) || null
+        (prev) => prev?.filter((expense) => expense.id !== id) || null,
       );
       toast.error("Income is deleted", { position: "bottom-right" });
     } catch (error) {
@@ -113,11 +141,10 @@ const Budget: React.FC = () => {
             contentLabel="+"
           >
             <AddBudget
-              onAddExpense={() => {
-                if (user) {
-                  setIsModalOpen(false);
-                }
-              }}
+             onAddExpense={async () => {
+              await fetchExpenses();
+              setIsModalOpen(false);
+            }}
             />
           </Modal>
         </div>
