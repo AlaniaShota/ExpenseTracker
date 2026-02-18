@@ -20,7 +20,7 @@ import BalanceSummary from "../../components/BalanceSummary";
 import AddBanner from "../../components/AddBanner";
 
 import { customStyles } from "../../components/customStyles";
-import { TRANSACTION } from "./constanta";
+import { uiText } from "../../mocksData/uiText";
 
 Modal.setAppElement("#root");
 
@@ -130,7 +130,7 @@ const List: React.FC = () => {
 
   return (
     <div className="expenses-content">
-      <h2 className="page-title">{TRANSACTION}</h2>
+      <h2 className="page-title">{uiText.navigation.transactions}</h2>
       <div className="list-content">
         {user && (
           <div className="banner">

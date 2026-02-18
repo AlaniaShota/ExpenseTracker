@@ -4,7 +4,8 @@ import { toast } from "react-toastify";
 import "./style/AvatarSetting.scss";
 import InputField from "./CustomInput";
 import { Button } from "./Button";
-import { UPDATE } from "./constanta";
+
+import { uiText } from "../mocksData/uiText";
 
 const AvatarSetting = () => {
   const { userDetails, updateUserAvatar } = useAuth();
@@ -43,7 +44,7 @@ const AvatarSetting = () => {
         onChange={(e) => setAvatar(e.target.files?.[0] || null)}
       />
       <Button type="button" className="upload-button" onClick={handleClickImg}>
-        <span>{UPDATE}</span>
+        <span>{uiText.user.update}</span>
       </Button>
     </div>
   );

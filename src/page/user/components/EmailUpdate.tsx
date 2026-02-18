@@ -1,11 +1,10 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-
 import InputField from "../../../components/CustomInput";
 import { Button } from "../../../components/Button";
 import { useAuth } from "../../../context/AuthProvider";
-import { EMAIL, SAVE } from "./constanta";
+import { uiText } from "../../../mocksData/uiText";
 
 const validationSchema = yup.object({
   email: yup
@@ -55,7 +54,7 @@ const EmailUpdate = () => {
         }
       />
       <Button className="btn-setting" type="submit">
-        <span>{SAVE}{' '}{EMAIL}</span>
+        <span>{uiText.budget.save}{' '}{uiText.auth.email}</span>
       </Button>
     </form>
   );

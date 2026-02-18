@@ -12,12 +12,12 @@ import AvatarSetting from "./AvatarSetting";
 import Modal from "react-modal";
 import Logout from "./Logout";
 import PDF from "../page/user/PDF";
-import { ANALYTICS, BUDGETS, HELLO, TRANSACTIONS } from "./constanta";
+import { uiText } from "../mocksData/uiText";
 
 const links = [
-  { id: 1, title: `${ANALYTICS}`, href: "/analytic", icon: IoMdAnalytics },
-  { id: 2, title: `${TRANSACTIONS}`, href: "/analytic/list", icon: IoIosList },
-  { id: 3, title: `${BUDGETS}`, href: "/analytic/budgets", icon: IoIosWallet },
+  { id: 1, title: `${uiText.navigation.analytics}`, href: "/analytic", icon: IoMdAnalytics },
+  { id: 2, title: `${uiText.navigation.transactions}`, href: "/analytic/list", icon: IoIosList },
+  { id: 3, title: `${uiText.navigation.budgets}`, href: "/analytic/budgets", icon: IoIosWallet },
 ];
 
 Modal.setAppElement("#root");
@@ -64,7 +64,7 @@ const Navigation: React.FC = () => {
         </div>
         {userDetails && (
           <Link to="/analytic/setting" className="user-name-link">
-            <h3 className="user-name">{HELLO} {userDetails.firstName}</h3>
+            <h3 className="user-name">{uiText.user.hello} {userDetails.firstName}</h3>
           </Link>
         )}
       </div>

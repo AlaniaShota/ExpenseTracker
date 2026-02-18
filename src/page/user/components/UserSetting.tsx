@@ -13,7 +13,7 @@ import InputField from "../../../components/CustomInput";
 import PasswordSetting from "./PasswordSetting";
 import EmailUpdate from "./EmailUpdate";
 import PhoneUpdate from "./PhoneUpdate";
-import { HIDE, NAME, PASSWORD, SAVE, UPDATE, USER_DETAIL_TITLE, EMAIL, PHONE } from "./constanta";
+import { uiText } from "../../../mocksData/uiText";
 
 const validationSchema = yup.object({
   firstName: yup
@@ -56,7 +56,7 @@ const UserDetailsSetting = () => {
 
   return (
     <div className="user-details-setting">
-      <h2 className="page-title">{USER_DETAIL_TITLE}</h2>
+      <h2 className="page-title">{uiText.user.title}</h2>
       {isMobile && userDetails && (
         <MobileUserInterFace userDetails={userDetails} />
       )}
@@ -74,7 +74,7 @@ const UserDetailsSetting = () => {
             onClick={() => setShowFullNameField((prev) => !prev)}
           >
             <span>
-              {showFullNameField ? `${HIDE} ${NAME} ${UPDATE}`: `${UPDATE} ${NAME}`}
+              {showFullNameField ? `${uiText.user.hide} ${uiText.auth.name} ${uiText.user.update}`: `${uiText.user.update} ${uiText.auth.name}`}
             </span>
           </Button>
           {showFullNameField && (
@@ -106,7 +106,7 @@ const UserDetailsSetting = () => {
                 }
               />
               <Button className="btn-setting" type="submit">
-                <span>{SAVE} {NAME}</span>
+                <span>{uiText.budget.save} {uiText.auth.name}</span>
               </Button>
             </form>
           )}
@@ -118,7 +118,7 @@ const UserDetailsSetting = () => {
             onClick={() => setShowPasswordSetting((prev) => !prev)}
           >
             <span>
-              {showPasswordSetting ? `${HIDE} ${PASSWORD} ${UPDATE}`: `${UPDATE} ${PASSWORD}`}
+              {showPasswordSetting ? `${uiText.user.hide} ${uiText.auth.password} ${uiText.user.update}`: `${uiText.user.update} ${uiText.auth.password}`}
             </span>
           </Button>
           {showPasswordSetting && <PasswordSetting />}
@@ -130,7 +130,7 @@ const UserDetailsSetting = () => {
             onClick={() => setShowEmailUpdate((prev) => !prev)}
           >
             <span>
-              {showEmailUpdate ? `${HIDE} ${EMAIL} ${UPDATE}`: `${UPDATE} ${EMAIL}`}
+              {showEmailUpdate ? `${uiText.user.hide} ${uiText.auth.email} ${uiText.user.update}`: `${uiText.user.update} ${uiText.auth.email}`}
             </span>
           </Button>
           {showEmailUpdate && <EmailUpdate />}
@@ -142,7 +142,7 @@ const UserDetailsSetting = () => {
             onClick={() => setShowPhoneUpdate((prev) => !prev)}
           >
             <span>
-              {showPhoneUpdate ? `${HIDE} ${PHONE} ${UPDATE}`: `${UPDATE} ${PHONE}`}
+              {showPhoneUpdate ? `${uiText.user.hide} ${uiText.auth.phone} ${uiText.user.update}`: `${uiText.user.update} ${uiText.auth.phone}`}
             </span>
           </Button>
           {showPhoneUpdate && <PhoneUpdate />}

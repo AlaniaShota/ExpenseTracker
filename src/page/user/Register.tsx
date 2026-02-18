@@ -6,10 +6,10 @@ import InputField from "../../components/CustomInput";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { LOGIN, PAGE_TITLE } from "./constanta";
 import loginImg from '../../assets/education-expenses-college-education-pricing.jpg'
 import './style/Login.scss'
 import { Button } from "../../components/Button";
+import { uiText } from "../../mocksData/uiText";
 
 const validationSchema = yup.object({
   fname: yup
@@ -87,7 +87,7 @@ const Register: React.FC = () => {
     <div className="login">
       <div className="form-content">
           <form onSubmit={formik.handleSubmit} className="form-section">
-            <h3 className="login-title">{PAGE_TITLE}</h3>
+            <h3 className="login-title">{uiText.auth.singUp}</h3>
             <div className="login-input">
             <InputField
               type="text"
@@ -170,10 +170,10 @@ const Register: React.FC = () => {
             </div>
             <div className="login-btn">
               <Button type="submit" className="register-link">
-                Sign Up
+                {uiText.auth.register}
               </Button>
               <div>
-                <Link to="/login">{LOGIN}</Link>
+                <Link to="/login">{uiText.auth.login}</Link>
               </div>
             </div>
           </form>

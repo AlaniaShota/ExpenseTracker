@@ -13,7 +13,7 @@ import {
 } from "chart.js";
 import { Expense } from "../../../Interface/Type";
 import './style/AnalyticsBar.scss'
-import { AMOUNT, COMMENT } from "./constanta";
+import { uiText } from "../../../mocksData/uiText";
 
 ChartJS.register(
   CategoryScale,
@@ -80,7 +80,7 @@ const AnalyticsBar: React.FC<AnalyticsBarProps> = ({ expenses }) => {
           label: function (context: TooltipItem<"bar">) {
             const amount = context.raw as number;
             const comment = expenses[context.dataIndex].comment;
-            return `${AMOUNT}${amount}\n${COMMENT}${comment}`;
+            return `${uiText.budget.amount}${amount}\n${uiText.budget.comment}${comment}`;
           },
         },
       },

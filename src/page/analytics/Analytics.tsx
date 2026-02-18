@@ -9,7 +9,7 @@ import BalanceSummary from "../../components/BalanceSummary";
 import { useMobile } from "../../context/Mobile";
 import MobileAnalyticsPie from "./components/MobileAnalyticsPie";
 import { toast } from "react-toastify";
-import { ANALYTICS } from "./constanta";
+import { uiText } from "../../mocksData/uiText";
 
 const Analytics: React.FC = () => {
   const { user } = useAuth();
@@ -86,7 +86,7 @@ const Analytics: React.FC = () => {
 
   return (
     <div className="analytics-content">
-      <h2 className="page-title">{ANALYTICS}</h2>
+      <h2 className="page-title">{uiText.navigation.analytics}</h2>
       <BalanceSummary
         remainingBalance={calculateRemainingAmount()}
         dailySpending={calculateDailySpending()}

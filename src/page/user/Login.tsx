@@ -8,8 +8,8 @@ import "./style/Login.scss";
 import { auth } from "../../firebase";
 import InputField from "../../components/CustomInput";
 import { Button } from "../../components/Button";
-import {  CREATE, LOGIN, SUBMIT } from "./constanta";
 import loginImg from '../../assets/interest-mortgage-calculator.jpg'
+import { uiText } from "../../mocksData/uiText";
 
 const validationSchema = yup.object({
   email: yup
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
     <div className="login">
       <div className="form-content ">
       <form onSubmit={formik.handleSubmit} className="form-section login">
-        <h3 className="login-title">{LOGIN}</h3>
+        <h3 className="login-title">{uiText.auth.login}</h3>
         <div className="login-input login">
           <InputField
           type="email"
@@ -77,10 +77,10 @@ const Login: React.FC = () => {
         </div>
         <div className="login-btn">
           <Button type="submit" className="submit-button">
-            {SUBMIT}
+            {uiText.auth.submit}
           </Button>
           <div>
-            <Link to="/register">{CREATE}</Link>
+            <Link to="/register">{uiText.auth.createAccount}</Link>
           </div>
         </div>
       </form>

@@ -1,6 +1,6 @@
 import React from "react";
 import "./style/BalanceSummary.scss";
-import { DAILY_SPENDING, REMAINING_BALANCE } from "./constanta";
+import { uiText } from "../mocksData/uiText";
 
 interface BalanceSummaryProps {
   remainingBalance: number;
@@ -12,8 +12,8 @@ const BalanceSummary: React.FC<BalanceSummaryProps> = ({
   dailySpending,
 }) => (
   <div className="balance-summary">
-    <h3>{REMAINING_BALANCE}{remainingBalance.toFixed(0)}</h3>
-    <p className="daily-spending">{DAILY_SPENDING}{dailySpending.toFixed(0)}</p>
+    <h3>{uiText.budget.remainingBalance}{remainingBalance.toFixed(0)}</h3>
+    <p className="daily-spending">{uiText.budget.dailySpending}{dailySpending.toFixed(0)}</p>
   </div>
 );
 

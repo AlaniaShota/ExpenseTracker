@@ -7,8 +7,8 @@ import InputField from "./CustomInput";
 import CustomSelect from "./CustomSelect";
 import { useAuth } from "../context/AuthProvider";
 import { db } from "../firebase";
-import './style/AddItemForm.scss'
-import { ADD } from "./constanta";
+import "./style/AddItemForm.scss";
+import { uiText } from "../mocksData/uiText";
 
 interface AddItemFormProps {
   title: string;
@@ -134,7 +134,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({
         />
         <div className="btn-section">
           <Button className="submit-button" type="submit">
-            <span>{ADD}</span>
+            <span>{uiText.budget.add}</span>
           </Button>
         </div>
       </form>

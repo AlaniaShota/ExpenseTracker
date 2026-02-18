@@ -10,8 +10,8 @@ import ExpenseList from "../../components/ExpenseList";
 import { toast } from "react-toastify";
 import BalanceSummary from "../../components/BalanceSummary";
 import AddBanner from "../../components/AddBanner";
-import { PAGE_TITLE } from "./constanta";
 import { customStyles } from "../../components/customStyles";
+import { uiText } from "../../mocksData/uiText";
 
 Modal.setAppElement("#root");
 
@@ -108,7 +108,7 @@ const Budget: React.FC = () => {
 
   return (
     <div className="expenses-content">
-      <h2 className="page-title">{PAGE_TITLE}</h2>
+      <h2 className="page-title">{uiText.budget.pageTitle}</h2>
       <div className="list-content">
         {user && (
           <div className="banner">

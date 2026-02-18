@@ -18,7 +18,7 @@ import CustomSelect from "./CustomSelect";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import { CANCEL, EDIT_EXPENSE, UPDATE } from "./constanta";
+import { uiText } from "../mocksData/uiText";
 
 interface EditFormProps {
   expenses: Expense;
@@ -148,7 +148,7 @@ const EditForm: React.FC<EditFormProps> = ({
 
   return (
     <div className="edit-form">
-      <h2 className="page-title">{EDIT_EXPENSE}</h2>
+      <h2 className="page-title">{uiText.budget.editExpense}</h2>
       <form onSubmit={formik.handleSubmit} className="edit-form-content">
         <InputField
           type="number"
@@ -194,14 +194,14 @@ const EditForm: React.FC<EditFormProps> = ({
             type="submit"
             className="btn-logout"
           >
-            <span>{UPDATE}</span>
+            <span>{uiText.budget.save}</span>
           </Button>
           <Button
             type="button"
             className="btn-logout"
             onClick={onCancel}
           >
-            <span>{CANCEL}</span>
+            <span>{uiText.budget.cancel}</span>
           </Button>
         </div>
       </form>

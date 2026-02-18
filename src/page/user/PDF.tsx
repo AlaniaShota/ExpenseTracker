@@ -4,7 +4,7 @@ import { FaFileDownload } from "react-icons/fa";
 import { useMobile } from "../../context/Mobile";
 import { Expense } from "../../Interface/Type";
 import { useAuth } from "../../context/AuthProvider";
-import { DOWNLOAD, EMAIL, PHONE, TOTAL_EXPENSES, TOTAL_INCOME } from "./constanta";
+import { uiText } from "../../mocksData/uiText";
 
 const PDF: React.FC = () => {
   const isMobile = useMobile();
@@ -61,8 +61,8 @@ const PDF: React.FC = () => {
     doc.setFontSize(11);
     doc.setFont("helvetica", "light");
     doc.setDrawColor(0, 0, 0);
-    doc.text(`${EMAIL} ${userDetails.email}`, 10, 36);
-    doc.text(`${PHONE} ${userDetails.phone}`, 10, 41);
+    doc.text(`${uiText.auth.email}: ${userDetails.email}`, 10, 36);
+    doc.text(`${uiText.auth.phone}: ${userDetails.phone}`, 10, 41);
     doc.text(`${capitalizeFirstLetter(formattedDate)}`, 175, 41);
 
     doc.line(10, 43, 200, 43);
@@ -70,9 +70,9 @@ const PDF: React.FC = () => {
     doc.setFont("helvetica", "light");
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
-    doc.text(`${TOTAL_INCOME} ${calculateTotalAmount("income")}`, 10, 50);
-    doc.text(`${TOTAL_EXPENSES} ${calculateTotalAmount("expense")}`, 10, 55);
-    doc.text(`${TOTAL_EXPENSES} ${calculateRemainingAmount()}`, 10, 60);
+    doc.text(`${uiText.budget.totalIncome}: ${calculateTotalAmount("income")}`, 10, 50);
+    doc.text(`${uiText.budget.totalExpenses}: ${calculateTotalAmount("expense")}`, 10, 55);
+    doc.text(`${uiText.budget.totalExpenses}: ${calculateRemainingAmount()}`, 10, 60);
 
     let y = 70;
 
@@ -139,7 +139,7 @@ const PDF: React.FC = () => {
         className={`${isMobile ? "logout-icon" : "links-content"}`}
       >
         <FaFileDownload size={30} />
-        <span className="link-title">{DOWNLOAD}</span>
+        <span className="link-title">{uiText.common.download}</span>
       </div>
     </div>
   );

@@ -1,8 +1,0 @@
-export const SAVE = 'Save'
-export const EMAIL = 'Email'
-export const PASSWORD = 'Password'
-export const PHONE = 'Phone'
-export const NAME = 'Name'
-export const USER_DETAIL_TITLE = 'User Details'
-export const HIDE = 'Hide'
-export const UPDATE = 'Update'
