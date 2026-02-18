@@ -9,6 +9,7 @@ import { useFormik } from "formik";
 import { LOGIN, PAGE_TITLE } from "./constanta";
 import loginImg from '../../assets/education-expenses-college-education-pricing.jpg'
 import './style/Login.scss'
+import { Button } from "../../components/Button";
 
 const validationSchema = yup.object({
   fname: yup
@@ -168,9 +169,9 @@ const Register: React.FC = () => {
             />
             </div>
             <div className="login-btn">
-              {/* <Button type="submit" className="register-link">
+              <Button type="submit" className="register-link">
                 Sign Up
-              </Button> */}
+              </Button>
               <div>
                 <Link to="/login">{LOGIN}</Link>
               </div>
