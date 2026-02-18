@@ -22,8 +22,8 @@ export const uiText = {
   budget: {
     pageTitle: "Add budget",
     totalIncome: "Total Income",
-    totalExpenses: "Total Expense",
-    remainingBalance: "Remaining Balance",
+    totalExpenses: "Total Expense: ",
+    remainingBalance: "Remaining Balance: ",
     dailySpending: "Daily Spending",
     amount: "Amount ($)",
     comment: "Comment (optional)",
